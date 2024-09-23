@@ -12,7 +12,7 @@ plugins:
   - search
   - blog:
       blog_toc: true
-      archive_date_format: MMMM yyyy
+      # archive_date_format: MMMM yyyy
       categories_allowed:
         - Holidays
         - News
