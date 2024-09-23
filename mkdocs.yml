@@ -1,6 +1,6 @@
-site_name: Blog Tutorial
-site_description: an example blog set up following the blog tutorials
-site_url: http://www.example.com
+site_name:CourseNote
+site_author:RightBird
+site_url: http://RightBird.io/CourseNote
 
 theme:
   name: material
