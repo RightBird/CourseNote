@@ -1,6 +1,7 @@
 site_name:CourseNote
 site_author:RightBird
 site_url: http://RightBird.io/CourseNote
+site_description: Course Note for ZJU CS
 
 theme:
   name: material
