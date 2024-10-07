@@ -30,7 +30,6 @@ plugins:
         as_creation: date.created
         as_update: date.updated
 
-
 extra:
   social:
     - icon: fontawesome/brands/mastodon
@@ -50,5 +49,5 @@ nav:
   - Home: index.md
   - Tags: tags.md
   - Blog:
-     - blog/index.md
-     - blog/tags.md
+      - blog/index.md
+      - blog/tags.md
