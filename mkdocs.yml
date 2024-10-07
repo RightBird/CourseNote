@@ -23,13 +23,13 @@ plugins:
       # post_slugify: !!python/object/apply:ext.slugs.slugify
       #   kwds:
       #     short: true
-  - meta
   - tags
   - rss:
       match_path: "blog/posts/.*"
       date_from_meta:
         as_creation: date.created
         as_update: date.updated
+
 
 extra:
   social:
