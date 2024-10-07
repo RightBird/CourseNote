@@ -1,5 +1,5 @@
-site_name:CourseNote
-site_author:RightBird
+site_name: CourseNote
+site_author: RightBird
 site_url: http://RightBird.io/CourseNote
 site_description: Course Note for ZJU CS
 
@@ -20,9 +20,9 @@ plugins:
       pagination_per_page: 5
       archive_pagination_per_page: 10
       categories_pagination_per_page: 10
-      post_slugify: !!python/object/apply:ext.slugs.slugify
-        kwds:
-          short: true
+      # post_slugify: !!python/object/apply:ext.slugs.slugify
+      #   kwds:
+      #     short: true
   - meta
   - tags
   - rss:
