@@ -12,7 +12,6 @@ plugins:
   - search
   - blog:
       blog_toc: true
-      allow_empty_metadata: true
       categories_allowed:
         - Holidays
         - News
