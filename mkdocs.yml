@@ -29,13 +29,6 @@ theme:
     
 plugins:
   - search
-  - blog:
-      blog_toc: true
-      categories_allowed:
-        - Holidays
-        - News
-      authors_profiles: true
-      pagination_per_page: 5
 
 extra:
   social:
