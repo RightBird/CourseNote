@@ -5,9 +5,28 @@ site_description: Course Note for ZJU CS
 
 theme:
   name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: 暗色模式
+    - media: "(prefers-color-scheme: dark)"
+      primary: teal
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 亮色模式
+  language: zh
   features:
-    - navigation.indexes
-
+    - content.code.copy
+    # - navigation.tabs
+    - navigation.expand
+    - navigation.top
+    # - navigation.sections
+  icon:
+    repo: fontawesome/brands/git-alt
+    
 plugins:
   - search
   - blog:
