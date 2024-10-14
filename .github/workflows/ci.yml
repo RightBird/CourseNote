@@ -1,29 +1,38 @@
 name: Publish MkDocs Site
+
 on:
   push:
     branches:
-      - main
+      - main  # 监视 main 分支的推送
   pull_request:
     branches:
-      - main
+      - main  # 监视针对 main 分支的拉取请求
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # 允许写入内容以便发布到 GitHub Pages
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3  # 检出代码到工作目录
 
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.x
+          python-version: '3.x'  # 使用最新的 Python 3.x 版本
 
       - name: Install dependencies
-        run: pip install mkdocs mkdocs-material mkdocs-heti-plugin
+        run: |
+          pip install mkdocs mkdocs-material mkdocs-heti-plugin  # 安装 MkDocs 和相关插件
+
+      - name: Build the documentation
+        run: |
+          mkdocs build  # 构建 MkDocs 文档
 
       - name: Deploy to GitHub Pages
-        run: mkdocs gh-deploy --force
+        run: |
+          mkdocs gh-deploy --force  # 部署到 GitHub Pages
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # 使用 GitHub 提供的 Token
