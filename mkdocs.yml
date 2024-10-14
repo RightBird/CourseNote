@@ -39,9 +39,6 @@ extra:
       name: squidfunk on Mastodon
       link: https://fosstodon.org/@squidfunk
 
-hooks:
-  - hooks/socialmedia.py
-
 markdown_extensions:
   - attr_list
   - pymdownx.emoji:
