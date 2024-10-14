@@ -1,6 +1,8 @@
 # For temp on Mac
 .DS_Store
 
+_config.yml
+
 # mkdocs
 site
 
