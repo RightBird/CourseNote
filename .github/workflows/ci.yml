@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # 检出代码到工作目录
+        uses: actions/checkout@v4  # 检出代码到工作目录
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'  # 使用最新的 Python 3.x 版本
 
