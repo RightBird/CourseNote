@@ -58,6 +58,6 @@ markdown_extensions:
       generic: true
 
 nav:
-  - Home: doc/index.md
+  - Home: docs/index.md
   - 大二上:
-    - 高级数据结构与算法分析: doc/大二上/高级数据结构与算法分析/高级数据结构与算法分析.md
+    - 高级数据结构与算法分析: docs/大二上/高级数据结构与算法分析/高级数据结构与算法分析.md
