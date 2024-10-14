@@ -35,4 +35,4 @@ jobs:
         run: |
           mkdocs gh-deploy --force  # 部署到 GitHub Pages
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # 使用 GitHub 提供的 Token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 Token
