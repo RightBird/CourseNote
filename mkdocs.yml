@@ -18,26 +18,21 @@ theme:
         icon: material/weather-sunny
         name: 亮色模式
   language: zh
+  font:
+    code: JetBrains Mono
   features:
     - content.code.copy
-    # - navigation.tabs
-    - navigation.expand
-    - navigation.top
-    # - navigation.sections
+    - navigation.tabs
+    - navigation.sections
   icon:
     repo: fontawesome/brands/git-alt
     
 plugins:
   - search
-
+  # - heti:
+  #     disable_serve: false
 repo_url: https://github.com/RightBird/CourseNote
 repo_name: CourseNote
-
-extra:
-  social:
-    - icon: fontawesome/brands/mastodon
-      name: squidfunk on Mastodon
-      link: https://fosstodon.org/@squidfunk
 
 markdown_extensions:
   - admonition
