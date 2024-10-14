@@ -1,18 +1,17 @@
-name: publish site
-on: 
+name: Publish MkDocs Site
+on:
   push:
     branches:
       - main
-  pull_request: 
+  pull_request:
     branches:
       - main
 
-jobs: 
+jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Setup Python
         uses: actions/setup-python@v2
@@ -20,9 +19,9 @@ jobs:
           python-version: 3.x
 
       - name: Install dependencies
-        run: pip install mkdocs-material mkdocs-heti-plugin
+        run: pip install mkdocs mkdocs-material mkdocs-heti-plugin
 
-      - name: Build and Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
