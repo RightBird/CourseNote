@@ -109,6 +109,9 @@ extra_javascript:
       }
     };
 
+extra_css:
+  - css/note.css
+
 nav:
   - Home: index.md
   - 大二上:
