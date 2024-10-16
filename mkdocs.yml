@@ -26,14 +26,8 @@ theme:
   #   - navigation.sections
   icon:
     repo: fontawesome/brands/git-alt
-    
-plugins:
-  - search
-  # - heti:
-  #     disable_serve: false
-repo_url: https://github.com/RightBird/CourseNote
-repo_name: CourseNote
 
+use_directory_urls: false
 markdown_extensions:
   - admonition
   - md_in_html
@@ -52,6 +46,9 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 
+plugins:
+  - search
+
 extra_javascript:
   - JavaSript/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
@@ -61,3 +58,8 @@ nav:
   - 大二上:
     - 高级数据结构与算法分析: 大二上/高级数据结构与算法分析/高级数据结构与算法分析.md
     - 计算机组成: 大二上/计算机组成/计算机组成.md
+    
+repo_url: https://github.com/RightBird/CourseNote
+repo_name: CourseNote
+
+
