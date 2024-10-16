@@ -20,10 +20,10 @@ theme:
   language: zh
   font:
     code: JetBrains Mono
-  features:
-    - content.code.copy
-    - navigation.tabs
-    - navigation.sections
+  # features:
+  #   - content.code.copy
+  #   - navigation.tabs
+  #   - navigation.sections
   icon:
     repo: fontawesome/brands/git-alt
     
