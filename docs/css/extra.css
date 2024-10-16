@@ -7,3 +7,41 @@ body {
       /* Screen version */
       /* font-family: "LXGW WenKai Screen", sans-serif; */
     }
+
+/* 调整 H1-H6 标题的字体 */
+.md-typeset h1 {
+    font-size: 2em; /* H1 的字体大小 */
+    margin-bottom: 0.5em; /* H1 下边距 */
+}
+
+.md-typeset h2 {
+    font-size: 1.75em; /* H2 的字体大小 */
+    margin-bottom: 0.5em; /* H2 下边距 */
+}
+
+.md-typeset h3 {
+    font-size: 1.5em; /* H3 的字体大小 */
+    margin-bottom: 0.5em; /* H3 下边距 */
+}
+
+.md-typeset h4 {
+    font-size: 1.25em; /* H4 的字体大小 */
+    margin-bottom: 0.5em; /* H4 下边距 */
+}
+
+.md-typeset h5 {
+    font-size: 1.em; /* H5 的字体大小 */
+    margin-bottom: 0.5em; /* H5 下边距 */
+}
+
+.md-typeset h6 {
+    font-size: 0.75em; /* H6 的字体大小 */
+    margin-bottom: 0.5em; /* H6 下边距 */
+}
+
+/* 调整代码块和其他元素的样式 */
+.md-typeset pre {
+    background-color: #f7f7f7; /* 代码块背景颜色 */
+    padding: 1em; /* 代码块内边距 */
+    border-radius: 5px; /* 代码块边框圆角 */
+}
