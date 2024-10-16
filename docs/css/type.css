@@ -1,37 +1,31 @@
 /* 调整 H1-H6 标题的字体 */
 .md-typeset h1 {
     font-size: 2em; /* H1 的字体大小 */
-    color: #333; /* H1 的颜色 */
     margin-bottom: 0.5em; /* H1 下边距 */
 }
 
 .md-typeset h2 {
     font-size: 1.75em; /* H2 的字体大小 */
-    color: #444; /* H2 的颜色 */
     margin-bottom: 0.5em; /* H2 下边距 */
 }
 
 .md-typeset h3 {
     font-size: 1.5em; /* H3 的字体大小 */
-    color: #555; /* H3 的颜色 */
     margin-bottom: 0.5em; /* H3 下边距 */
 }
 
 .md-typeset h4 {
     font-size: 1.25em; /* H4 的字体大小 */
-    color: #666; /* H4 的颜色 */
     margin-bottom: 0.5em; /* H4 下边距 */
 }
 
 .md-typeset h5 {
     font-size: 1.em; /* H5 的字体大小 */
-    color: #777; /* H5 的颜色 */
     margin-bottom: 0.5em; /* H5 下边距 */
 }
 
 .md-typeset h6 {
     font-size: 0.75em; /* H6 的字体大小 */
-    color: #888; /* H6 的颜色 */
     margin-bottom: 0.5em; /* H6 下边距 */
 }
 
