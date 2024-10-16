@@ -44,5 +44,5 @@ body {
     background-color: #f7f7f7; /* 代码块背景颜色 */
     padding: 1em; /* 代码块内边距 */
     border-radius: 5px; /* 代码块边框圆角 */
-    line-height: 3;
+    line-height: 2;
 }
