@@ -108,6 +108,10 @@ extra_javascript:
       }
     };
 
+extra_css:
+  - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
+  - css/extra.css
+
 nav:
   - Home: index.md
   - 大二上:
