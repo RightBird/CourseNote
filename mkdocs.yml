@@ -5,6 +5,9 @@ site_description: Course Note for ZJU CS
 
 theme:
   name: material
+  toc:
+    # 只显示二级标题
+    toc_depth: 2
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
