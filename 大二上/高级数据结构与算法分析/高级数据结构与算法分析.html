@@ -1,0 +1,2384 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Course Note for ZJU CS">
+      
+      
+        <meta name="author" content="RightBird">
+      
+      
+        <link rel="canonical" href="http://RightBird.io/CourseNote/%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90.html">
+      
+      
+        <link rel="prev" href="../../index.html">
+      
+      
+        <link rel="next" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+    
+    
+      
+        <title>高级数据结构与算法分析 - CourseNote</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="CourseNote" class="md-header__button md-logo" aria-label="CourseNote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CourseNote
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              高级数据结构与算法分析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RightBird/CourseNote" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CourseNote
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="CourseNote" class="md-nav__button md-logo" aria-label="CourseNote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CourseNote
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RightBird/CourseNote" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CourseNote
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    大二上
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            大二上
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    高级数据结构与算法分析
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    高级数据结构与算法分析
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#grading-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grading Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-avl-trees-splay-trees-and-amortized-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avl-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      AVL Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splay-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splay Tree | 伸展树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amortized-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amortized Analysis | 摊还分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-2-red-black-trees-and-b-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 2 ---Red-Black Trees and B+ Trees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2 ---Red-Black Trees and B+ Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#red-black-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Red-Black Trees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      B+ Trees
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-3-inverted-file-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 3 ---Inverted File Index | 倒排文件索引
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4-leftist-heaps-and-skew-heaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 4 ---Leftist Heaps and Skew Heaps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4 ---Leftist Heaps and Skew Heaps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leftist-heaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leftist Heaps | 左式堆
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skew-heaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skew Heaps | 斜堆
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-5-binomial-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 5 ---Binomial Queue | 二项堆
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chpater-6-backtracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chpater 6 ---Backtracking | 回溯
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chpater 6 ---Backtracking | 回溯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eight-queens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eight Queens | 八皇后问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-turnpike-reconstruction-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Turnpike Reconstruction Problem | 收费公路重构问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      MiniMax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-divide-and-conquer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 7 ---Divide and Conquer | 分治
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7 ---Divide and Conquer | 分治">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      递归式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-dynamic-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 8 ---Dynamic Programming | 动态规划
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8 ---Dynamic Programming | 动态规划">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      经典问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-greedy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 9 ---Greedy | 贪心
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9 ---Greedy | 贪心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activity-selection-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activity Selection Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#huffman-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Huffman Code (用于文件压缩)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-np-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 10 ---NP-Completeness
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10 ---NP-Completeness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polynomial-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polynomial time
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#np-complete-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      NP-complete problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proof_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proof
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter11-approximation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter11 ---Approximation | 近似算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter11 ---Approximation | 近似算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#approximation-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximation Ratio | 近似率
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximation-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximation scheme | 近似方案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximate-bin-packing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximate Bin Packing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-knapsack-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Knapsack Problem | 背包问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-k-center-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The K-center Problem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter12-local-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter12 ---Local Search | 局部搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter12 ---Local Search | 局部搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertex-cover-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vertex Cover Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-metropolis-algorithm-improve" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Metropolis Algorithm (Improve)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hopfield-neural-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hopfield Neural Networks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-maximum-cut-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Maximum Cut Problem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      习题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#grading-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grading Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-avl-trees-splay-trees-and-amortized-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avl-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      AVL Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splay-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splay Tree | 伸展树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amortized-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amortized Analysis | 摊还分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-2-red-black-trees-and-b-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 2 ---Red-Black Trees and B+ Trees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2 ---Red-Black Trees and B+ Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#red-black-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Red-Black Trees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      B+ Trees
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-3-inverted-file-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 3 ---Inverted File Index | 倒排文件索引
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4-leftist-heaps-and-skew-heaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 4 ---Leftist Heaps and Skew Heaps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4 ---Leftist Heaps and Skew Heaps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leftist-heaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leftist Heaps | 左式堆
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skew-heaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skew Heaps | 斜堆
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-5-binomial-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 5 ---Binomial Queue | 二项堆
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chpater-6-backtracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chpater 6 ---Backtracking | 回溯
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chpater 6 ---Backtracking | 回溯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eight-queens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eight Queens | 八皇后问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-turnpike-reconstruction-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Turnpike Reconstruction Problem | 收费公路重构问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      MiniMax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-divide-and-conquer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 7 ---Divide and Conquer | 分治
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7 ---Divide and Conquer | 分治">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      递归式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-dynamic-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 8 ---Dynamic Programming | 动态规划
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8 ---Dynamic Programming | 动态规划">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      经典问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-greedy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 9 ---Greedy | 贪心
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9 ---Greedy | 贪心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activity-selection-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activity Selection Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#huffman-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Huffman Code (用于文件压缩)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-np-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 10 ---NP-Completeness
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10 ---NP-Completeness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polynomial-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polynomial time
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#np-complete-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      NP-complete problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proof_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proof
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter11-approximation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter11 ---Approximation | 近似算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter11 ---Approximation | 近似算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#approximation-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximation Ratio | 近似率
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximation-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximation scheme | 近似方案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximate-bin-packing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approximate Bin Packing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-knapsack-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Knapsack Problem | 背包问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-k-center-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The K-center Problem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter12-local-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter12 ---Local Search | 局部搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter12 ---Local Search | 局部搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertex-cover-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vertex Cover Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-metropolis-algorithm-improve" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Metropolis Algorithm (Improve)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hopfield-neural-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hopfield Neural Networks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-maximum-cut-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Maximum Cut Problem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      习题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">高级数据结构与算法分析<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="grading-policy"><strong>Grading Policy</strong><a class="headerlink" href="#grading-policy" title="Permanent link">&para;</a></h2>
+<h4 id="60"><strong>平时（&lt;=60）</strong><a class="headerlink" href="#60" title="Permanent link">&para;</a></h4>
+<p>• Homework    10%</p>
+<p>• Discussions    10%</p>
+<p>• Research Project    30%  (Project1: 14% + Presentation  6%  ;  Project2: 10%)</p>
+<p>• Midterm    10%</p>
+<p>• Bonus </p>
+<h4 id="final-40"><strong>Final    40%</strong><a class="headerlink" href="#final-40" title="Permanent link">&para;</a></h4>
+<h2 id="chapter-1-avl-trees-splay-trees-and-amortized-analysis"><strong>Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis</strong><a class="headerlink" href="#chapter-1-avl-trees-splay-trees-and-amortized-analysis" title="Permanent link">&para;</a></h2>
+<p>• height:  该节点向下的最长路径长度</p>
+<p>• depth:  根节点到该节点的距离</p>
+<p>• balance factor:  左右子树高度差</p>
+<h3 id="avl-tree"><strong>AVL Tree</strong><a class="headerlink" href="#avl-tree" title="Permanent link">&para;</a></h3>
+<h4 id="definition"><strong>Definition</strong><a class="headerlink" href="#definition" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>左右子树高度差不超过1</p>
+</li>
+<li>
+<p>所有子树都是AVL Tree</p>
+</li>
+</ol>
+<h4 id="the-minimum-number-of-nodes"><strong>The Minimum number of nodes</strong><a class="headerlink" href="#the-minimum-number-of-nodes" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{align*}
+n_h为&amp;height为h的AVL~Tree的最小节点个数\\\\
+&amp;n_h=n_{h-1}+n_{h-2}+1\\\\
+&amp;n_{-1}=0,~n_0=1\\\\
+Fibo&amp;nacii~numbers:\\\\
+&amp;F_i=F_{i-1}+F_{i-2}\\\\
+&amp;F_0=0,~F_1=1\\\\
+\Rightarrow&amp;n_h=F_{h+3}-1,~for~h\geq0\\\\
+\Rightarrow&amp;n_h\approx\frac{1}{\sqrt5}(\frac{1+\sqrt5}{2})^{h+2}-1~~\\\\
+\Rightarrow&amp;h=O(ln(n))\\\\
+&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;
+\end{align*}
+\]</div>
+<h4 id="single-rotation"><strong>Single Rotation</strong><a class="headerlink" href="#single-rotation" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/1.png" alt="1" style="zoom:50%;" /> </p>
+<p><img src="./pic/2.png" alt="2" style="zoom:50%;" /> </p>
+<h4 id="double-rotation"><strong>Double Rotation</strong><a class="headerlink" href="#double-rotation" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/3.png" alt="3" style="zoom:50%;" /> </p>
+<p><img src="./pic/4.png" alt="4" style="zoom:50%;" /> </p>
+<h4 id="time-complexity"><strong>Time Complexity</strong><a class="headerlink" href="#time-complexity" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;Search&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Insertion&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Deletion&amp;&amp;O(logN)&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;\\
+\end{aligned}
+\]</div>
+<h3 id="splay-tree"><strong>Splay Tree  |  伸展树</strong><a class="headerlink" href="#splay-tree" title="Permanent link">&para;</a></h3>
+<h4 id="definition_1"><strong>Definition</strong><a class="headerlink" href="#definition_1" title="Permanent link">&para;</a></h4>
+<p>从空树开始连续M次操作时间不会超过O(M log N)</p>
+<p><strong>核心思想：一个节点被访问后，通过一系列rotation操作将这个节点转移至根节点</strong></p>
+<h4 id="operation"><strong>Operation</strong><a class="headerlink" href="#operation" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/5.png" alt="5" style="zoom:50%;" />   </p>
+<h4 id="deletion"><strong>Deletion</strong><a class="headerlink" href="#deletion" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/6.png" alt="6" style="zoom:50%;" /> </p>
+<h3 id="amortized-analysis"><strong>Amortized Analysis  |  摊还分析</strong><a class="headerlink" href="#amortized-analysis" title="Permanent link">&para;</a></h3>
+<p>求数据结构的一个操作序列中执行的所有操作的平均时间，来评价操作的代价。</p>
+<h4 id="aggregate-analysis"><strong>Aggregate analysis | 聚合分析</strong><a class="headerlink" href="#aggregate-analysis" title="Permanent link">&para;</a></h4>
+<p>证明对所有n个操作，一个包含n个操作的序列总共花费最坏情况时间<span class="arithmatex">\(T(n)\)</span>。在最坏的情况下，每次操作的平均成本或平摊成本因此是<span class="arithmatex">\(\frac{T(n)}{n}\)</span>。</p>
+<h4 id="accounting-method"><strong>Accounting method | 核算法</strong><a class="headerlink" href="#accounting-method" title="Permanent link">&para;</a></h4>
+<p>对于每一种操作，赋予一个<strong>摊还代价(amortized cost)</strong>。赋予某些操作的摊还代价可能多于或少于其实际代价。当一个操作的摊还代价超出其实际的代价的时候，我们将差额存入数据结构的特定对象中，存入的差额称为<strong>信用（Credit)</strong>。对于后续操作中小于其实际代价的时候，预存的信用可以用来支付差额。</p>
+<div class="arithmatex">\[
+\begin{align*}
+如果&amp;用c_{i}表示第i个操作的真实代价，用\hat{c_i}代表第i个操作的摊还代价，需满足：&amp;&amp;&amp;&amp;&amp;&amp;\\\\
+&amp;\sum_{i=1}^n\hat{c_i}\geqslant\sum_{i=1}^nc_i\\\\
+&amp;T_{amortized}=\frac{\sum_{i=1}^n\hat{c_i}}{n} =O(?)\\\\
+那么&amp;可知,摊还成本为O(?)
+\end{align*}
+\]</div>
+<p><img src="./pic/7.png" alt="7" style="zoom:50%;" />     </p>
+<h4 id="potential-method"><strong>Potential method | 势能法</strong><a class="headerlink" href="#potential-method" title="Permanent link">&para;</a></h4>
+<p>使用<strong>势函数<span class="arithmatex">\(\Phi\)</span></strong>来表示credit。</p>
+<div class="arithmatex">\[
+\begin{align*}
+\hat{c_i}-c_i&amp;=Credit_i=\Phi(D_i)-\Phi(D_{i-1}) ~~\Leftarrow~~Potential~Funciton\\\\
+\sum_{i=1}^n\hat{c_i}&amp;=\sum_{i=1}^n(c_i+\Phi(D_i)-\Phi(D_{i-1}))&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;\\\\
+&amp;=(\sum_{i=1}^nc_i)+\Phi(D_n)-\Phi(D_0)\\\\
+为满足&amp;Accounting~method的条件，只需满足\Phi(D_n)-\Phi(D_0)\geqslant0\\\\
+\end{align*}
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="arithmatex">\[
+假设需证明\sum_{i=1}^nc_i=O(n),~则当满足\Phi(D_n)-\Phi(D_0)=-n时也可也可满足，无须大于0~~~~~~~~~~~~~~~~~~~~~~~\\
+\]</div>
+</div>
+<p><img src="./pic/8.png" alt="8" style="zoom:50%;" />    </p>
+<h2 id="chapter-2-red-black-trees-and-b-trees"><strong>Chapter 2 ---Red-Black Trees and B+ Trees</strong><a class="headerlink" href="#chapter-2-red-black-trees-and-b-trees" title="Permanent link">&para;</a></h2>
+<h3 id="red-black-trees"><strong>Red-Black Trees</strong><a class="headerlink" href="#red-black-trees" title="Permanent link">&para;</a></h3>
+<h4 id="definition_2"><strong>Definition</strong><a class="headerlink" href="#definition_2" title="Permanent link">&para;</a></h4>
+<p>1.红黑树是一个二叉排序树</p>
+<p>2.每个节点都是红色或者黑色</p>
+<p>3.根节点为黑色</p>
+<p>4.叶子节点（外部节点、NULL节点、失败的节点）都为黑色</p>
+<p>5.红色节点的父节点和孩子节点都为黑色</p>
+<p>6.对于每个节点，从该节点到任一叶子节点的路径上的黑色节点数量相同</p>
+<h4 id="black-height"><strong>black-height</strong><a class="headerlink" href="#black-height" title="Permanent link">&para;</a></h4>
+<p>用 <span class="arithmatex">\(bh(x)\)</span> 表示，指从任意 <span class="arithmatex">\(x\)</span> 开始的任意简单路径上的黑色节点数量（不包括 <span class="arithmatex">\(x\)</span>)</p>
+<p><span class="arithmatex">\(bh(NULL)=0\)</span></p>
+<h4 id="insert"><strong>Insert</strong><a class="headerlink" href="#insert" title="Permanent link">&para;</a></h4>
+<p>每次插入都插入红色节点，对称同理</p>
+<p><img src="./pic/9.png" alt="9" style="zoom:50%;" /> </p>
+<h4 id="delete"><strong>Delete</strong><a class="headerlink" href="#delete" title="Permanent link">&para;</a></h4>
+<p><strong>Case 1 ：<span class="arithmatex">\(x_0\)</span>的兄弟节点<span class="arithmatex">\(w\)</span>为红色。</strong></p>
+<p>• 交换父节点和兄弟节点的颜色。(<span class="arithmatex">\(w\)</span>变为黑色)</p>
+<p>• 对删除的节点的方向进行一次rotation。</p>
+<p>• 前往Cases 2.1 / 3 / 4。</p>
+<p><img alt="10" src="pic/10.png" /></p>
+<p><strong>Case 2.1 <span class="arithmatex">\(x_0\)</span>的兄弟节点<span class="arithmatex">\(w\)</span>为黑色, 并且<span class="arithmatex">\(w\)</span>的子节点为黑色。 同时, <span class="arithmatex">\(x\)</span>的父节点为红色。</strong></p>
+<p>• 交换<span class="arithmatex">\(x_0\)</span>父节点和兄弟节点的颜色，完成删除。</p>
+<p><img src="./pic/11.png" alt="11" style="zoom:40%;" /> </p>
+<p><strong>Case 2.2 <span class="arithmatex">\(x_0\)</span>的兄弟节点<span class="arithmatex">\(w\)</span>为黑色，并且<span class="arithmatex">\(w\)</span>的子节点都为黑色。并且<span class="arithmatex">\(x_0\)</span>的父节点为黑色。</strong></p>
+<p>• 把<span class="arithmatex">\(x_0\)</span>的兄弟节点设为红色</p>
+<p>• <span class="arithmatex">\(x_0\)</span>的父节点变为新的删除节点<span class="arithmatex">\(z\)</span>，递归至根节点。</p>
+<p><img alt="12" src="pic/12.png" /></p>
+<p><strong>Case 3 <span class="arithmatex">\(x_0\)</span>的兄弟节点<span class="arithmatex">\(w\)</span>为黑色，<span class="arithmatex">\(w\)</span>有一个红色的子节点，并且"outer nephew"为黑色。</strong></p>
+<p>• 交换<span class="arithmatex">\(w\)</span>和"inner nephew"的颜色。</p>
+<p>• 对<span class="arithmatex">\(x_0\)</span>的兄弟节点<span class="arithmatex">\(w\)</span>向"outer nephew"的方向进行一次rotation。</p>
+<p>• 前往case 4。</p>
+<p><img src="./pic/13.png" alt="13" style="zoom: 50%;" /></p>
+<p><strong>Case 4 <span class="arithmatex">\(x_0\)</span>的兄弟节点<span class="arithmatex">\(w\)</span>为黑色，<span class="arithmatex">\(w\)</span>至少有一个红色的子节点，并且 "outer nephew"为红色。</strong></p>
+<p>• 将兄弟节点<span class="arithmatex">\(w\)</span>设为父节点的颜色；将父节点和"outer nephew"的颜色设为黑色.</p>
+<p>• 将父节点向被删除节点的方向进行一次rotation。</p>
+<p><img alt="14" src="pic/14.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>最多的rotation次数：Case 1  <span class="arithmatex">\(\rightarrow\)</span>  Case 3  <span class="arithmatex">\(\rightarrow\)</span>  Case 4   (3次)</p>
+</div>
+<h4 id="numbers-of-rotations"><strong>Numbers of Rotations</strong><a class="headerlink" href="#numbers-of-rotations" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;&amp;~~~~~~~~&amp;AVL&amp;~~~~~~~~Red-&amp;Black~Trees&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;\\
+\\
+&amp;Insertion&amp;&amp;\leqslant2&amp;&amp;\leqslant2&amp;\\
+\\
+&amp;Deletion&amp;&amp;O(logN)&amp;&amp;\leqslant3
+\end{aligned}
+\]</div>
+<h4 id="time-complexity_1"><strong>Time Complexity</strong><a class="headerlink" href="#time-complexity_1" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;Search&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Insertion&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Deletion&amp;&amp;O(logN)&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;\\
+\end{aligned}
+\]</div>
+<h3 id="b-trees"><strong>B+ Trees</strong><a class="headerlink" href="#b-trees" title="Permanent link">&para;</a></h3>
+<h4 id="definition_3"><strong>Definition</strong><a class="headerlink" href="#definition_3" title="Permanent link">&para;</a></h4>
+<p><strong>M阶B+树 (B+ Trees of order M)</strong>  具有以下性质：</p>
+<p>1.根节点是一个叶节点或者有 <span class="arithmatex">\(2-M\)</span> 个子节点。</p>
+<p>2.所有非叶节点（除了根节点）都有 <span class="arithmatex">\(\lceil M/2\rceil-M\)</span> 个子节点。</p>
+<p>3.所有叶节点都在同一层，假设每个非根叶也有 <span class="arithmatex">\(\lceil M/2\rceil-M\)</span>个键。</p>
+<h2 id="chapter-3-inverted-file-index"><strong>Chapter 3 ---Inverted File Index | 倒排文件索引</strong><a class="headerlink" href="#chapter-3-inverted-file-index" title="Permanent link">&para;</a></h2>
+<p>在建立索引时就确定字符串在哪里出现过。即在查找时用关键词为索引查找文档。</p>
+<p><img src="./pic/15.png" alt="15" style="zoom:50%;" /> </p>
+<h4 id="_2"><strong>生成算法</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/16.png" alt="16" style="zoom:50%;" /> </p>
+<h4 id="_3"><strong>处理方法</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/17.png" alt="17" style="zoom:50%;" /> </p>
+<h4 id="precision-recall"><strong>Precision | Recall</strong><a class="headerlink" href="#precision-recall" title="Permanent link">&para;</a></h4>
+<p><strong>Precison：查询到的文件中相关的比例</strong></p>
+<p><strong>Recall：有关的文件中被查询到的比例</strong></p>
+<p><img src="./pic/18.png" alt="18" style="zoom:50%;" /> </p>
+<p><img src="./pic/19.png" alt="19" style="zoom:50%;" /> </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><img src="./pic/20.png" alt="20" style="zoom:50%;" /> </p>
+</div>
+<h2 id="chapter-4-leftist-heaps-and-skew-heaps"><strong>Chapter 4 ---Leftist Heaps and Skew Heaps</strong><a class="headerlink" href="#chapter-4-leftist-heaps-and-skew-heaps" title="Permanent link">&para;</a></h2>
+<h3 id="leftist-heaps"><strong>Leftist Heaps | 左式堆</strong><a class="headerlink" href="#leftist-heaps" title="Permanent link">&para;</a></h3>
+<h4 id="null-path-length"><strong>Null path length | 零路径长</strong><a class="headerlink" href="#null-path-length" title="Permanent link">&para;</a></h4>
+<p>从X到一个不具有两个儿子的结点的最短路径的长。</p>
+<p>定义 <span class="arithmatex">\(Npl(NULL) = -1\)</span>。</p>
+<div class="arithmatex">\[
+Npl(X) = min \{ Npl(C) + 1~for~all~C~as~children~of~    X \}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\]</div>
+<h4 id="_4"><strong>性质</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>堆中的任何节点，其左儿子的零路径长&gt;=右儿子的零路径长。</p>
+<h4 id="_5"><strong>定理</strong><a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>右路径上有 <span class="arithmatex">\(r\)</span> 个节点的 leftist tree 至少有 <span class="arithmatex">\(2^r-1\)</span> 个节点</p>
+<h4 id="merge"><strong>Merge</strong><a class="headerlink" href="#merge" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/21.png" alt="21" style="zoom:50%;" /> </p>
+<p><img src="./pic/22.png" alt="22" style="zoom:50%;" /> </p>
+<h4 id="deletemin"><strong>DeleteMin</strong><a class="headerlink" href="#deletemin" title="Permanent link">&para;</a></h4>
+<p>1.删除根节点</p>
+<p>2.Merge左右子树</p>
+<h4 id="time-complexity_2"><strong>Time Complexity</strong><a class="headerlink" href="#time-complexity_2" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;Merge&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Insertion&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Deletion&amp;&amp;O(logN)&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;\\
+\end{aligned}
+\]</div>
+<h3 id="skew-heaps"><strong>Skew Heaps  | 斜堆</strong><a class="headerlink" href="#skew-heaps" title="Permanent link">&para;</a></h3>
+<h4 id="_6"><strong>目标</strong><a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>任何M次连续的操作的时间复杂度为O(MlogN)</p>
+<h4 id="heavy-node"><strong>Heavy node</strong><a class="headerlink" href="#heavy-node" title="Permanent link">&para;</a></h4>
+<p>右子树节点 &gt; 左子树节点</p>
+<p>否则为 <strong>light node</strong></p>
+<h4 id="merge_1"><strong>Merge</strong><a class="headerlink" href="#merge_1" title="Permanent link">&para;</a></h4>
+<p>(case1) 如果一个空斜堆与一个非空斜堆合并，返回非空斜堆。</p>
+<p>(case2) 如果两个斜堆都非空，那么比较两个根节点，取较小堆的根节点为新的根节点。将”较小堆的根节点的右孩子”和”较大堆”进行合并。</p>
+<p>(case3) 合并后，<strong>交换新堆根节点的左孩子和右孩子</strong>。</p>
+<h4 id="amortized-analysis-for-skew-heaps"><strong>Amortized Analysis for Skew Heaps</strong><a class="headerlink" href="#amortized-analysis-for-skew-heaps" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/23.png" alt="23" style="zoom:50%;" /> </p>
+<p><img src="./pic/24.png" alt="24" style="zoom:50%;" /> </p>
+<h2 id="chapter-5-binomial-queue"><strong>Chapter 5 ---Binomial Queue | 二项堆</strong><a class="headerlink" href="#chapter-5-binomial-queue" title="Permanent link">&para;</a></h2>
+<h4 id="definition_4"><strong>Definition</strong><a class="headerlink" href="#definition_4" title="Permanent link">&para;</a></h4>
+<p>二项堆是堆的集合，每个堆都是<strong>二项树(binomial tree)</strong>。</p>
+<h4 id="binomial-tree"><strong>Binomial Tree | 二项树</strong><a class="headerlink" href="#binomial-tree" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(•~height~为~0~的二项树为一个节点\)</span></p>
+<p><span class="arithmatex">\(•~高度为~k~的二项树~B_k~,由~B_{k-1}~连接到~B_{k-1}~的根节点构成\)</span></p>
+<p><img alt="" src="pic/25.jpg" /> </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span class="arithmatex">\(•~B_k~有~k~个节点，分别为~B_0,B_1,……,B_{k-1}\)</span></p>
+</div>
+<p>​    <span class="arithmatex">\(•~B_k~有2^k个节点\)</span></p>
+<p>​    <span class="arithmatex">\(•~深度为d的节点数为\left( \begin{array}{c}k \\ d \end{array} \right)\)</span></p>
+<h4 id="merge_2"><strong>Merge</strong><a class="headerlink" href="#merge_2" title="Permanent link">&para;</a></h4>
+<p><img src="./pic/26.jpg" style="zoom: 67%;" /> </p>
+<h4 id="insert_1"><strong>Insert</strong><a class="headerlink" href="#insert_1" title="Permanent link">&para;</a></h4>
+<p>特殊的Merge</p>
+<p>• 如果最小的空二项树为 <span class="arithmatex">\(B_i\)</span> ，则 <span class="arithmatex">\(T_p=Const\times(i+1)\)</span>。</p>
+<p>• 对一个空二项堆，N次Inseet操作的worst case为 <span class="arithmatex">\(O(N)\)</span> 。因此平均时间复杂度为常数。</p>
+<h4 id="findmin"><strong>FindMin</strong><a class="headerlink" href="#findmin" title="Permanent link">&para;</a></h4>
+<p>最小值一定是其中一颗二项树的根节点。由于至多存在 <span class="arithmatex">\(\lceil logN \rceil\)</span> 个根节点，<span class="arithmatex">\(T_p=O(logN)\)</span>。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>可以通过记忆并实时更新最小值所在位置，使时间复杂度到达<span class="arithmatex">\(O(1)\)</span>。</p>
+</div>
+<h4 id="deletemin_1"><strong>DeleteMin</strong><a class="headerlink" href="#deletemin_1" title="Permanent link">&para;</a></h4>
+<p>​    <img alt="27" src="pic/27.jpg" /></p>
+<h4 id="proof"><strong>Proof</strong><a class="headerlink" href="#proof" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{align*}
+记~&amp;C_i::=第~i~次操作的代价\\\\
+&amp;\Phi_i::=在第~i~次操作后二项树的数量(\Phi_0=0)\\\\
+假&amp;设第~i~次操作前第一个空二项树为B_d，则：\\\\
+&amp;C_i=d+1\\\\
+&amp;\Phi_i-\Phi_{i-1}=d-1\\\\
+\Rightarrow&amp;C_i+(\Phi_i-\Phi_{i-1})=2，i=1,2,…,N\\\\
+\Rightarrow&amp;\sum^N_{i=1}C_i=2N-\Phi_N\leqslant2N=O(N)\\\\
+\Rightarrow &amp;T_{Worst}=O(logN)~,~T_{Amortized}=2&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;\\
+\end{align*}
+\]</div>
+<h4 id="time-complexity_3"><strong>Time Complexity</strong><a class="headerlink" href="#time-complexity_3" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;Merge&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Insertion&amp;&amp;O(logN)(从零开始插入平均O(1))&amp;&amp;\\
+\\
+&amp;Delete~Min&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Decrease~Key&amp;&amp;O(logN)&amp;&amp;\\
+\\
+&amp;Find~Min&amp;&amp;O(logN)(可以通过标记变为O(1))&amp;&amp;\\
+\\
+&amp;Deletion&amp;&amp;O(logN)&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;\\
+\end{aligned}
+\]</div>
+<h4 id="code"><strong>Code</strong><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">BinNode</span><span class="w"> </span><span class="o">*</span><span class="n">Position</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Collection</span><span class="w"> </span><span class="o">*</span><span class="n">BinQueue</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">BinNode</span><span class="w"> </span><span class="o">*</span><span class="n">BinTree</span><span class="p">;</span><span class="w">  </span><span class="cm">/* missing from p.176 */</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="k">struct</span><span class="w"> </span><span class="nc">BinNode</span><span class="w"> </span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="n">ElementType</span><span class="w">     </span><span class="n">Element</span><span class="p">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="n">Position</span><span class="w">        </span><span class="n">LeftChild</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="n">Position</span><span class="w">        </span><span class="n">NextSibling</span><span class="p">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a><span class="p">}</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a><span class="k">struct</span><span class="w"> </span><span class="nc">Collection</span><span class="w"> </span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w">         </span><span class="n">CurrentSize</span><span class="p">;</span><span class="w">  </span><span class="cm">/* total number of nodes */</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="n">BinTree</span><span class="w"> </span><span class="n">TheTrees</span><span class="p">[</span><span class="w"> </span><span class="n">MaxTrees</span><span class="w"> </span><span class="p">];</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a><span class="p">}</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a><span class="n">BinTree</span><span class="w"> </span><span class="nf">CombineTrees</span><span class="p">(</span><span class="w"> </span><span class="n">BinTree</span><span class="w"> </span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="n">BinTree</span><span class="w"> </span><span class="n">T2</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a><span class="p">{</span><span class="w">  </span><span class="cm">/* merge equal-sized T1 and T2 */</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">T1</span><span class="o">-&gt;</span><span class="n">Element</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">T2</span><span class="o">-&gt;</span><span class="n">Element</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">        </span><span class="cm">/* attach the larger one to the smaller one */</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">CombineTrees</span><span class="p">(</span><span class="w"> </span><span class="n">T2</span><span class="p">,</span><span class="w"> </span><span class="n">T1</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">    </span><span class="cm">/* insert T2 to the front of the children list of T1 */</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">    </span><span class="n">T2</span><span class="o">-&gt;</span><span class="n">NextSibling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T1</span><span class="o">-&gt;</span><span class="n">LeftChild</span><span class="p">;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">    </span><span class="n">T1</span><span class="o">-&gt;</span><span class="n">LeftChild</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T2</span><span class="p">;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">T1</span><span class="p">;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos="27 "></span></a><span class="p">}</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos="28 "></span></a><span class="c1">//Merge</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos="29 "></span></a><span class="n">BinQueue</span><span class="w">  </span><span class="nf">Merge</span><span class="p">(</span><span class="w"> </span><span class="n">BinQueue</span><span class="w"> </span><span class="n">H1</span><span class="p">,</span><span class="w"> </span><span class="n">BinQueue</span><span class="w"> </span><span class="n">H2</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos="30 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">BinTree</span><span class="w"> </span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="n">T2</span><span class="p">,</span><span class="w"> </span><span class="n">Carry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w">   </span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><a href="#__codelineno-0-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">CurrentSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">H2</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CurrentSize</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Capacity</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="n">ErrorMessage</span><span class="p">();</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><a href="#__codelineno-0-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">    </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">CurrentSize</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">H2</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CurrentSize</span><span class="p">;</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><a href="#__codelineno-0-34"><span class="linenos" data-linenos="34 "></span></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">&lt;=</span><span class="w"> </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">CurrentSize</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="o">*=</span><span class="mi">2</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><a href="#__codelineno-0-35"><span class="linenos" data-linenos="35 "></span></a><span class="w">        </span><span class="n">T1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="n">T2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H2</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="cm">/*current trees */</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><a href="#__codelineno-0-36"><span class="linenos" data-linenos="36 "></span></a><span class="w">        </span><span class="k">switch</span><span class="p">(</span><span class="w"> </span><span class="mi">4</span><span class="o">*!!</span><span class="n">Carry</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="o">*!!</span><span class="n">T2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">!!</span><span class="n">T1</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><a href="#__codelineno-0-37"><span class="linenos" data-linenos="37 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 000 */</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><a href="#__codelineno-0-38"><span class="linenos" data-linenos="38 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 001 */</span><span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w">   </span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><a href="#__codelineno-0-39"><span class="linenos" data-linenos="39 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 010 */</span><span class="w">  </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T2</span><span class="p">;</span><span class="w"> </span><span class="n">H2</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><a href="#__codelineno-0-40"><span class="linenos" data-linenos="40 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 100 */</span><span class="w">  </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Carry</span><span class="p">;</span><span class="w"> </span><span class="n">Carry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><a href="#__codelineno-0-41"><span class="linenos" data-linenos="41 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 011 */</span><span class="w">  </span><span class="n">Carry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CombineTrees</span><span class="p">(</span><span class="w"> </span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="n">T2</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><a href="#__codelineno-0-42"><span class="linenos" data-linenos="42 "></span></a><span class="w">                        </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H2</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><a href="#__codelineno-0-43"><span class="linenos" data-linenos="43 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">5</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 101 */</span><span class="w">  </span><span class="n">Carry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CombineTrees</span><span class="p">(</span><span class="w"> </span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="n">Carry</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><a href="#__codelineno-0-44"><span class="linenos" data-linenos="44 "></span></a><span class="w">                        </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><a href="#__codelineno-0-45"><span class="linenos" data-linenos="45 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">6</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 110 */</span><span class="w">  </span><span class="n">Carry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CombineTrees</span><span class="p">(</span><span class="w"> </span><span class="n">T2</span><span class="p">,</span><span class="w"> </span><span class="n">Carry</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><a href="#__codelineno-0-46"><span class="linenos" data-linenos="46 "></span></a><span class="w">                        </span><span class="n">H2</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><a href="#__codelineno-0-47"><span class="linenos" data-linenos="47 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">7</span><span class="p">:</span><span class="w"> </span><span class="cm">/* 111 */</span><span class="w">  </span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Carry</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><a href="#__codelineno-0-48"><span class="linenos" data-linenos="48 "></span></a><span class="w">                        </span><span class="n">Carry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CombineTrees</span><span class="p">(</span><span class="w"> </span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="n">T2</span><span class="w"> </span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><a href="#__codelineno-0-49"><span class="linenos" data-linenos="49 "></span></a><span class="w">                        </span><span class="n">H2</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><a href="#__codelineno-0-50"><span class="linenos" data-linenos="50 "></span></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end switch */</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><a href="#__codelineno-0-51"><span class="linenos" data-linenos="51 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end for-loop */</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><a href="#__codelineno-0-52"><span class="linenos" data-linenos="52 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">H1</span><span class="p">;</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><a href="#__codelineno-0-53"><span class="linenos" data-linenos="53 "></span></a><span class="p">}</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><a href="#__codelineno-0-54"><span class="linenos" data-linenos="54 "></span></a><span class="c1">//DeleteMin</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><a href="#__codelineno-0-55"><span class="linenos" data-linenos="55 "></span></a><span class="n">ElementType</span><span class="w">  </span><span class="nf">DeleteMin</span><span class="p">(</span><span class="w"> </span><span class="n">BinQueue</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><a href="#__codelineno-0-56"><span class="linenos" data-linenos="56 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">BinQueue</span><span class="w"> </span><span class="n">DeletedQueue</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><a href="#__codelineno-0-57"><span class="linenos" data-linenos="57 "></span></a><span class="w">    </span><span class="n">Position</span><span class="w"> </span><span class="n">DeletedTree</span><span class="p">,</span><span class="w"> </span><span class="n">OldRoot</span><span class="p">;</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><a href="#__codelineno-0-58"><span class="linenos" data-linenos="58 "></span></a><span class="w">    </span><span class="n">ElementType</span><span class="w"> </span><span class="n">MinItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Infinity</span><span class="p">;</span><span class="w">  </span><span class="cm">/* the minimum item to be returned */</span><span class="w">  </span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><a href="#__codelineno-0-59"><span class="linenos" data-linenos="59 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">MinTree</span><span class="p">;</span><span class="w"> </span><span class="cm">/* MinTree is the index of the tree with the minimum item */</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><a href="#__codelineno-0-60"><span class="linenos" data-linenos="60 "></span></a>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><a href="#__codelineno-0-61"><span class="linenos" data-linenos="61 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">IsEmpty</span><span class="p">(</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="p">{</span><span class="w">  </span><span class="n">PrintErrorMessage</span><span class="p">();</span><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="err">–</span><span class="n">Infinity</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><a href="#__codelineno-0-62"><span class="linenos" data-linenos="62 "></span></a>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><a href="#__codelineno-0-63"><span class="linenos" data-linenos="63 "></span></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MaxTrees</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="cm">/* Step 1: find the minimum item */</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><a href="#__codelineno-0-64"><span class="linenos" data-linenos="64 "></span></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">H</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">H</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">Element</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MinItem</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><a href="#__codelineno-0-65"><span class="linenos" data-linenos="65 "></span></a><span class="w">        </span><span class="n">MinItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">;</span><span class="w">  </span><span class="n">MinTree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end if */</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><a href="#__codelineno-0-66"><span class="linenos" data-linenos="66 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end for-i-loop */</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><a href="#__codelineno-0-67"><span class="linenos" data-linenos="67 "></span></a><span class="w">    </span><span class="n">DeletedTree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="w"> </span><span class="n">MinTree</span><span class="w"> </span><span class="p">];</span><span class="w">  </span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><a href="#__codelineno-0-68"><span class="linenos" data-linenos="68 "></span></a><span class="w">    </span><span class="n">H</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="w"> </span><span class="n">MinTree</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Step 2: remove the MinTree from H =&gt; H’ */</span><span class="w"> </span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><a href="#__codelineno-0-69"><span class="linenos" data-linenos="69 "></span></a><span class="w">    </span><span class="n">OldRoot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DeletedTree</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Step 3.1: remove the root */</span><span class="w"> </span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><a href="#__codelineno-0-70"><span class="linenos" data-linenos="70 "></span></a><span class="w">    </span><span class="n">DeletedTree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DeletedTree</span><span class="o">-&gt;</span><span class="n">LeftChild</span><span class="p">;</span><span class="w">   </span><span class="n">free</span><span class="p">(</span><span class="n">OldRoot</span><span class="p">);</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><a href="#__codelineno-0-71"><span class="linenos" data-linenos="71 "></span></a><span class="w">    </span><span class="n">DeletedQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Initialize</span><span class="p">();</span><span class="w">   </span><span class="cm">/* Step 3.2: create H” */</span><span class="w"> </span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><a href="#__codelineno-0-72"><span class="linenos" data-linenos="72 "></span></a><span class="w">    </span><span class="n">DeletedQueue</span><span class="o">-&gt;</span><span class="n">CurrentSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">MinTree</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="cm">/* 2MinTree – 1 */</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><a href="#__codelineno-0-73"><span class="linenos" data-linenos="73 "></span></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MinTree</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><a href="#__codelineno-0-74"><span class="linenos" data-linenos="74 "></span></a><span class="w">        </span><span class="n">DeletedQueue</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DeletedTree</span><span class="p">;</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><a href="#__codelineno-0-75"><span class="linenos" data-linenos="75 "></span></a><span class="w">        </span><span class="n">DeletedTree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DeletedTree</span><span class="o">-&gt;</span><span class="n">NextSibling</span><span class="p">;</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><a href="#__codelineno-0-76"><span class="linenos" data-linenos="76 "></span></a><span class="w">        </span><span class="n">DeletedQueue</span><span class="o">-&gt;</span><span class="n">TheTrees</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">NextSibling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><a href="#__codelineno-0-77"><span class="linenos" data-linenos="77 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end for-j-loop */</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><a href="#__codelineno-0-78"><span class="linenos" data-linenos="78 "></span></a><span class="w">    </span><span class="n">H</span><span class="o">-&gt;</span><span class="n">CurrentSize</span><span class="w">  </span><span class="err">–</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DeletedQueue</span><span class="o">-&gt;</span><span class="n">CurrentSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><a href="#__codelineno-0-79"><span class="linenos" data-linenos="79 "></span></a><span class="w">    </span><span class="n">H</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Merge</span><span class="p">(</span><span class="w"> </span><span class="n">H</span><span class="p">,</span><span class="w"> </span><span class="n">DeletedQueue</span><span class="w"> </span><span class="p">);</span><span class="w"> </span><span class="cm">/* Step 4: merge H’ and H” */</span><span class="w"> </span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><a href="#__codelineno-0-80"><span class="linenos" data-linenos="80 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">MinItem</span><span class="p">;</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><a href="#__codelineno-0-81"><span class="linenos" data-linenos="81 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="chpater-6-backtracking"><strong>Chpater 6 ---Backtracking | 回溯</strong><a class="headerlink" href="#chpater-6-backtracking" title="Permanent link">&para;</a></h2>
+<h3 id="template"><strong>Template</strong><a class="headerlink" href="#template" title="Permanent link">&para;</a></h3>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kt">bool</span><span class="w"> </span><span class="nf">Backtracking</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">Found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="cm">/* solved with (x1, …, xN) */</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">xi</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">Si</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="cm">/* check if satisfies the restriction R */</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="n">OK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Check</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">,</span><span class="w"> </span><span class="n">xi</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="p">);</span><span class="w"> </span><span class="cm">/* pruning */</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">OK</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">     </span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">            </span><span class="n">Count</span><span class="w"> </span><span class="n">xi</span><span class="w"> </span><span class="n">in</span><span class="p">;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">            </span><span class="n">Found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Backtracking</span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">!</span><span class="n">Found</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">                </span><span class="n">Undo</span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="p">);</span><span class="w"> </span><span class="cm">/* recover to (x1, …, xi-1) */</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><a href="#__codelineno-1-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><a href="#__codelineno-1-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">Found</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><a href="#__codelineno-1-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><a href="#__codelineno-1-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Found</span><span class="p">;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><a href="#__codelineno-1-17"><span class="linenos" data-linenos="17 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="eight-queens"><strong>Eight Queens | 八皇后问题</strong><a class="headerlink" href="#eight-queens" title="Permanent link">&para;</a></h3>
+<p>（以四皇后问题为例）</p>
+<p>（1）建立决策树</p>
+<p>（2）DFS</p>
+<p><img alt="28" src="pic/28.png" /></p>
+<h3 id="the-turnpike-reconstruction-problem"><strong>The Turnpike Reconstruction Problem | 收费公路重构问题</strong><a class="headerlink" href="#the-turnpike-reconstruction-problem" title="Permanent link">&para;</a></h3>
+<p>​   在 <span class="arithmatex">\(x\)</span> 粥上有 <span class="arithmatex">\(N\)</span> 个点， <span class="arithmatex">\(x_1&lt;x_2&lt;x_3&lt;\cdots&lt;x_N\)</span> , 假设 <span class="arithmatex">\(x_1=0\)</span> 。给出 <span class="arithmatex">\(N(N-1)\)</span> 个距离，重构出每个点的位置。</p>
+<p><img alt="29" src="pic/29.jpg" /></p>
+<p><strong>Code</strong></p>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kt">bool</span><span class="w"> </span><span class="nf">Reconstruct</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">DistType</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">DistSet</span><span class="w"> </span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span><span class="w"> </span><span class="cm">/* X[1]...X[left-1] and X[right+1]...X[N] are solved */</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">Found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">Is_Empty</span><span class="p">(</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="cm">/* solved */</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="n">D_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Find_Max</span><span class="p">(</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="cm">/* option 1：X[right] = D_max */</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="cm">/* check if |D_max-X[i]|D is true for all X[i]’s that have been solved */</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><a href="#__codelineno-2-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="n">OK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Check</span><span class="p">(</span><span class="w"> </span><span class="n">D_max</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="p">);</span><span class="w"> </span><span class="cm">/* pruning */</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><a href="#__codelineno-2-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">OK</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* add X[right] and update D */</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><a href="#__codelineno-2-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="n">X</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D_max</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><a href="#__codelineno-2-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">left</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="n">Delete</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><a href="#__codelineno-2-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;=</span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="n">Delete</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><a href="#__codelineno-2-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="n">Found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Reconstruct</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="mi">-1</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><a href="#__codelineno-2-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">!</span><span class="n">Found</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* if does not work, undo */</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a><a href="#__codelineno-2-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">left</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="n">Insert</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><a href="#__codelineno-2-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;=</span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="n">Insert</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><a href="#__codelineno-2-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a><a href="#__codelineno-2-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a><a href="#__codelineno-2-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">    </span><span class="cm">/* finish checking option 1 */</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a><a href="#__codelineno-2-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">!</span><span class="n">Found</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* if option 1 does not work */</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a><a href="#__codelineno-2-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">        </span><span class="cm">/* option 2: X[left] = X[N]-D_max */</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><a href="#__codelineno-2-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">        </span><span class="n">OK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Check</span><span class="p">(</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">-</span><span class="n">D_max</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a><a href="#__codelineno-2-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">OK</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a><a href="#__codelineno-2-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">            </span><span class="n">X</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">D_max</span><span class="p">;</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><a href="#__codelineno-2-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">left</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="n">Delete</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a><a href="#__codelineno-2-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;=</span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="n">Delete</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a><a href="#__codelineno-2-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">            </span><span class="n">Found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Reconstruct</span><span class="w"> </span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><a href="#__codelineno-2-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">!</span><span class="n">Found</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a><a href="#__codelineno-2-30"><span class="linenos" data-linenos="30 "></span></a><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">left</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">Insert</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31"></a><a href="#__codelineno-2-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;=</span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">Insert</span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">X</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">);</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32"></a><a href="#__codelineno-2-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33"></a><a href="#__codelineno-2-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34"></a><a href="#__codelineno-2-34"><span class="linenos" data-linenos="34 "></span></a><span class="w">        </span><span class="cm">/* finish checking option 2 */</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35"></a><a href="#__codelineno-2-35"><span class="linenos" data-linenos="35 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* finish checking all the options */</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36"></a><a href="#__codelineno-2-36"><span class="linenos" data-linenos="36 "></span></a>
+<a id="__codelineno-2-37" name="__codelineno-2-37"></a><a href="#__codelineno-2-37"><span class="linenos" data-linenos="37 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Found</span><span class="p">;</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38"></a><a href="#__codelineno-2-38"><span class="linenos" data-linenos="38 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="minimax"><strong>MiniMax</strong><a class="headerlink" href="#minimax" title="Permanent link">&para;</a></h3>
+<p>Tic-tac-toe：井字棋</p>
+<p><strong>基本思路：</strong></p>
+<p>​   决策树的一层代表己方，一层代表对方。</p>
+<p>​   记W是位置P的<strong>potential wins</strong> 数量。<span class="arithmatex">\(f(p)=W_{Computer}-W_{Human}\)</span>      </p>
+<p>​   从最底层向上搜索：在己方决策层，即Max层，选取子节点中最大的一个；对方决策层，即Min层，选择子节点中最小的一个。</p>
+<p><img alt="30" src="pic/30.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>potential wins</strong></p>
+<p>以这张图为例，蓝线为X的potential wins，红线为O的potential wins。</p>
+<p><span class="arithmatex">\(\Rightarrow f(p)=6-4=2\)</span></p>
+<p><img alt="33" src="pic/33.jpg" /><img alt="34" src="pic/34.jpg" /><img alt="35" src="pic/35.jpg" /> </p>
+</div>
+<h4 id="alpha-beta-prunning-alpha-beta"><strong><span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span> prunning | <span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span>剪枝</strong><a class="headerlink" href="#alpha-beta-prunning-alpha-beta" title="Permanent link">&para;</a></h4>
+<p><strong><span class="arithmatex">\(\alpha\)</span>剪枝：</strong>在Max层的决策过程中，若找到比以找节点更小的值，则不需要继续向下搜索。</p>
+<p><img src="./pic/31.png" alt="31" style="zoom:100%;" /> </p>
+<p><strong><span class="arithmatex">\(\beta\)</span>剪枝：</strong>在Min层的决策过程中，若找到比以找节点更大的值，则不需要继续向下搜索。</p>
+<p><img src="./pic/32.png" alt="32" style="zoom:100%;" /> </p>
+<p>​   在实践中，同时使用 <span class="arithmatex">\(\alpha\)</span> 剪枝和 <span class="arithmatex">\(\beta\)</span> 剪枝，能够将搜索从 <span class="arithmatex">\(O(N)\)</span> 减小到 <span class="arithmatex">\(O(\sqrt{N})\)</span> ，其中N为决策树的规模。</p>
+<h2 id="chapter-7-divide-and-conquer"><strong>Chapter 7 ---Divide and Conquer | 分治</strong><a class="headerlink" href="#chapter-7-divide-and-conquer" title="Permanent link">&para;</a></h2>
+<h3 id="_7"><strong>递归式</strong><a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+T(N)=a~T(N/b)~+~f(N)
+\]</div>
+<h3 id="_8"><strong>求解方法</strong><a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="substitution-method"><strong>Substitution method | 代入法</strong><a class="headerlink" href="#substitution-method" title="Permanent link">&para;</a></h4>
+<p><strong>Example :</strong> <span class="arithmatex">\(T(N)=2~T(\lfloor N/2\rfloor)+N\)</span></p>
+<div class="arithmatex">\[
+\begin{aligned}
+Guess:&amp;T(n)=O(NlogN)\\\\
+Proof:&amp;Assume~it~is~true~for~all~m&lt;N,~in~particular~for~m=\lfloor N / 2\rfloor.\\\\
+&amp;Then~there~exists~a~constant~c~&gt;~0~so~that~T(\lfloor N~/~2\rfloor)\leqslant c \lfloor N / 2\rfloor log \lfloor N / 2\rfloor \\\\
+&amp;Substituting~into~the~recurrence:\\\\
+&amp;T( N ) = 2~T( \lfloor N / 2\rfloor ) + N\\\\
+&amp;~~~~~~~~~~\leqslant 2~c \lfloor N / 2\rfloor log \lfloor N / 2\rfloor + N\\\\
+&amp;~~~~~~~~~~\leqslant c~N (log N – log 2) + N\\\\
+&amp;~~~~~~~~~~\leqslant c~N log N~~~~for~c \leqslant 1
+\end{aligned}
+\]</div>
+<h4 id="recursion-tree-method"><strong>Recursion-tree method | 递归树法</strong><a class="headerlink" href="#recursion-tree-method" title="Permanent link">&para;</a></h4>
+<p><img alt="36" src="pic/36.jpg" /> </p>
+<p><img alt="37" src="pic/37.jpg" /> </p>
+<h4 id="master-method"><strong>Master method | 主方法</strong><a class="headerlink" href="#master-method" title="Permanent link">&para;</a></h4>
+<p>对于<span class="arithmatex">\(T(N)=a~T(N/b)~+~f(N)\)</span></p>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>Case1</strong>: <span class="arithmatex">\(f(N)=O(N^{\log_b a-\varepsilon}) \Rightarrow T(N)=\Theta(N^{\log_ba})\)</span></p>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>Case2:</strong> <span class="arithmatex">\(f(N)=\Theta(N^{\log_ba}\log^pN)\Rightarrow T(N)=\Theta(N^{\log_ba}\log^{p+1} N)\)</span></p>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>Case3</strong>:  <span class="arithmatex">\(f(N)=\Omega(N^{\log_ba+\varepsilon}),and~af(N/b)\leqslant cf(N)\Rightarrow T(N)=\Theta(f(N))\)</span></p>
+<h2 id="chapter-8-dynamic-programming"><strong>Chapter 8 ---Dynamic Programming | 动态规划</strong><a class="headerlink" href="#chapter-8-dynamic-programming" title="Permanent link">&para;</a></h2>
+<p>适用于具有重叠子问题和最优子结构性质的问题。在求解过程中保存子问题的解，避免子问题重复计算，即用空间换时间。</p>
+<h3 id="_9"><strong>求解</strong><a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>1.Characterize an optimal solution</p>
+<p>2.Recursively define the optimal values</p>
+<p>3.Compute the values in some order</p>
+<p>4.Reconstruct the solving strategy</p>
+<h3 id="_10"><strong>经典问题</strong><a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>Fibonacci Numbers</strong></p>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>Ordering Matrix Multiplications</strong></p>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>Optimal Binary Search Tree</strong></p>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>Optimal Binary Search Tree</strong></p>
+<p><span class="arithmatex">\(\bullet\)</span> <strong>背包问题</strong></p>
+<h2 id="chapter-9-greedy"><strong>Chapter 9 ---Greedy | 贪心</strong><a class="headerlink" href="#chapter-9-greedy" title="Permanent link">&para;</a></h2>
+<p>在每一步选择中都采取最优的选择，后续阶段的选择不会改变前面已经做出的选择。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>贪心算法仅在局部最优等于全局最优时可行。</p>
+</div>
+<h3 id="activity-selection-problem"><strong>Activity Selection Problem</strong><a class="headerlink" href="#activity-selection-problem" title="Permanent link">&para;</a></h3>
+<p><img alt="38" src="pic/38.jpg" /></p>
+<p><strong>Solution:</strong> 每次选择结束最早且与已选择的不重复的时间段。</p>
+<h3 id="huffman-code"><strong>Huffman Code</strong> (用于文件压缩)<a class="headerlink" href="#huffman-code" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">Huffman</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">PriorityQueue</span><span class="w">  </span><span class="n">heap</span><span class="p">[</span><span class="w"> </span><span class="p">],</span><span class="w">  </span><span class="kt">int</span><span class="w">  </span><span class="n">C</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">consider</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">characters</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">binary</span><span class="w"> </span><span class="n">trees</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">     </span><span class="n">and</span><span class="w"> </span><span class="n">initialize</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="n">heap</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">C</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="n">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">node</span><span class="p">;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="cm">/* be greedy here */</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="n">delete</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="n">heap</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">attach</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">left_child</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">node</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="n">delete</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="n">heap</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">attach</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">right_child</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">node</span><span class="p">;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="n">weight</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">weights</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">children</span><span class="p">;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><a href="#__codelineno-3-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">        </span><span class="cm">/* weight of a tree = sum of the frequencies of its leaves */</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><a href="#__codelineno-3-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="n">insert</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="n">heap</span><span class="p">;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><a href="#__codelineno-3-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">   </span><span class="p">}</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><a href="#__codelineno-3-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">}</span>
+</code></pre></div>
+<div class="arithmatex">\[
+T=O(C\log C)
+\]</div>
+<p><img alt="39" src="pic/39.jpg" /></p>
+<h2 id="chapter-10-np-completeness"><strong>Chapter 10 ---NP-Completeness</strong><a class="headerlink" href="#chapter-10-np-completeness" title="Permanent link">&para;</a></h2>
+<h3 id="polynomial-time"><strong>Polynomial time</strong><a class="headerlink" href="#polynomial-time" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(f(N)=O(N^k)\)</span></p>
+<p><span class="arithmatex">\(\Rightarrow \log(f(N))=O(\log N)\)</span></p>
+<h3 id="defination"><strong>Defination</strong><a class="headerlink" href="#defination" title="Permanent link">&para;</a></h3>
+<h4 id="language"><strong>Language</strong><a class="headerlink" href="#language" title="Permanent link">&para;</a></h4>
+<p>对于一个problem <span class="arithmatex">\(X\)</span>,对应的language <span class="arithmatex">\(L\)</span>,为：</p>
+<p>​   If <span class="arithmatex">\(x\in L\)</span>  then are supposed to answer "Yes" and if <span class="arithmatex">\(x\notin L\)</span>, we are supposed to answer "No".</p>
+<h4 id="p-polynomial"><strong>P</strong> (Polynomial)<a class="headerlink" href="#p-polynomial" title="Permanent link">&para;</a></h4>
+<p>The set of decision problems that can be solved in polynomial time</p>
+<h4 id="np-nondeterminism-polynomial"><strong>NP</strong> (Nondeterminism polynomial)<a class="headerlink" href="#np-nondeterminism-polynomial" title="Permanent link">&para;</a></h4>
+<p>The set of decision problems with the following property: If the answer is "Yes", then there is a proof of this fact that can be checked in polynomial time.</p>
+<h4 id="co-np"><strong>co-NP</strong><a class="headerlink" href="#co-np" title="Permanent link">&para;</a></h4>
+<p>The set of decision problems <span class="arithmatex">\(X\)</span> such that <span class="arithmatex">\(\overline{X}\in NP\)</span>.</p>
+<p>Essentially the opposite of NP. If the answer to a problem in co-NP is "No", then there is a proof of this fact that can be checked in polynomial time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>四种可能的关系
+<img alt="40" src="pic/40.jpg" /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>不确定图灵机可以用来验证NP问题的解是否是正确的，确定图灵机可以用来求解P问题。</p>
+</div>
+<h3 id="np-complete-problems"><strong>NP-complete problems</strong><a class="headerlink" href="#np-complete-problems" title="Permanent link">&para;</a></h3>
+<h4 id="l_1leqslant_tl_2"><span class="arithmatex">\(L_1\leqslant_TL_2\)</span><a class="headerlink" href="#l_1leqslant_tl_2" title="Permanent link">&para;</a></h4>
+<p>如果解决<span class="arithmatex">\(L_2\)</span>的算法可以解决<span class="arithmatex">\(L_1\)</span>，那么问题<span class="arithmatex">\(L_1\)</span>可以reduce到<span class="arithmatex">\(L_2\)</span></p>
+<h4 id="l_1leqslant_pl_2-polynomial-time-reducible"><span class="arithmatex">\(L_1\leqslant_pL_2\)</span> <strong>(polynomial-time reducible)</strong><a class="headerlink" href="#l_1leqslant_pl_2-polynomial-time-reducible" title="Permanent link">&para;</a></h4>
+<p>存在多项式时间的函数<span class="arithmatex">\(f:\{0,1\}^*\rightarrow \{0,1\}^*\)</span>使得对于所有<span class="arithmatex">\(x\{0,1\},x\in L_1~iff~f(x)\in L_2\)</span></p>
+<ul>
+<li>
+<p><span class="arithmatex">\(f\)</span>: reduction function</p>
+</li>
+<li>
+<p>执行<span class="arithmatex">\(f\)</span>的多项式时间算法<span class="arithmatex">\(F\)</span>: reduction algorithm</p>
+</li>
+</ul>
+<h4 id="np-complete"><strong>NP-complete</strong><a class="headerlink" href="#np-complete" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(1.L\in Np\)</span></p>
+<p><span class="arithmatex">\(2.L'\leqslant _pL~for~every~L'\in NP\)</span></p>
+<h4 id="np-hard"><strong>NP-hard</strong><a class="headerlink" href="#np-hard" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(L'\leqslant_pL~for~every~L'\in NP\)</span></p>
+<h4 id="_11"><strong>传递性</strong><a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(L_1\leqslant_p L_2~and~L_2\leqslant_p L_3~~~~\Rightarrow~~~~L_1\leqslant_p L_3\)</span></p>
+<h4 id="examples"><strong>Examples</strong><a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Vertex cover problem</li>
+<li>Hamiltonian cycle problem</li>
+<li>Satisfiability problem</li>
+</ul>
+<h3 id="proof_1"><strong>Proof</strong><a class="headerlink" href="#proof_1" title="Permanent link">&para;</a></h3>
+<h4 id="aleqslant_p-b"><span class="arithmatex">\(A\leqslant_p B\)</span><a class="headerlink" href="#aleqslant_p-b" title="Permanent link">&para;</a></h4>
+<p>1.找到映射函数<span class="arithmatex">\(f\)</span>，证明<span class="arithmatex">\(f\)</span>可以在多项式时间内运行。</p>
+<p>2.证明<span class="arithmatex">\(\forall x\in A,~f(x)\in B\)</span></p>
+<p>3.证明<span class="arithmatex">\(\forall f(x)\in B,~A \in x\)</span></p>
+<h4 id="y-is-np-complete"><strong>Y is NP-Complete</strong><a class="headerlink" href="#y-is-np-complete" title="Permanent link">&para;</a></h4>
+<p>1.证明<span class="arithmatex">\(Y\in NP\)</span></p>
+<p>2.找到一个NP-complete problem <span class="arithmatex">\(X\)</span>，证明<span class="arithmatex">\(X\leqslant_p Y\)</span></p>
+<h2 id="chapter11-approximation"><strong>Chapter11 ---Approximation | 近似算法</strong><a class="headerlink" href="#chapter11-approximation" title="Permanent link">&para;</a></h2>
+<h3 id="approximation-ratio"><strong>Approximation Ratio | 近似率</strong><a class="headerlink" href="#approximation-ratio" title="Permanent link">&para;</a></h3>
+<h4 id="definition_5"><strong>Definition</strong><a class="headerlink" href="#definition_5" title="Permanent link">&para;</a></h4>
+<p>对于一个输入规模为 <span class="arithmatex">\(n\)</span> 的算法，记算法的approximation ratio为 <span class="arithmatex">\(\rho(n)\)</span>。</p>
+<p>记近似算法给出的结果为 <span class="arithmatex">\(C\)</span> ，最优算法给出的结果为 <span class="arithmatex">\(C^*\)</span> ，则有以下关系：</p>
+<div class="arithmatex">\[
+max(\frac{C}{C^*},\frac{C^*}{C})\leqslant \rho(n)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\]</div>
+<p>对于一个可以达到 <span class="arithmatex">\(\rho(n)\)</span> 的算法，我们称之为 <span class="arithmatex">\(\rho(n)\)</span>-<strong>approximation algorithm</strong>.</p>
+<h4 id="minimum-probelm"><strong>Minimum Probelm</strong><a class="headerlink" href="#minimum-probelm" title="Permanent link">&para;</a></h4>
+<p>上式可写为 <span class="arithmatex">\(C\leqslant \rho(n)C^*\)</span> ，其中 <span class="arithmatex">\(\rho(n)&gt; 1\)</span>。</p>
+<p><strong>Proof</strong></p>
+<ol>
+<li><span class="arithmatex">\(C^*\geqslant x\)</span></li>
+<li><span class="arithmatex">\(C\leqslant x\rho(n) \leqslant \rho(n)C^*\)</span></li>
+</ol>
+<h4 id="maximum-probelm"><strong>Maximum Probelm</strong><a class="headerlink" href="#maximum-probelm" title="Permanent link">&para;</a></h4>
+<p>上式可写为 <span class="arithmatex">\(C\geqslant \rho(n)C^*\)</span> ，其中 <span class="arithmatex">\(0&lt;\rho(n)&lt; 1\)</span>。</p>
+<p><strong>Proof</strong></p>
+<ol>
+<li><span class="arithmatex">\(C^*\leqslant x\)</span></li>
+<li><span class="arithmatex">\(C\geqslant x\rho(n) \geqslant \rho(n)C^*\)</span></li>
+</ol>
+<h3 id="approximation-scheme"><strong>Approximation scheme | 近似方案</strong><a class="headerlink" href="#approximation-scheme" title="Permanent link">&para;</a></h3>
+<h4 id="definition_6">Definition<a class="headerlink" href="#definition_6" title="Permanent link">&para;</a></h4>
+<p>Approximation scheme是一种近似算法，它的输入值除了算法输入以外，还有一个值 <span class="arithmatex">\(\varepsilon\)</span> 。对于任何 <span class="arithmatex">\(\varepsilon\)</span> ，这个scheme是一个 (1+<span class="arithmatex">\(\varepsilon\)</span>)-approximation algorithm. </p>
+<h4 id="ptas"><strong>PTAS</strong><a class="headerlink" href="#ptas" title="Permanent link">&para;</a></h4>
+<p>Polynomial-time approximation scheme</p>
+<ul>
+<li><strong>Example</strong>: <span class="arithmatex">\(O(n^{2/\varepsilon})\)</span></li>
+</ul>
+<h4 id="fptas"><strong>FPTAS</strong><a class="headerlink" href="#fptas" title="Permanent link">&para;</a></h4>
+<p>Fully polynomial-time approximation scheme </p>
+<ul>
+<li><strong>Example</strong>: <span class="arithmatex">\(O((1/\varepsilon)^2n^3)\)</span></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>注意区分PTAS和FPTAS。PTAS的 <span class="arithmatex">\(1/\varepsilon\)</span> 在指数部分，而FPTAS的 <span class="arithmatex">\(1/\varepsilon\)</span> 在外部。</p>
+</div>
+<h3 id="approximate-bin-packing"><strong>Approximate Bin Packing</strong><a class="headerlink" href="#approximate-bin-packing" title="Permanent link">&para;</a></h3>
+<p><img alt="41" src="pic/41.jpg" />  </p>
+<h4 id="next-fit"><strong>Next Fit</strong><a class="headerlink" href="#next-fit" title="Permanent link">&para;</a></h4>
+<p>每次放不下之后都新建一个bin，并放到新的bin里。</p>
+<div class="language-c highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">NextFit</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">read</span><span class="w"> </span><span class="n">item1</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="n">item2</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">item2</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">packed</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">item1</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="n">place</span><span class="w"> </span><span class="n">item2</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">bin</span><span class="p">;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><a href="#__codelineno-4-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="k">else</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><a href="#__codelineno-4-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="n">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item2</span><span class="p">;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><a href="#__codelineno-4-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="n">item1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item2</span><span class="p">;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><a href="#__codelineno-4-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end-while */</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><a href="#__codelineno-4-10"><span class="linenos" data-linenos="10 "></span></a><span class="p">}</span>
+</code></pre></div>
+<div class="admonition theorem">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="arithmatex">\(M\)</span> be the optimal number of bins required to pack a list <span class="arithmatex">\(I\)</span> of items. Then next fit never uses more than <span class="arithmatex">\(2M – 1\)</span> bins.   There exist sequences such that next fit uses <span class="arithmatex">\(2M  – 1\)</span> bins.</p>
+</div>
+<p><img alt="42" src="pic/42.jpg" /></p>
+<h4 id="first-fit"><strong>First Fit</strong><a class="headerlink" href="#first-fit" title="Permanent link">&para;</a></h4>
+<p>每次都把物品放入第一个可以放得下的bin中。算法的时间复杂度可以利用二叉搜索树减小到 <span class="arithmatex">\(O(N\log N)\)</span>，搜索树中以下标为排序依据，同时每个节点存储子树的最大剩余容量以及本节点的剩余容量。</p>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">FirstFit</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="2 "></span></a><span class="p">{</span><span class="w">   </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">        </span><span class="n">scan</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">large</span><span class="w"> </span><span class="n">enough</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">found</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="n">place</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">bin</span><span class="p">;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">        </span><span class="k">else</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><a href="#__codelineno-5-7"><span class="linenos" data-linenos="7 "></span></a><span class="w">    </span><span class="n">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><a href="#__codelineno-5-8"><span class="linenos" data-linenos="8 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end-while */</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><a href="#__codelineno-5-9"><span class="linenos" data-linenos="9 "></span></a><span class="p">}</span>
+</code></pre></div>
+<div class="admonition theorem">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="arithmatex">\(M\)</span> be the optimal number of bins required to pack a list <span class="arithmatex">\(I\)</span> of items.  Then first fit never uses more than <span class="arithmatex">\(17M / 10\)</span> bins.  There exist sequences such that first fit uses <span class="arithmatex">\(17(M – 1) / 10\)</span> bins.</p>
+</div>
+<h4 id="best-fit"><strong>Best Fit</strong><a class="headerlink" href="#best-fit" title="Permanent link">&para;</a></h4>
+<p>每次都把物品放到能容得下的且剩余空间最少的bin中。</p>
+<p><span class="arithmatex">\(T=O(N\log N)\)</span>，使用的bin <span class="arithmatex">\(\leqslant 1.7M\)</span></p>
+<h4 id="on-line-algorithms"><strong>On-line Algorithms</strong><a class="headerlink" href="#on-line-algorithms" title="Permanent link">&para;</a></h4>
+<p>每次输入后都不知道算法是否结束，并且不能修改已经做出的决定。</p>
+<div class="admonition therom">
+<p class="admonition-title">Therom</p>
+<p>There are inputs that force any on-line bin-packing algorithm to use at least <span class="arithmatex">\(5/3\)</span> the optimal number of bins.</p>
+</div>
+<h4 id="off-line-algorithms"><strong>Off-line Algorithms</strong><a class="headerlink" href="#off-line-algorithms" title="Permanent link">&para;</a></h4>
+<p>在知道所有输入数据的前提下进行处理。</p>
+<p>在Bin Packing中，可以对所有数据先进行排序来优化后序操作。</p>
+<div class="admonition therom">
+<p class="admonition-title">Therom</p>
+<p>Let <span class="arithmatex">\(M\)</span> be the optimal number of bins required to pack a list <span class="arithmatex">\(I\)</span> of items.  Then first fit decreasing never uses more than <span class="arithmatex">\(11M / 9 + 6/9\)</span> bins.  There exist sequences such that first fit decreasing uses <span class="arithmatex">\(11M / 9 + 6/9\)</span> bins.</p>
+</div>
+<h3 id="the-knapsack-problem"><strong>The Knapsack Problem | 背包问题</strong><a class="headerlink" href="#the-knapsack-problem" title="Permanent link">&para;</a></h3>
+<p><img alt="43" src="pic/43.jpg" />   </p>
+<p>对于背包问题，我们有以下三种贪心策略：</p>
+<ol>
+<li>maximum profit(最大价值)</li>
+<li>minimum weight(最小重量)</li>
+<li>maximum profit density <span class="arithmatex">\(p_i / w_i\)</span> (最高性价比) </li>
+</ol>
+<p>对于每一种贪心策略，都可以构造特殊数据使得近似率达到无穷大。</p>
+<p>对于0-1背包问题，如果同时采用最大价值和最高性价比贪心，并且取两者最大值。则可以使近似率达到2。</p>
+<p><strong>Proof</strong></p>
+<div class="arithmatex">\[
+\begin{aligned}
+记&amp;p_{max}=max\{p_{mp},p_{pd}\}\\
+记&amp;若采用分数化物品的贪心得到的结果为p_{frac}\\
+则&amp;可知p_{max}\leq p_{opt} \leq p_{frac}\\
+假&amp;设使用最大性价比贪心选取的为w_1,w_2,……,w_k。下一个没有被选取的为w_{k+1}\\
+则&amp;p_{frac}=w_1+w_2+……+w_k+\alpha w_{k+1}\\
+&amp;\Rightarrow \frac{p_{opt}}{p_{max}}\leq \frac{p_{frac}}{p_{max}} \leq \frac{p_{mp}+p_{pd}}{p_{max}} \leq 2
+\end{aligned}
+\]</div>
+<h4 id="dynamic-programming-solution"><strong>Dynamic Programming Solution</strong><a class="headerlink" href="#dynamic-programming-solution" title="Permanent link">&para;</a></h4>
+<p><img alt="44" src="pic/44.jpg" /></p>
+<p>对于<span class="arithmatex">\(p_{max}\)</span>很大的情况，可以对所有p除以一个数来进行估计计算</p>
+<p><img alt="45" src="pic/45.jpg" /></p>
+<h3 id="the-k-center-problem"><strong>The K-center Problem</strong><a class="headerlink" href="#the-k-center-problem" title="Permanent link">&para;</a></h3>
+<p><img alt="46" src="pic/46.jpg" /> </p>
+<p><strong>Distan定义</strong></p>
+<ul>
+<li><span class="arithmatex">\(dist(x, x) = 0\)</span>                               (identity)</li>
+<li><span class="arithmatex">\(dist(x, y) = dist(y, x)\)</span>                       (symmetry)</li>
+<li><span class="arithmatex">\(dist(x, y) \leq dist(x, z) + dist(z, y)\)</span> (triangle inequality)</li>
+</ul>
+<h4 id="a-greedy-solution"><strong>A Greedy Solution</strong><a class="headerlink" href="#a-greedy-solution" title="Permanent link">&para;</a></h4>
+<p>首先通过二分法找到最优解的<span class="arithmatex">\(r(C^*)\)</span></p>
+<p><img alt="47" src="pic/47.jpg" /> </p>
+<p>然后使用贪心算法，每次任选一个点加入C，并删除所有距离该点<span class="arithmatex">\(\leq 2r(C^*)\)</span> 的点。(<strong>2-approximation</strong>)</p>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">Centers</span><span class="w">  </span><span class="n">Greedy</span><span class="mi">-2</span><span class="n">r</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">Sites</span><span class="w"> </span><span class="n">S</span><span class="p">[</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">Sites</span><span class="w">  </span><span class="n">S</span><span class="err">’</span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="p">[</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="cm">/* S’ is the set of the remaining sites */</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">Centers</span><span class="w">  </span><span class="n">C</span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">empty</span><span class="p">();</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">S</span><span class="err">’</span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">empty</span><span class="p">()</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="n">Select</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">S</span><span class="err">’</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="n">Delete</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">s</span><span class="err">’</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">S</span><span class="err">’</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">dist</span><span class="p">(</span><span class="n">s</span><span class="err">’</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2</span><span class="n">r</span><span class="p">;</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><a href="#__codelineno-6-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end-while */</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><a href="#__codelineno-6-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">C</span><span class="o">|</span><span class="w"> </span><span class="err"></span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><a href="#__codelineno-6-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">ERROR</span><span class="p">(</span><span class="n">No</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="n">centers</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">covering</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">most</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><a href="#__codelineno-6-10"><span class="linenos" data-linenos="10 "></span></a><span class="p">}</span>
+</code></pre></div>
+<div class="admonition therom">
+<p class="admonition-title">Therom</p>
+<p>Suppose the algorithm selects more than <span class="arithmatex">\(K\)</span> centers.  Then for any set <span class="arithmatex">\(C^*\)</span> of size at most <span class="arithmatex">\(K\)</span>, the covering radius is <span class="arithmatex">\(r(C^*) &gt; r\)</span>.</p>
+</div>
+<h4 id="a-smarter-solution-be-far-away"><strong>A smarter solution — be far away</strong><a class="headerlink" href="#a-smarter-solution-be-far-away" title="Permanent link">&para;</a></h4>
+<p>先任意选取一个s，然后每次都选取剩余点中距离最远的一个点，直到选满。</p>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a><span class="n">Centers</span><span class="w">  </span><span class="n">Greedy</span><span class="o">-</span><span class="n">Kcenter</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">Sites</span><span class="w"> </span><span class="n">S</span><span class="p">[</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">Centers</span><span class="w">  </span><span class="n">C</span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">empty</span><span class="p">();</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="n">Select</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">|</span><span class="n">C</span><span class="o">|</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">        </span><span class="n">Select</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">maximum</span><span class="w"> </span><span class="n">dist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">);</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">        </span><span class="n">Add</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><a href="#__codelineno-7-7"><span class="linenos" data-linenos="7 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="cm">/* end-while */</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><a href="#__codelineno-7-8"><span class="linenos" data-linenos="8 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><a href="#__codelineno-7-9"><span class="linenos" data-linenos="9 "></span></a><span class="p">}</span>
+</code></pre></div>
+<div class="admonition therom">
+<p class="admonition-title">Therom</p>
+<p>The algorithm returns a set <span class="arithmatex">\(C\)</span> of <span class="arithmatex">\(K\)</span> centers such that <span class="arithmatex">\(r(C) \leq 2r(C^*)\)</span> where <span class="arithmatex">\(C^*\)</span> is an optimal set of K centers.</p>
+<p><span class="arithmatex">\(\Rightarrow\)</span> <strong>2-approximation</strong></p>
+</div>
+<div class="admonition therom">
+<p class="admonition-title">Therom</p>
+<p>Unless P = NP, there is no <span class="arithmatex">\(\rho\)</span> -approximation for center-selection problem for any <span class="arithmatex">\(\rho\)</span> &lt; 2.</p>
+<p><img alt="48" src="pic/48.jpg" /></p>
+</div>
+<h2 id="chapter12-local-search"><strong>Chapter12 ---Local Search | 局部搜索</strong><a class="headerlink" href="#chapter12-local-search" title="Permanent link">&para;</a></h2>
+<p>用于在给定问题的搜索空间中找到接近最优解或全局最优解的过程。</p>
+<p>Local Search是一种启发式算法，解的质量具有不稳定性。</p>
+<h3 id="framework">Framework<a class="headerlink" href="#framework" title="Permanent link">&para;</a></h3>
+<h4 id="local">Local<a class="headerlink" href="#local" title="Permanent link">&para;</a></h4>
+<ul>
+<li>在可行集(Feasible solution set)里定义邻域(neighborhoods)</li>
+<li>局部最优(local optimum)就是邻域里的最优解</li>
+</ul>
+<h4 id="search">Search<a class="headerlink" href="#search" title="Permanent link">&para;</a></h4>
+<ul>
+<li>从一个可行解开始在邻域里找一个更好的解</li>
+<li>如果不能再优化，那就找到的优解</li>
+</ul>
+<h3 id="template_1">Template<a class="headerlink" href="#template_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><span class="arithmatex">\(S \sim S'\)</span> :  <span class="arithmatex">\(S'\)</span> is a neighboring solution of <span class="arithmatex">\(S\)</span> – <span class="arithmatex">\(S'\)</span> can be obtained by a small modification of <span class="arithmatex">\(S\)</span>.</p>
+</li>
+<li>
+<p><span class="arithmatex">\(N(S)\)</span>:  neighborhood of <span class="arithmatex">\(S\)</span> – the set <span class="arithmatex">\(\{ S': S \sim S' \}\)</span>.</p>
+</li>
+</ul>
+<div class="language-c highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">SolutionType</span><span class="w"> </span><span class="nf">Gradient_descent</span><span class="p">()</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">Start</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">feasible</span><span class="w"> </span><span class="n">solution</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">FS</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">MinCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">(</span><span class="n">S</span><span class="p">);</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="n">S</span><span class="err">’</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Search</span><span class="p">(</span><span class="w"> </span><span class="n">N</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">);</span><span class="w"> </span><span class="cm">/* find the best S’ in N(S) */</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="n">CurrentCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">(</span><span class="n">S</span><span class="err">’</span><span class="p">);</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">CurrentCost</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MinCost</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><a href="#__codelineno-8-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">            </span><span class="n">MinCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CurrentCost</span><span class="p">;</span><span class="w">    </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="err">’</span><span class="p">;</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><a href="#__codelineno-8-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><a href="#__codelineno-8-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">        </span><span class="k">else</span><span class="w">  </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><a href="#__codelineno-8-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><a href="#__codelineno-8-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">S</span><span class="p">;</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><a href="#__codelineno-8-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="vertex-cover-problem"><strong>Vertex Cover Problem</strong><a class="headerlink" href="#vertex-cover-problem" title="Permanent link">&para;</a></h3>
+<p>给定一个无向图 <span class="arithmatex">\(G = (V, E)\)</span>，找到 <span class="arithmatex">\(V\)</span> 的<strong>最小</strong>子集 <span class="arithmatex">\(S\)</span> ，满足对于 <span class="arithmatex">\(E\)</span>  中所有的边 <span class="arithmatex">\((u, v)\)</span>， 都有 <span class="arithmatex">\(u\in S\)</span> 或 <span class="arithmatex">\(v\in S\)</span> 。 </p>
+<h4 id="define">Define<a class="headerlink" href="#define" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Feasible solution set</strong>：<span class="arithmatex">\(F(S)\)</span>：所有包含的顶点</p>
+</li>
+<li>
+<p><span class="arithmatex">\(cost(S)=|S|\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(S \sim S'\)</span>：<span class="arithmatex">\(S'\)</span> 由 <span class="arithmatex">\(S\)</span> 删除（或增加）一个节点得到</p>
+</li>
+</ul>
+<h4 id="search_1">Search<a class="headerlink" href="#search_1" title="Permanent link">&para;</a></h4>
+<p>从 <span class="arithmatex">\(S=V\)</span> 开始，删除一个节点，并检查 <span class="arithmatex">\(S'\)</span> 是否为 <span class="arithmatex">\(cost\)</span> 更小的顶点覆盖。</p>
+<p>如图所示在Case1如果中删除了中间点将会得到一个worst solution。</p>
+<p><img alt="49" src="pic/49.jpg" /></p>
+<h3 id="the-metropolis-algorithm-improve"><strong>The Metropolis Algorithm (Improve)</strong><a class="headerlink" href="#the-metropolis-algorithm-improve" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">SolutionType</span><span class="w"> </span><span class="nf">Metropolis</span><span class="p">()</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span><span class="w">   </span><span class="n">Define</span><span class="w"> </span><span class="n">constants</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">Start</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">feasible</span><span class="w"> </span><span class="n">solution</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">FS</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">MinCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">(</span><span class="n">S</span><span class="p">);</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="n">S</span><span class="err">’</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Randomly</span><span class="w"> </span><span class="n">chosen</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">N</span><span class="p">(</span><span class="n">S</span><span class="p">);</span><span class="w"> </span><span class="c1">//Adding is allowed</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="n">CurrentCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">(</span><span class="n">S</span><span class="err">’</span><span class="p">);</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">CurrentCost</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MinCost</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">            </span><span class="n">MinCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CurrentCost</span><span class="p">;</span><span class="w">    </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="err">’</span><span class="p">;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><a href="#__codelineno-9-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><a href="#__codelineno-9-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">            </span><span class="n">With</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">probability</span><span class="w"> </span><span class="n">e</span><span class="o">^</span><span class="p">{</span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">cost</span><span class="o">/</span><span class="p">(</span><span class="n">KT</span><span class="p">)}</span><span class="w">  </span><span class="p">,</span><span class="w"> </span><span class="n">let</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="err">’</span><span class="p">;</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><a href="#__codelineno-9-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">            </span><span class="k">else</span><span class="w">  </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><a href="#__codelineno-9-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><a href="#__codelineno-9-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><a href="#__codelineno-9-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">S</span><span class="p">;</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><a href="#__codelineno-9-17"><span class="linenos" data-linenos="17 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="hopfield-neural-networks"><strong>Hopfield Neural Networks</strong><a class="headerlink" href="#hopfield-neural-networks" title="Permanent link">&para;</a></h3>
+<p>给定图 <span class="arithmatex">\(G = (V， E)\)</span>，边权为整数 <span class="arithmatex">\(w\)</span>（可正可负)。</p>
+<p>如果 <span class="arithmatex">\(w_e&lt; 0\)</span>，其中 <span class="arithmatex">\(e = (u, v)\)</span>，那么 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 要有相同的状态(<span class="arithmatex">\(\pm1\)</span>)；</p>
+<p>如果<span class="arithmatex">\(w_e&gt; 0\)</span>，那么 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 要有不同的状态。</p>
+<p>输出：每个顶点 <span class="arithmatex">\(u\)</span> 的状态 <span class="arithmatex">\(s_u\)</span>。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>可能不存在使所有边都满足需求，因此只需找到一个足够好的解</p>
+</div>
+<h4 id="definition_7">Definition<a class="headerlink" href="#definition_7" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>In a configuration <span class="arithmatex">\(S\)</span>, edge <span class="arithmatex">\(e = (u, v)\)</span> is <strong>good</strong> if <span class="arithmatex">\(w_e s_u s_v &lt; 0\)</span> (<span class="arithmatex">\(w_e &lt; 0~iff~s_u = s_v\)</span> ); otherwise, it is <strong>bad</strong>.</p>
+</li>
+<li>
+<p>In a configuration <span class="arithmatex">\(S\)</span>, a node <span class="arithmatex">\(u\)</span> is <strong>satisfied</strong> if the weight of incident good edges <span class="arithmatex">\(\geq\)</span> weight of incident bad edges.</p>
+</li>
+</ul>
+<div class="arithmatex">\[
+\sum_{v:e=(u,v)\in S}w_eu_ev_e\leq 0
+\]</div>
+<ul>
+<li>A configuration is <strong>stable</strong> if all nodes are satisfied.</li>
+</ul>
+<h4 id="state-flipping-algorithm"><strong>State-flipping Algorithm</strong><a class="headerlink" href="#state-flipping-algorithm" title="Permanent link">&para;</a></h4>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a><span class="n">ConfigType</span><span class="w"> </span><span class="nf">State_flipping</span><span class="p">()</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos="2 "></span></a><span class="p">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="n">Start</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">arbitrary</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">S</span><span class="p">;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">IsStable</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><a href="#__codelineno-10-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">        </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetUnsatisfied</span><span class="p">(</span><span class="n">S</span><span class="p">);</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><a href="#__codelineno-10-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">        </span><span class="n">su</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">su</span><span class="p">;</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><a href="#__codelineno-10-7"><span class="linenos" data-linenos="7 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><a href="#__codelineno-10-8"><span class="linenos" data-linenos="8 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">S</span><span class="p">;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><a href="#__codelineno-10-9"><span class="linenos" data-linenos="9 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="solution"><strong>Solution</strong><a class="headerlink" href="#solution" title="Permanent link">&para;</a></h4>
+<p><img alt="50" src="pic/50.jpg" /> </p>
+<h4 id="related-to-local-search"><strong>Related to Local Search</strong><a class="headerlink" href="#related-to-local-search" title="Permanent link">&para;</a></h4>
+<ul>
+<li>目标：求最大的 <span class="arithmatex">\(\Phi\)</span></li>
+<li>可行集 <span class="arithmatex">\(F(S)\)</span>：configurations </li>
+<li><span class="arithmatex">\(S\sim S'\)</span>：<span class="arithmatex">\(S'\)</span> 可以通过改变 <span class="arithmatex">\(S\)</span> 中的一个状态获取</li>
+</ul>
+<div class="admonition claim">
+<p class="admonition-title">Claim</p>
+<p>Any local maximum in the state-flipping algorithm to maximize <span class="arithmatex">\(\Phi\)</span> is a stable configuration.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>该算法是否多项式可解仍然未知。</p>
+</div>
+<h3 id="the-maximum-cut-problem"><strong>The Maximum Cut Problem</strong><a class="headerlink" href="#the-maximum-cut-problem" title="Permanent link">&para;</a></h3>
+<p>给定一个无向图 <span class="arithmatex">\(G=(V,E)\)</span> ，每条边的权重都为正整数 <span class="arithmatex">\(w_e\)</span>，找到一个node partition <span class="arithmatex">\((A,B)\)</span>，使得穿过分割线的边的总权重最大。</p>
+<div class="arithmatex">\[
+w(A,B)=\sum_{u\in A,v\in B}w_e
+\]</div>
+<h4 id="related-to-local-search_1"><strong>Related to Local Search</strong><a class="headerlink" href="#related-to-local-search_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>目标：求最大的 <span class="arithmatex">\(w(A,B)\)</span></li>
+<li>可行集 <span class="arithmatex">\(F(S)\)</span>：任意切分 <span class="arithmatex">\((A,B)\)</span></li>
+<li><span class="arithmatex">\(S\sim S'\)</span>：<span class="arithmatex">\(S'\)</span> 可以通过把一个点从 <span class="arithmatex">\(A\)</span> 移到 <span class="arithmatex">\(B\)</span>（或从 <span class="arithmatex">\(B\)</span> 移到 <span class="arithmatex">\(A\)</span> ）得到</li>
+</ul>
+<h4 id="solution_1"><strong>Solution</strong><a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h4>
+<p><img alt="51" src="pic/51.jpg" /> </p>
+<div class="admonition reference">
+<p class="admonition-title">Reference</p>
+<p><span class="arithmatex">\(\bullet\)</span> [Sahni-Gonzales 1976]  There exists a 2-approximation algorithm for MAX-CUT.</p>
+<p><span class="arithmatex">\(\bullet\)</span> [Goemans-Williamson 1995]  There exists a 1.1382(<span class="arithmatex">\(\max_{0\leq \theta \leq \pi}\frac{\pi}{2}\frac{1-\cos \theta}{\theta}\)</span>)-approximation algorithm for MAX-CUT.</p>
+<p><span class="arithmatex">\(\bullet\)</span> [Håstad 1997]  Unless P = NP, no 17/16 approximation algorithm for MAX-CUT.</p>
+</div>
+<h4 id="big-improvement-flip">Big-improvement-flip<a class="headerlink" href="#big-improvement-flip" title="Permanent link">&para;</a></h4>
+<p>（对于原算法可能无法在多项式时间完成的优化）</p>
+<p>只有在value至少增加 <span class="arithmatex">\(\frac{2\epsilon}{|V|}w(A,B)\)</span> 时才进行 flip 操作。</p>
+<div class="admonition claim">
+<p class="admonition-title">Claim</p>
+<p>直到结束, Big-improvement-flip的结果满足<span class="arithmatex">\((2+\epsilon)w(A,B)\geq w(A^*,B^*)\)</span></p>
+</div>
+<div class="admonition claim">
+<p class="admonition-title">Claim</p>
+<p>直到结束, Big-improvement-flip至多进行O(<span class="arithmatex">\(n/\epsilon \log w\)</span>)次 flips</p>
+</div>
+<h2 id="_12"><strong>习题</strong><a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p><img src="./pic/T1.png" alt="T1" style="zoom:80%;" /> </p>
+<p><img alt="T2" src="pic/T2.png" /></p>
+<p><img alt="T3" src="pic/T3.jpg" /></p>
+<p>Right Answer: <strong>B</strong></p>
+<p><img alt="T4" src="pic/T4.jpg" /></p>
+<p><img alt="T5" src="pic/T5.jpg" /></p>
+<p><img alt="T6" src="pic/T6.jpg" /></p>
+<p><img alt="T7" src="pic/T7.jpg" /></p>
+<p><img alt="T8" src="pic/T8.jpg" /></p>
+<p><img alt="T9" src="pic/T9.jpg" /></p>
+<ul>
+<li>Proof</li>
+</ul>
+<p><img alt="T9-1" src="pic/T9-1.jpg" /> </p>
+<div class="arithmatex">\[
+\begin{aligned}
+假设&amp;使用Greedy分配的工作形式如上图.则有以下关系：\\
+&amp;L_i\geq x,~i=1,2,……,m\\
+&amp;T_{OPT}\geq max\{p_i\} \Rightarrow P_n\leq T_{OPT}\\
+&amp;T_{OPT}\geq \frac{\sum^m_{i=1}p_i}{m}\geq \frac{mx+p_n}{m}=x+\frac{p_n}{m} \\
+\Rightarrow&amp;T=x+p_n\leq x+\frac{p_n}{m}+(1-\frac{1}{m})p_n\leq T_{OPT}+(1-\frac{1}{m})T_{OPT}\\
+\Rightarrow&amp;\alpha=\frac{T}{T_{OPT}}\leq 2-\frac{1}{m}\\
+构造&amp;(m-1)m个p_i=1的工作和一个p_i=m的工作。\\
+此时&amp;T=2m-1,T_{OPT}=m\\
+\Rightarrow&amp;\alpha\geq \frac{2m-1}{m}=2-\frac{1}{m}\\
+\Rightarrow&amp;\alpha=2-\frac{1}{m}\\
+\end{aligned}
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>可以使用排序是，近似比可优化到<span class="arithmatex">\(\alpha=1+\frac{1}{3}(1-\frac{1}{m})=\frac{4}{3}-\frac{1}{3m}\)</span></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../window.MathJax = {
+  tex: {
+    inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;/(&#39;, &#39;/)&#39;]],
+    displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;/[&#39;, &#39;/]&#39;]]
+  }
+};
+"></script>
+      
+    
+  </body>
+</html>
