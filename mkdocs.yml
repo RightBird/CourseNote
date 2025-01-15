@@ -133,7 +133,13 @@ nav:
       - Chapter14 ---Parallel Algorithms: 大二上/高级数据结构与算法分析/Chapter14 ---Parallel Algorithms.md
       - Chapter15 ---External Sorting: 大二上/高级数据结构与算法分析/Chapter15 ---External Sorting.md
       - 习题: 大二上/高级数据结构与算法分析/习题.md
-    - 计算机组成: 大二上/计算机组成/计算机组成.md
+    - 计算机组成:
+      - Chapter1  Computer Abstractions and Technology: Chapter1  Computer Abstractions and Technology.md
+      - Chapter2  Instructions Language of the Computer: Chapter2  Instructions Language of the Computer.md
+      - Chapter3  Arithmetic for Computer: Chapter3  Arithmetic for Computer.md
+      - Chapter4 The Processor: Chapter4 The Processor.md
+      - Chapter5 Large and Fast Exploiting Memory Hierarchy: Chapter5 Large and Fast Exploiting Memory Hierarchy.md
+      - Chapter6 Storage and other IO Topics: Chapter6 Storage and other IO Topics.md
     
 repo_url: https://github.com/RightBird/CourseNote
 repo_name: CourseNote
