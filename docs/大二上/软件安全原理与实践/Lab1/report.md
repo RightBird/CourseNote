@@ -24,7 +24,7 @@ p.sendline(payload)
 p.interactive()
 ```
 
-![flag1](/spof/flag.jpg)
+![flag1](spof/flag.jpg)
 
 
 
@@ -70,7 +70,7 @@ p.send(payload)
 p.interactive()
 ```
 
-![flag2](/rop2/flag.jpg)
+![flag2](rop2/flag.jpg)
 
 
 
@@ -78,7 +78,7 @@ p.interactive()
 
 ​	原程序中限制了buffer数组的长度，无法通过简单的rop进行攻击。注意到原程序中还有一个gbuffer可使用，因此需要在buffer溢出时实现栈迁移，将rbp，rsp迁移到gbuffer中，在gbuffer中继续构造rop链，实现攻击。
 
-![Inst](/rop3/Inst.jpg)
+![Inst](rop3/Inst.jpg)
 
 ​	首先使用ROPgadget获取leave_ret，pot_ret，ret指令的地址。利用得到的地址开始构造ROP链。	
 
@@ -121,4 +121,4 @@ p.sendline(payload2)
 p.interactive()
 ```
 
-![flag3](/rop3/flag.jpg)
+![flag3](rop3/flag.jpg)
