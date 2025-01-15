@@ -115,7 +115,24 @@ extra_css:
 nav:
   - Home: index.md
   - 大二上:
-    - 高级数据结构与算法分析: 大二上/高级数据结构与算法分析/高级数据结构与算法分析.md
+    - 高级数据结构与算法分析: 
+      - Grading Policy: 大二上/高级数据结构与算法分析/Grading Policy.md
+      - Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis: 大二上/高级数据结构与算法分析/Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis.md
+      - Chapter 2 ---Red-Black Trees and B+ Trees: 大二上/高级数据结构与算法分析/Chapter 2 ---Red-Black Trees and B+ Trees.md
+      - Chapter 3 ---Inverted File Index: 大二上/高级数据结构与算法分析/Chapter 3 ---Inverted File Index.md
+      = Chapter 4 ---Leftist Heaps and Skew Heaps: 大二上/高级数据结构与算法分析/Chapter 4 ---Leftist Heaps and Skew Heaps.md
+      - Chapter 5 ---Binomial Queue: 大二上/高级数据结构与算法分析/Chapter 5 ---Binomial Queue.md
+      = Chapter 6 ---Backtracking: 大二上/高级数据结构与算法分析/Chapter 6 ---Backtracking.md
+      - Chapter 7 ---Divide and Conquer: 大二上/高级数据结构与算法分析/Chapter 7 ---Divide and Conquer.md
+      = Chapter 8 ---Dynamic Programming: 大二上/高级数据结构与算法分析/Chapter 8 ---Dynamic Programming.md
+      = Chapter 9 ---Greedy: 大二上/高级数据结构与算法分析/Chapter 9 ---Greedy.md
+      - Chapter10 ---NP-Completeness: 大二上/高级数据结构与算法分析/Chapter10 ---NP-Completeness.md
+      - Chapter11 ---Approximation: 大二上/高级数据结构与算法分析/Chapter11 ---Approximation.md
+      - Chapter12 ---Local Search: 大二上/高级数据结构与算法分析/Chapter12 ---Local Search.md
+      - Chapter13 ---Randomized Algorithm: 大二上/高级数据结构与算法分析/Chapter13 ---Randomized Algorithm.md
+      = Chapter14 ---Parallel Algorithms: 大二上/高级数据结构与算法分析/Chapter14 ---Parallel Algorithms.md
+      - Chapter15 ---External Sorting: 大二上/高级数据结构与算法分析/Chapter15 ---External Sorting.md
+      - 习题: 大二上/高级数据结构与算法分析/习题.md
     - 计算机组成: 大二上/计算机组成/计算机组成.md
     
 repo_url: https://github.com/RightBird/CourseNote
