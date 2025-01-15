@@ -6,7 +6,7 @@
 
 ​	在攻击过程中，构造payload=b"AAB%9$hn"+p64(address_x)，其中AAB用于对齐指令，使得x的地址位于buffer的第二个位置，即栈上offset为9的位置。然后在printf(buffer)时，程序调用%hn命令，修改x的值，完成攻击。
 
-![gdb1](/fsb1/gdb1.jpg) 
+![gdb1](fsb1/gdb1.jpg) 
 
 ```python
 from pwn import *
@@ -26,7 +26,7 @@ p.sendline(payload)
 p.interactive()
 ```
 
-![flag1](/fsb1/flag1.jpg)  
+![flag1](fsb1/flag1.jpg)  
 
 ## Fsb2
 
@@ -34,7 +34,7 @@ p.interactive()
 
 ​	首先，根据GDB的调试可知，buffer存储在栈上offset=6的位置，通过计算可知buffer的最后一个元素存储在offset=37的位置。在攻击过程中，先通过ELF获取printf的got表地址。在第一轮循环中，构造payload=b"%37$s"+b"A"*(256-len(payload)-8)+p64(printf_got)，利用%s泄露出printf在系统中的实际地址。在第二轮循环中，利用fmtstr_payload构造payload将第一轮循环中获取的地址加上system()与printf()的偏移量，即将内存中的printf()修改为system，最后传输“/bin/sh”完成攻击。
 
-![gdb2](/fsb1/gdb2.jpg) 
+![gdb2](fsb1/gdb2.jpg) 
 
 ```python
 from pwn import *
@@ -73,4 +73,4 @@ p.send(b"/bin/sh\0")
 p.interactive()
 ```
 
-![flag2](/fsb1/flag2.jpg) 
+![flag2](fsb1/flag2.jpg) 
