@@ -114,7 +114,7 @@ extra_css:
 
 nav:
   - Home: index.md
-  - 课程笔记
+  - 课程笔记:
     - 大二上:
       - 高级数据结构与算法分析:
         - Grading Policy: 大二上/高级数据结构与算法分析/Grading Policy.md
@@ -147,7 +147,7 @@ nav:
         - Lab3: 大二上/软件安全原理与实践/Lab3/Report.md
         - Lab4: 大二上/软件安全原理与实践/Lab4/Report.md
         - Final: 大二上/软件安全原理与实践/Final/Report.md 
-    - C++
+    - C++:
     
 repo_url: https://github.com/RightBird/CourseNote
 repo_name: CourseNote
