@@ -105,9 +105,9 @@ ld-sw
 
 #### **Summary**
 
-- **发生原因**：指令需要的数据还没被计算或存储
+$\bullet$ **发生原因**：指令需要的数据还没被计算或存储
 
-- **Solutions**:
+$\bullet$ **Solutions**:
   
 ​	1. Double bump
 
@@ -176,7 +176,8 @@ $\bullet$ To execute a branch
 
 使用一位进行预测，根据上一次预测的结果对下一次进行预测。
 
-- **Shortcomings: 对于内嵌循环会连续错误两次**
+$\bullet$ **Shortcomings: 对于内嵌循环会连续错误两次**
+
   1. Mispredict as taken on last iteration of inner loop
   
   2.Then mispredict as not taken on first iteration of inner loop next time around
