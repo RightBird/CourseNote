@@ -21,19 +21,36 @@ theme:
   font:
     code: JetBrains Mono
   features:
-    # - navigation.instant # 现在页面不会跳转,而是类似单页应用,搜索和各种跳转都是在当前页面完成,对美观有很大帮助
-    - navigation.tabs # 页面上方的标签页
-    - navigation.tracking # 页面滚动时，导航栏高亮当前页面
-    # - navigation.sections # 使导航栏分块
-    # - navigation.expand # 默认展开导航
-    - navigation.prune # 只渲染当前页面的导航
-    # - toc.follow # 滚动的时候侧边栏自动跟随
-    - navigation.top # 返回顶部按钮
-    - search.suggest # 补全建议
-    - search.highlight # 搜索结果高亮
-    - search.share # 搜索结果分享
-    # - navigation.footer # 页脚提示下一章
-    - content.code.copy # 代码段上的赋值按钮
+    - content.action.edit # 编辑按钮
+    - content.action.view # 查看源代码按钮
+    - content.code.copy # 支持代码块复制
+    - navigation.footer # 上一页和下一页
+    - navigation.tabs # 一级导航在横着的导航栏
+    - content.code.annotate # 可以在代码块中增添点击展示的注释，参见 https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations
+    # - navigation.tracking # 地址栏中的 URL 会随当前位置变化为对应小节的 URL
+    - navigation.indexes # 将 index 页面直接附到小节名上
+    - navigation.top # 回到顶部按钮
+    # - navigation.sections # 二级导航是粗体
+    # - navigation.expand # 导航默认展开
+    - toc.follow # toc 跟随
+    # - toc.integrate # 文档 toc 集成到总目录中 
+    - search.suggest
+    - search.highlight
+    - search.share
+  # features:
+  #   # - navigation.instant # 现在页面不会跳转,而是类似单页应用,搜索和各种跳转都是在当前页面完成,对美观有很大帮助
+  #   - navigation.tabs # 页面上方的标签页
+  #   - navigation.tracking # 页面滚动时，导航栏高亮当前页面
+  #   # - navigation.sections # 使导航栏分块
+  #   # - navigation.expand # 默认展开导航
+  #   - navigation.prune # 只渲染当前页面的导航
+  #   # - toc.follow # 滚动的时候侧边栏自动跟随
+  #   - navigation.top # 返回顶部按钮
+  #   - search.suggest # 补全建议
+  #   - search.highlight # 搜索结果高亮
+  #   - search.share # 搜索结果分享
+  #   # - navigation.footer # 页脚提示下一章
+  #   - content.code.copy # 代码段上的赋值按钮
   icon:
     repo: fontawesome/brands/git-alt
 
