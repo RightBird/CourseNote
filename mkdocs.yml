@@ -147,7 +147,7 @@ nav:
         - Lab3: 大二上/软件安全原理与实践/Lab3/Report.md
         - Lab4: 大二上/软件安全原理与实践/Lab4/Report.md
         - Final: 大二上/软件安全原理与实践/Final/Report.md 
-    - C++: blank.md
+  - C++: blank.md
     
 repo_url: https://github.com/RightBird/CourseNote
 repo_name: CourseNote
