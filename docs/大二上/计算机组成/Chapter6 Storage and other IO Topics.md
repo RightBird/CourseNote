@@ -117,17 +117,17 @@ Reliability of N disks = Reliability of 1 Disk ÷ N
 
 ### Communication with the Processor
 
-- **Polling**：处理器定期检查状态位，看是否到了下一个I/O操作的时间。
-  - 缺点：浪费处理器时钟
+#### **Polling**：处理器定期检查状态位，看是否到了下一个I/O操作的时间。
 
+缺点：浪费处理器时钟
 
+#### **Interrupt**: 当一个I/O设备想要通知处理器它已经完成了某些操作或需要操作时，中断处理器来处理I/O。
 
-- **Interrupt**: 当一个I/O设备想要通知处理器它已经完成了某些操作或需要操作时，中断处理器来处理I/O。
-  - 操作系统可以在处理I/O时进行其他操作	
+操作系统可以在处理I/O时进行其他操作	
 
 ![53](pic/53.jpg) 
 
-- **DMA** *(direct memory access)*: 设备控制器直接将数据传输到存储器或从存储器传输数据，而不涉及处理器。
-  - 不过多消耗处理器时钟
+#### **DMA** *(direct memory access)*: 设备控制器直接将数据传输到存储器或从存储器传输数据，而不涉及处理器。
+不过多消耗处理器时钟
 
 ![52](pic/52.jpg) 
