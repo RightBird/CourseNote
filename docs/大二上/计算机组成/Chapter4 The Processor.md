@@ -109,7 +109,7 @@ $\bullet$ **发生原因**：指令需要的数据还没被计算或存储
 
 $\bullet$ **Solutions**:
   
-​	1. Double bump
+  1. Double bump
 
 ​	2. Forwarding
 
@@ -180,7 +180,7 @@ $\bullet$ **Shortcomings: 对于内嵌循环会连续错误两次**
 
   1. Mispredict as taken on last iteration of inner loop
   
-  2.Then mispredict as not taken on first iteration of inner loop next time around
+  2. Then mispredict as not taken on first iteration of inner loop next time around
 
 ![31](pic/31.jpg) 
 
