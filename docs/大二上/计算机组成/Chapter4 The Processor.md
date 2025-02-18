@@ -151,11 +151,11 @@ $\Rightarrow Pref=1+br\%\times taken\%+br\% \times untaken\% \times 3$
 
 ##### **More-Realistic Branch Prediction**
 
-**(1) Static branch prediction**
+###### **(1) Static branch prediction**
 
 根据设定的规则进行推测
 
-**(2) Dynamic branch prediction**
+###### **(2) Dynamic branch prediction**
 
 $\bullet$ Branch prediction buffer (aka branch history table)
   记录前几次是否命中
@@ -172,14 +172,13 @@ $\bullet$ To execute a branch
   
   3. If wrong, flush pipeline and flip prediction
 
- **1-bit predictor**
+ $\bullet$ **1-bit predictor**
 
 使用一位进行预测，根据上一次预测的结果对下一次进行预测。
 
-$\bullet$ **Shortcomings: 对于内嵌循环会连续错误两次**
+ **Shortcomings: 对于内嵌循环会连续错误两次**
 
   1. Mispredict as taken on last iteration of inner loop
-  
   2. Then mispredict as not taken on first iteration of inner loop next time around
 
 ![31](pic/31.jpg) 
