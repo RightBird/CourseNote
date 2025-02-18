@@ -7,7 +7,6 @@
 - quiz 10% （4-5次）
 
 - Lab & Projcect  30%
-
   - Lab1 DBMS的安装和使用
   - Lab2 SOL数据定义和操作
   - Lab3 SQL数据完整性
