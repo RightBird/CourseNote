@@ -53,3 +53,29 @@ body {
     padding-left: 20px; /* 确保列表有足够的缩进 */
 }
 
+/* 强制调整所有的 ul 和 ol 的样式 */
+.md-typeset ul,
+.md-typeset ol {
+    margin-left: 30px; /* 确保所有列表都有足够的缩进 */
+    padding-left: 30px;
+}
+
+/* 强制嵌套列表的缩进 */
+.md-typeset ul ul,
+.md-typeset ol ol {
+    margin-left: 40px;
+}
+
+/* 自定义列表项的符号 */
+.md-typeset ul li {
+    list-style-type: disc; /* 圆点符号 */
+}
+
+.md-typeset ol li {
+    list-style-type: decimal; /* 数字符号 */
+}
+
+/* 自定义嵌套列表项的符号 */
+.md-typeset ul ul li {
+    list-style-type: circle; /* 子列表使用圆形符号 */
+}
