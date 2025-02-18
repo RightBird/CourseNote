@@ -26,17 +26,17 @@ body {
 
 .md-typeset h4 {
     font-size: 1.4em; /* H4 的字体大小 */
-    margin-bottom: 0.5em; /* H4 下边距 */
+    margin-bottom: 0.4em; /* H4 下边距 */
 }
 
 .md-typeset h5 {
     font-size: 1.25em; /* H5 的字体大小 */
-    margin-bottom: 0.5em; /* H5 下边距 */
+    margin-bottom: 0.3em; /* H5 下边距 */
 }
 
 .md-typeset h6 {
     font-size: 1.1em; /* H6 的字体大小 */
-    margin-bottom: 0.5em; /* H6 下边距 */
+    margin-bottom: 0.2em; /* H6 下边距 */
 }
 
 /* 调整代码块和其他元素的样式 */
