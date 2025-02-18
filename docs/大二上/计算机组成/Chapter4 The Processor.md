@@ -156,18 +156,20 @@ $\Rightarrow Pref=1+br\%\times taken\%+br\% \times untaken\% \times 3$
 
 **(2) Dynamic branch prediction**
 
-1. Branch prediction buffer (aka branch history table)
+$\bullet$ Branch prediction buffer (aka branch history table)
   记录前几次是否命中
 
-2. Indexed by recent branch instruction addresses
+$\bullet$ Indexed by recent branch instruction addresses
 
-3. Stores outcome (taken/not taken)
+$\bullet$ Stores outcome (taken/not taken)
 
-4. To execute a branch
+$\bullet$ To execute a branch
 
-  - Check table, expect the same outcome
-  - Start fetching from fall-through or target
-  - If wrong, flush pipeline and flip prediction
+  1. Check table, expect the same outcome
+  
+  2. Start fetching from fall-through or target
+  
+  3. If wrong, flush pipeline and flip prediction
 
  **1-bit predictor**
 
