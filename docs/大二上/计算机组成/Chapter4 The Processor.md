@@ -65,13 +65,13 @@ double bump(双重触发) ：将Register的读写操作分离，即上半个周�
 
 ![25](pic/25.jpg)
 
-- **Case1**
+##### **Case1**
 
 add-sub
 
 ![22](pic/22.jpg) 
 
-- **Case2**
+##### **Case2**
 
 ld-sub
 
@@ -79,23 +79,23 @@ ld-sub
 
 可以在编译过程中调整语序来减少stall的引入。
 
-- **Case3**
+##### **Case3**
 
 ld-sw
 
 ![24](pic/24.jpg) 
 
-- **Case4**
+##### **Case4**
 
 ![28](pic/28.jpg) 
 
-- **Case5**
+##### **Case5**
 
 需要一个stall
 
 ![29](pic/29.jpg) 
 
-- **Case6**
+##### **Case6**
 
 需要两个stall
 
@@ -108,7 +108,6 @@ ld-sw
 - **发生原因**：指令需要的数据还没被计算或存储
 
 - **Solutions**:
-
 ​	1. Double bump
 
 ​	2. Forwarding
@@ -129,7 +128,7 @@ ld-sw
 
 预测跳转结果，先提前执行预测到的位置的指令。
 
-**(1)Predict-untaken**
+##### **(1)Predict-untaken**
 
 对于branch指令，每次都预测跳转不被执行，直接提前顺序执行后续执行。
 
@@ -137,7 +136,7 @@ taken时会造成3次指令浪费：
 
 $\Rightarrow Pref=1+br\%\times taken\% \times 3$
 
-**(2)Predict-taken**
+##### **(2)Predict-taken**
 
 对于branch指令，每次都预测跳转被执行，等待ALU计算出跳转位置后提前执行跳转位置的指令。
 
@@ -149,7 +148,7 @@ $\Rightarrow Pref=1+br\%\times taken\%+br\% \times untaken\% \times 3$
 
 ![27](pic/27.jpg)
 
-**More-Realistic Branch Prediction**
+##### **More-Realistic Branch Prediction**
 
 **(1) Static branch prediction**
 
@@ -157,11 +156,14 @@ $\Rightarrow Pref=1+br\%\times taken\%+br\% \times untaken\% \times 3$
 
 **(2) Dynamic branch prediction**
 
-- Branch prediction buffer (aka branch history table)
+1. Branch prediction buffer (aka branch history table)
   记录前几次是否命中
-- Indexed by recent branch instruction addresses
-- Stores outcome (taken/not taken)
-- To execute a branch
+
+2. Indexed by recent branch instruction addresses
+
+3. Stores outcome (taken/not taken)
+
+4. To execute a branch
   - Check table, expect the same outcome
   - Start fetching from fall-through or target
   - If wrong, flush pipeline and flip prediction
@@ -171,8 +173,9 @@ $\Rightarrow Pref=1+br\%\times taken\%+br\% \times untaken\% \times 3$
 使用一位进行预测，根据上一次预测的结果对下一次进行预测。
 
 - **Shortcomings: 对于内嵌循环会连续错误两次**
-  - Mispredict as taken on last iteration of inner loop
-  - Then mispredict as not taken on first iteration of inner loop next time around
+  1. Mispredict as taken on last iteration of inner loop
+  
+  2.Then mispredict as not taken on first iteration of inner loop next time around
 
 ![31](pic/31.jpg) 
 
