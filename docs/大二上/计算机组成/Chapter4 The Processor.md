@@ -108,6 +108,7 @@ ld-sw
 - **发生原因**：指令需要的数据还没被计算或存储
 
 - **Solutions**:
+  
 ​	1. Double bump
 
 ​	2. Forwarding
