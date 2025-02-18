@@ -164,6 +164,7 @@ $\Rightarrow Pref=1+br\%\times taken\%+br\% \times untaken\% \times 3$
 3. Stores outcome (taken/not taken)
 
 4. To execute a branch
+
   - Check table, expect the same outcome
   - Start fetching from fall-through or target
   - If wrong, flush pipeline and flip prediction
