@@ -147,6 +147,13 @@ nav:
         - Lab3: 大二上/软件安全原理与实践/Lab3/Report.md
         - Lab4: 大二上/软件安全原理与实践/Lab4/Report.md
         - Final: 大二上/软件安全原理与实践/Final/Report.md 
+    - 大二下:
+      - 计算机体系结构:
+        - Grading Policy: 大二下/计算机体系结构/Grading Policy.md
+      - 面向对象程序设计:
+        - Grading Policy: 大二下/面相对象程序设计/Grading Policy.md
+      - 数据库原理:
+        - Grading Policy: 大二下/数据库原理/Grading Policy.md
   - C++: blank.md
     
 repo_url: https://github.com/RightBird/CourseNote
