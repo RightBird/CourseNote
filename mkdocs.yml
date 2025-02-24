@@ -157,7 +157,12 @@ nav:
         - Grading Policy: 大二下/面向对象程序设计/Grading Policy.md
       - 数据库原理:
         - Grading Policy: 大二下/数据库原理/Grading Policy.md
-  - C++: blank.md
+  - C++:
+    - C++基础: 
+      - 数据类型: C++/C++基础/data_type.md
+      - 变量: C++/C++基础/Variable.md
+    - 库函数:
+      - iostream: C++/库函数/iostream.md
     
 repo_url: https://github.com/RightBird/CourseNote
 repo_name: CourseNote
