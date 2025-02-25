@@ -163,6 +163,7 @@ nav:
       - 变量: C++/C++基础/Variable.md
     - 库函数:
       - iostream: C++/库函数/iostream.md
+      - string: C++/库函数/string.md
     
 repo_url: https://github.com/RightBird/CourseNote
 repo_name: CourseNote
