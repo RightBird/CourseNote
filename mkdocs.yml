@@ -164,6 +164,9 @@ nav:
     - 库函数:
       - iostream: C++/库函数/iostream.md
       - string: C++/库函数/string.md
+      - STL:
+        - 迭代器: C++/库函数/STL/迭代器.md
+        - vector: C++/库函数/STL/vector.md
     
 repo_url: https://github.com/RightBird/CourseNote
 repo_name: CourseNote
