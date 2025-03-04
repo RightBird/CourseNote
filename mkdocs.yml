@@ -157,7 +157,7 @@ nav:
         - Grading Policy: 大二下/面向对象程序设计/Grading Policy.md
       - 数据库原理:
         - Grading Policy: 大二下/数据库原理/Grading Policy.md
-        - Relational Model: 大二下/数据库原理/Rational model.md
+        - Relational Model: 大二下/数据库原理/Relational model.md
   - C++:
     - C++基础: 
       - 数据类型: C++/C++基础/data_type.md
