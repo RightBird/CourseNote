@@ -1,4 +1,4 @@
-# Rational Model
+# Relational Model
 
 ## Structure of Relational Databases 
 
