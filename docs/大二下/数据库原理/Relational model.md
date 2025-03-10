@@ -263,11 +263,13 @@ depositor(customer-name, account-number)
 - Example6：找出所有在Perryridge分行有贷款但在该银行任何分行都没有账户的客户的名字。
   Query1:
   $$
-  \Pi_{customer-name}(\sigma_{branch-name = 'Perryridge'}(\sigma_{borrower.loan-number = loan.loan-number}(borrower\times loan))) - \Pi_{customer-name}(depositor)
+  \Pi_{customer-name}(\sigma_{branch-name = 'Perryridge'}(\sigma_{borrower.loan-number = loan.loan-number}(borrower\times loan)))
+  - \Pi_{customer-name}(depositor)
   $$
   Query2:
   $$
-  \Pi_{customer-name}(\sigma_{borrower.loan-number = loan.loan-number}(borrower\times (\sigma_{branch-name = 'Perryridge'}(loan))) - \Pi_{customer-name}(depositor)
+  \Pi_{customer-name}(\sigma_{borrower.loan-number = loan.loan-number}(borrower\times (\sigma_{branch-name = 'Perryridge'}(loan)))
+- \Pi_{customer-name}(depositor)
   $$
   
   Query2更好
