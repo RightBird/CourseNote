@@ -353,6 +353,7 @@ $\Pi_{F1,F2,…,Fn}(E)$
 #### Example
 
 对于关系*credit_info*(*customer_name*, *limit*, *credit_balance*)
+
 $$
 \Pi_{customer \_ name, limit–credit \_ balance}(credit \_ info)
 $$
@@ -375,7 +376,7 @@ $$
 
 #### 表示
 
-$_{G_1, G_2, …, G_n} g_{F1(A1), F2(A2), …, Fn An)}(E) $
+$ _{G_1, G_2, …, G_n} g_{F1(A1), F2(A2), …, Fn An)}(E) $
 
 #### Example
 
