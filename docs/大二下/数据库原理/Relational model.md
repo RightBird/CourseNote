@@ -354,7 +354,7 @@ $\Pi_{F1,F2,…,Fn}(E)$
 
 对于关系*credit_info*(*customer_name*, *limit*, *credit_balance*)
 $$
-\Pi_{customer\_name, limit–credit\_balance}(credit\_info)
+\Pi_{customer \_ name, limit–credit \_ balance}(credit \_ info)
 $$
 
 ### Aggregate
