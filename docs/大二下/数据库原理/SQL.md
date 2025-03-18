@@ -417,11 +417,12 @@ GROUP BY branch_name
 
 #### Example4 (HAVING)
 
-找出位于Brooklyn的所有平均账户余额超过$1200的分行名称 
+找出位于Brooklyn的所有平均账户余额超过$1200的分行名称
+
 $$
 \begin{aligned}
-&branch(branch\_name, branch\_city, assets)\\ 
-&account(account\_number, branch\_name, balance)
+&branch(branch\_ name, branch\_ city, assets)\\ 
+&account(account\_ number, branch\_ name, balance)
 \end{aligned}
 $$
 
@@ -434,7 +435,7 @@ GROUP BY A.branch_name
 HAVING avg(balance) > 1200 
 ```
 
-!Note
+!!!Note
 	SELECT语句的执行顺序如下:
 	
 	From → where → group (aggregate) → having → select → distinct → order by 
