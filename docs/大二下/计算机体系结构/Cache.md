@@ -25,6 +25,7 @@ $$
 $$
 
 则有以下公式
+
 $$
 \begin{aligned}
 &CPU~Time = IC\times(CPI_{Execution}+\frac{MemAccess}{Inst}\times Miss~rate\times Miss~penalty)\times Cycle~Time\\\\
