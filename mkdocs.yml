@@ -153,6 +153,7 @@ nav:
     - 大二下:
       - 计算机体系结构:
         - Grading Policy: 大二下/计算机体系结构/Grading Policy.md
+        - Cache: 大二下/计算机体系结构/Cache.md
       - 面向对象程序设计:
         - Grading Policy: 大二下/面向对象程序设计/Grading Policy.md
       - 数据库系统:
