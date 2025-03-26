@@ -160,6 +160,7 @@ nav:
         - Grading Policy: 大二下/数据库原理/Grading Policy.md
         - Relational Model: 大二下/数据库原理/Relational model.md
         - SQL: 大二下/数据库原理/SQL.md
+        - Advanced SQL: 大二下/数据库原理/Advanced SQL.md
   - C++:
     - C++基础: 
       - 数据类型: C++/C++基础/data_type.md
