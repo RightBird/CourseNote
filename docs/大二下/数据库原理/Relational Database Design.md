@@ -4,7 +4,7 @@
 
 ## First Normal Form | 第一范式
 
-如果关系模式R的所有属性的域都是原子(*atomic*)的，那么关系模式R就是第一范式（1NF）。即域的元素可以被认为是不可分割的】单位。
+如果关系模式R的所有属性的域都是原子(*atomic*)的，那么关系模式R就是第一范式（1NF）。即域的元素可以被认为是不可分割的单位。
 
 对于以下情况，不满足原子性：
 
@@ -20,9 +20,11 @@
 ## Functional Dependencies | 函数依赖
 
 对于 $R$ 的函数依赖 $\alpha \rightarrow \beta$ 需要满足对于任何合法关系 $r(R)$ ，当R的任意两个元组 $t1$和 $t2$ 在属性 $\alpha$ 上一致时，它们也在属性 $\beta$ 上也一致，即满足映射关系：
+
 $$
 t_1[\alpha]=t_2[\alpha]~~ \Rightarrow ~~t_1[\beta]=t_2[\beta]
 $$
+
 对于以下关系：
 
 - $A\rightarrow B$ 一定不成立
@@ -68,18 +70,7 @@ $$
 对于一个函数依赖集 $F$ ，其闭包形式(*closure of F*)，用 $F^+$ 表示，定义为包含所有 $F$ 所蕴含的函数依赖的函数依赖集。
 
 #### 计算
-
-```
-	F+ = F 
-	Repeat 
-		For each functional dependency f in F+ 
-		       Apply reflexivity and augmentation rules on f 
-		       Add the resulting functional dependencies to F+ 
-		For each pair of functional dependencies f1and f2 in F+ 
-		       If f1 and f2 can be combined using transitivity 
-		       Then add the resulting functional dependency to F+ 
-	Until F+ does not change any further 
-```
+![5-1](pic/5-1.jpg)
 
 !!!Note
 	对于一个有n属性的函数依赖集，其闭包至多有 $2^{n}\times 2^{n}$个函数依赖关系。
