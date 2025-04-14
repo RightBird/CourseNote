@@ -259,7 +259,7 @@ CREATE DOMAIN degree_level AS VARCHAR(10)
 
 设关系 $r1(R1)$ 和 $r2(R2)$ 的主键 $K1$ 和 $K2$。$R2$ 的子集 $\alpha$ 是引用 $r1$ 中 $K1$ 的外键。那么，需要满足以下关系：
 $$
-\Pi_{\alpha}(r2)\subseteq \Pi_{K1}(R1)
+\Pi_{\alpha}(R2)\subseteq \Pi_{K1}(R1)
 $$
 
 ####  Operation
