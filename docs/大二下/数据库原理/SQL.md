@@ -228,6 +228,7 @@ SELECT customer_name
 FROM customer
 WHERE customer_name LIKE ‘%泽%’ 
 ```
+
 - 使用转义符将%作为字符。
 
 ```sql
