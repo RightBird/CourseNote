@@ -260,7 +260,7 @@
 #### 常见错误
 
 - (a) dept_name作为department的主码，不允许再作为student的属性，而是可以通过联系来获取该属性。
-- (b)  assignmet marks是一个多指属性，不允许作为联系的属性
+- (b)  assignmet marks是一个多值属性，不允许作为联系的属性
 
 ![4-30](pic/4-30.jpg) 
 
