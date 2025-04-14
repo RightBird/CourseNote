@@ -856,7 +856,7 @@ WHERE balance > 10000;
 
 UPDATE account 
 SET balance = balance * 1.05 
-WHERE balance >= 10000;
+WHERE balance <= 10000;
 ```
 
 !!!Note
