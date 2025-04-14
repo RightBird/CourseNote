@@ -160,6 +160,7 @@ WHERE branch_name = ‘Perryridge’ AND amount > 1200
 SELECT loan_number  
 FROM loan 
 WHERE amount BETWEEN 90000 AND 100000 
+```
 
 ### FROM
 
