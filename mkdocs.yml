@@ -163,6 +163,7 @@ nav:
         - Advanced SQL: 大二下/数据库原理/Advanced SQL.md
         - E-R model: 大二下/数据库原理/E-R model.md
         - Relational Database Design: 大二下/数据库原理/Relational Database Design.md
+        - Storage and File Structure: 大二下/数据库原理/Storage and File Structure.md
   - C++:
     - C++基础: 
       - 数据类型: C++/C++基础/data_type.md
