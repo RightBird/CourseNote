@@ -165,6 +165,7 @@ nav:
         - Relational Database Design: 大二下/数据库原理/Relational Database Design.md
         - Storage and File Structure: 大二下/数据库原理/Storage and File Structure.md
         - Indexing and Hashing: 大二下/数据库原理/Indexing and Hashing.md
+        - Query Processing: 大二下/数据库原理/Query Processing.md
   - C++:
     - C++基础: 
       - 数据类型: C++/C++基础/data_type.md
