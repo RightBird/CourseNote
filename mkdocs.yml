@@ -168,6 +168,7 @@ nav:
         - Query Processing: 大二下/数据库原理/Query Processing.md
         - Query Optimization: 大二下/数据库原理/Query Optimization.md
         - Transactions: 大二下/数据库原理/Transactions.md
+        - Concurrency Control: 大二下/数据库原理/Concurrency Control.md
   - C++:
     - C++基础: 
       - 数据类型: C++/C++基础/data_type.md
