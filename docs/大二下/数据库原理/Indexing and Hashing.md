@@ -115,6 +115,11 @@
 
 ![7-9](pic/7-9.jpg) 
 
+#### 高度
+
+- 最小高度: $h=\lceil \log_N(M)\rceil$
+- 最大高度: $h=\lfloor\log_{N/2}(\frac{M}{2})\rfloor+1$
+
 #### Node结构
 
 ![7-10](pic/7-10.jpg)
