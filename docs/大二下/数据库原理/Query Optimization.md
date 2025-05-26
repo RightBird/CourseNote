@@ -231,7 +231,7 @@ $_G \gamma_A(r)=V(G,r)$
 
 - $\theta$ 条件指定格式 $A \text{ op }v$：$V(A,\sigma_\theta(r))=V(A,r)\times s,\text{where }s\text{ is the selectivity of the selection}$
 
-- 对于其他情况，使用一下值来估计：$min(V(A,r),n_{\sigma_{\theta}(r))}$
+- 对于其他情况，使用一下值来估计：$min(V(A,r),n_{\sigma_{\theta}(r)})$
 
 对于Join：$r\Join s$
 
