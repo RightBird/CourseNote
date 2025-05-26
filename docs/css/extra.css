@@ -63,7 +63,7 @@ body {
 /* 强制嵌套列表的缩进 */
 .md-typeset ul ul,
 .md-typeset ol ol {
-    margin-left: 40px;
+    margin-left:20px;
 }
 
 /* 自定义列表项的符号 */
