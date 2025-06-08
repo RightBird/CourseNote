@@ -133,7 +133,6 @@ $$
 &Miss Penalty_{L1} = Hit Time_{L2} + Miss Rate_{L2} \times Miss Penalty_{L2}\\\\
 &\Longrightarrow\\\\
 &AMAT= Hit Time_{L1} +  Miss Rate_{L1} \times (Hit Time_{L2} + Miss Rate_{L2} \times Miss Penalty_{L2})
-
 \end{aligned}
 $$
 
