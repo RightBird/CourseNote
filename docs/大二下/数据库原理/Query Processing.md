@@ -127,19 +127,33 @@ Disjunction：$\sigma_{\theta1\vee \theta2\vee…\theta n}(r)$
 - 最初的runs数量为 $\lceil b_r/M\rceil$
 - Merge passes的数量为 $\lceil \log_{M-1}(b_r/M)\rceil$
 
-#### Total Number of Block Transfers
+#### Simple Version
+
+- Total Number of Block Transfers
 
 $$
 b_r(2\lceil\log_{M-1}(b_r/M)+1)
 $$
 
-#### Total Number of Seeks
+- Total Number of Seeks
+
+$$
+2\lceil b_r/M\rceil+b_r(2\lceil\log_{M-1}(b_r/M)-1)
+$$
+
+#### Advanced Version
+
+- Total Number of Block Transfers
+
+$$
+b_r(2\lceil\log_{\lfloor M/b_b \rfloor -1}(b_r/M)+1)
+$$
+
+- Total Number of Seeks
 
 $$
 2\lceil b_r/M\rceil+\lceil b_r/b_b\rceil(2\lceil\log_{M-1}(b_r/M)-1)
 $$
-
-
 
 ## Join Operation
 
