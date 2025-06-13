@@ -138,7 +138,7 @@ Lock Manager 可以被作为一个独立的进程来接收事务发出的锁和�
 
 - **Intention-shared** (IS，共享型意向锁): 表明其后代存在S锁
 - **Intention-exclusive**(IX ，排它型意向锁): 表明其后代存在X锁
-- **Shared and intention-exclusive**(SIX，共享排它型意向锁): 表明其后代既存在S锁，又存在X锁 (SIX=S+IX)
+- **Shared and intention-exclusive**(SIX，共享排它型意向锁): 自身存在S锁，后代存在X锁 (SIX=S+IX)
 
 ![11-10](pic/11-10.jpg) 
 
