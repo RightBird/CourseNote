@@ -74,9 +74,9 @@
 
 - `<checkpoint L>`，其中 `L` 为活跃事务表。
 
-在进行checkpoint时需要把之前所有已经commit的事务写入磁盘。
+在进行checkpoint时需要把之前所有脏数据写入磁盘。
 
-当系统发生崩溃时，仅需从最后一个checkpoint开始进行redo，此时维护一个undo list，在初始状态下为 `L`，此后在redo过程中事务开始则加入undo list，事务提交或终止则移除undo list。当redo执行完后，再对undo list中的所有事务进行undo，完成恢复。（详细见[Recovery With Concurrent Transactions])
+（恢复算法详细见[Recovery With Concurrent Transactions])
 
 ![12-2](pic/12-2.jpg)
 
