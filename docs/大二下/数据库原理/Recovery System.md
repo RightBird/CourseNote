@@ -52,7 +52,7 @@
 
 (b) 由于 $T_0$ 已经commit了，需要对 $T_0$ 进行redo
 
-(c) 由于 $T_0$ 比 $T_1$ 先commit，对于 $T_1$ 的redo需要在 $T_0$ 之前
+(c) 由于 $T_0$ 比 $T_1$ 先commit，对于 $T_1$ 的redo需要在 $T_0$ 之后
 
 
 
