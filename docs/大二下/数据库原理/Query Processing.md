@@ -152,7 +152,7 @@ $$
 - Total Number of Seeks
 
 $$
-2\lceil b_r/M\rceil+\lceil b_r/b_b\rceil(2\lceil\log_{M-1}(b_r/M)-1)
+2\lceil b_r/M\rceil+\lceil b_r/b_b\rceil(2\lceil\log_{\lfloor M/b_b \rfloor -1}(b_r/M)-1)
 $$
 
 ## Join Operation
