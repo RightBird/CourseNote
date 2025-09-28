@@ -33,7 +33,7 @@ $$
 
 - **Injection**: One-to-one function, $\forall a,b\in A~\wedge~a\neq b,~f(a)\neq f(b)$
 
-- **Surjection**: Onto funtion, $\forall b\in B,~\exist a\in A,~\text{such that }f(a)=b$
+- **Surjection**: Onto funtion, $\forall b\in B,~ \exists a\in A,~\text{such that }f(a)=b$
 
 - **Bijective**: 同时满足 Injection 和 Surjection
 
@@ -88,8 +88,8 @@ $[a]=\{b|(a,b)\in R\}$，即所有在同一个cluster内的点的集合。
 
 #### Min/Max
 
-- **Least/Greatest **element: $\forall b\in A,a\leq/\geq b$（唯一最小/最大，与所有点相比）
-- **Minimal/Maximal ** element: $b\leq/\geq a \Rightarrow a=b$（局部最小/最大，允许无法比较的点）
+- **Least/Greatest** element: $\forall b\in A,a\leq/\geq b$（唯一最小/最大，与所有点相比）
+- **Minimal/Maximal** element: $b\leq/\geq a \Rightarrow a=b$（局部最小/最大，允许无法比较的点）
 
 ### Total Order
 
@@ -120,9 +120,9 @@ Equinumerous sets 有相同的cardinality。
 
 #### Countable Infinite 
 
-与自然数集 $\N$ Equinumerous
+与自然数集 $\mathbb{N}$ Equinumerous
 
-**Example: ** $\N\times\N$
+**Example:** $\mathbb{N}\times\mathbb{N}$
 
 - Solution1:
 
@@ -130,19 +130,19 @@ Equinumerous sets 有相同的cardinality。
 
 - Solution2: find a bijection: $f((m,n))=\frac{1}{2}[(m+n)^2+3m+n]$
 
-- Solution3: 构建两个映射 $f:\N\rightarrow \N\times \N$，$g:\N\times\N\rightarrow \N$
+- Solution3: 构建两个映射 $f:\mathbb{N}\rightarrow \mathbb{N}\times \mathbb{N}$，$g:\mathbb{N}\times\mathbb{N}\rightarrow \mathbb{N}$
 
-  然后证明 $|\N|\leq |\N\times\N|$ 和 $|\N\times\N|\leq |\N|$
+  然后证明 $|\mathbb{N}|\leq |\mathbb{N}\times\mathbb{N}|$ 和 $|\mathbb{N}\times\mathbb{N}|\leq |\mathbb{N}|$
 
   可以取 $f(n)=(n,0),g((m,n))=2^m3^n$
 
 #### Uncountable Infinite 
 
-与实数集 $\R$ Equinumerous
+与实数集 $\mathbb{R}$ Equinumerous
 
 > **Theorem**
 >
-> $|\R|>|\N|$
+> $|\mathbb{R}|>|\mathbb{N}|$
 
 ### Cantor’s Theorem
 
@@ -170,7 +170,7 @@ Case2: $A$ 是无限集
 
 > **Theorem**
 >
-> $\N$ 的 power set 不可数
+> $\mathbb{N}$ 的 power set 不可数
 
  
 
@@ -223,7 +223,7 @@ alphabet $\Sigma$ 中符号的有限序列。
 
 #### Operation of Strings
 
-- Concatenation: $x\circ y $ or $xy$ 
+- Concatenation: $x\circ y$ or $xy$ 
 - String exponentiation: $w^0=e,w^{i+1}=w^i\circ w$
 
 - Reversal
@@ -248,4 +248,3 @@ Strings 构成的集合。记 language $L\subseteq \Sigma^*$
 - Union, Intersection, Difference, Complement($\overline L=\Sigma^*-L$)
 - Exponentiation: $L^0=\{e\}, L^{i+1}=LL^{i}$
 - Concatenation: $L_1L_2=\{w_1w_2|w_1\in L_1~\wedge~w_2\in L_2\}$
-- 
