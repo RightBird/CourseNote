@@ -172,9 +172,9 @@ nav:
         - Recovery System: 大二下/数据库原理/Recovery System.md
     - 大三上:
       - 计算理论:
-        - Sets, Relations, and Language: 大三上/计算理论/Sets, Relations, and Language.md
+        - Sets, Relations, and Language: 大三上/计算理论/Sets_Relations_Language.md
       - 计算机网络:
-        - Physical Layer: 大三上/计算机网络/Physical Layer.md
+        - Physical Layer: 大三上/计算机网络/Physical_Layer.md
   - C++:
     - C++基础: 
       - 数据类型: C++/C++基础/data_type.md
