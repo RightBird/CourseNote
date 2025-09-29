@@ -241,10 +241,74 @@ Strings 构成的集合。记 language $L\subseteq \Sigma^*$
 
 - 非空字母表上的字符串数量为**可数无穷**
 - 非空字母表上的任意语言都是**可数集合**（语言上所有字符串构成的集合的子集）
-- 非空目标上的语言数量为 $|R|$ （数量为可数无穷集合的power set的数量）
+- 非空目标上的语言数量为 $|\mathbb{R}|$ （数量为可数无穷集合的power set的数量）
 
 #### Operations of Languages
 
 - Union, Intersection, Difference, Complement($\overline L=\Sigma^*-L$)
 - Exponentiation: $L^0=\{e\}, L^{i+1}=LL^{i}$
 - Concatenation: $L_1L_2=\{w_1w_2|w_1\in L_1~\wedge~w_2\in L_2\}$
+- Kleene star: $L^*  = \{w\in \Sigma^*:w=w_1…w_k,k\geq 0,w_1,…,w_k\in L\}=L^0\cup L^1\cup L^2 \cup …$
+- $L^+  = \{w\in \Sigma^*:w=w_1…w_k,k\geq 1,w_1,…,w_k\in L\}=L^1\cup L^2\cup L^3 \cup …$
+
+!!!Note
+	$L^+$ 可以被认为是 $L$ 在cancatenation操作下的closuer。
+	
+- $\phi^* = \{e\}$
+- $L^+=L L^*$
+- For any langauge $L$, $(L*)*=L*$ ; $L\phi=\phi L = \phi$
+
+## 1.8 Finite Representations of Languages
+
+> **Definition**
+>
+> languages经常是无穷的，需要使用有穷的方式来形式化定义来无穷的languages，这种表示被称为 **Finite Representations**，需满足：
+>
+> - 必须是一个string
+> - 不同的language要有不同的representation
+
+> **Definition**
+> 在字母表 $\Sigma$ 上可以用有限次 $\{(,),\cup,*\}$ 操作得到的字符串被称为 **Regular Expressions(正则表达)** ，用 $\mathcal{R}\subseteq (\Sigma\cup \{(,),\phi,\cup,\})$ 来表示所有正则表达，详细定义如下：
+>
+> 1. $\phi\in \mathcal{R}$ 并且 $\Sigma\subseteq \mathcal{R}$。
+> 2. 如果 $\alpha,\beta\in \mathcal{R}$，则 $(\alpha\beta)\in\mathcal{R},(\alpha\cup\beta)\in\mathcal{R},\alpha^*\in\mathcal{R}$
+
+!!!Example
+	$L=\{ab,aabb,aaabbb,…\}=\{a^nb^n|n\geq 1\}$ 不是正则表达。
+	
+	$a^*b^*,a^*\cup b^*,a(a^*\cup b^*),(a^*\cup b^*)a(a^*\cup b^*), aaaaaaa^*$ 等都是正则表达。
+
+> **Definition**
+>
+> 可以使用正则表达来表示的languages被称为 **Regular languages**。
+
+在正则表达与其表达的语言之间可以构造出一个函数 $\mathcal{L}$，函数的形式化定义如下：
+
+>  函数 $\mathcal{L}:\mathcal{R}\rightarrow 2^{\Sigma^*}$根据以下条件递归定义：
+>
+> - $\mathcal{L}(\phi)=\phi，\mathcal{L}(a)=\{a\}\text{ for all }a\in\Sigma$
+>
+> - 如果 $\alpha,\beta\in\mathcal{R}$ ，则
+>
+>   $\mathcal{L}(\alpha\beta)=\mathcal{L}(\alpha)\circ \mathcal{L}(\beta)$ (Concatenation)
+>
+>   $\mathcal{L}(\alpha\cup\beta)=\mathcal{L}(\alpha)\cup\mathcal{L}(\beta)$ (union)
+>
+>   $\mathcal{L}(\alpha^*)=\mathcal{L}(\alpha)^*$ (Kleene's Star)
+
+正则表达式满足以下一些关系：
+
+- $SR\neq RS$
+- $S\cup R =R\cup S$
+- $R(ST)=(RS)T$
+- $R(S\cup T)=RS\cup RT,(R\cup S)T=RT\cup ST$
+- $\phi^*=\{e\}$
+- $(R^*)^*=R^*$
+- $(R^*S^*)^*=(R\cup S)^*$
+- $(\{e\}\cup R)^*=R^*$
+
+正则表达式是一种表示语言的方式，但不是所有语言都可以用正则表达式表示。以下为两种重要的语言表达方式：
+
+- **language recognition device**: 以回答字符串 $w$ 是不是 $L$ 的成员的方式来表示。(Example: $\{w\in\{0,1\}|w\text{ does not have 111 as a substring}\}$)
+- **language generators**: 正则表达式。
+
