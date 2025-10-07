@@ -364,7 +364,7 @@ Low-Earth Orbit 卫星
 相比local loops更快，而且有以下不同：
 
 - 电话网络的核心传输数字信号而非模拟信号
-- trunks同时承载大量通话，通常使用 TDM 和 FDM。（**SONET**: 光纤通信采用的TDM；**wavelength division multiplexing: **光纤通信中的FDM）
+- trunks同时承载大量通话，通常使用 TDM 和 FDM。（**SONET**: 光纤通信采用的TDM；**wavelength division multiplexing:** 光纤通信中的FDM）
 
 根据**Nyquist Theorem**，对带宽为4kHz的电话信号需要进行8000Hz的采样，然后将个样本分为8个bits，这种标准为 **PCM**，此时满足：
 
