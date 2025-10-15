@@ -339,3 +339,144 @@ Internet checksum 有效且简单，但是由于只是简单相加，在某些�
 ![2-26](pic/2-26.png)
 
 ![2-27](pic/2-27.png)
+
+## Sliding Window Protocols
+
+以下协议考虑双方互相的通信，而非单向通信。
+
+> **Definiton**
+>
+> **Piggybacking(驮运)** 指在双向通信的过程中，将ack附加在即将发送的帧上一起发送，而非单独发送ack帧。
+
+Sliding window bidirectional protocol(双向滑动窗口协议) 主要有以下三种，不同点为**效率、复杂度和buffer需求量**：
+
+- A One-Bit Sliding Window Protocol (stop-and-wait)
+- A Protocol Using Go Back N
+- A Protocol Using Selective Repeat
+
+### The Essence of All Sliding Window Protocols
+
+发送方会根据允许发送的帧数维护一个序列号的集合，这些帧被放在 **sending window** 中直到确认接收方已经成功接收到数据。
+
+如果 maximum window size 为 $n$，则发送方需要 $n$ 个buffers来存储这些帧。如果 sending window 已满，则数据链路层会停止接收网络层的需求直到有buffer空出来，这种行为被称为 **Flow Control** 。
+
+类似的，接收方也会根据允许接收的帧数来维护一个 **receiving window**，落入这个窗口的帧会被放入接收方的buffer，否则会被丢弃。
+
+!!!Note
+	如果接收方的window size为1，则表示数据链路层只能顺序接收帧，否则允许乱序接收。
+	
+!!!Note
+	接收方的window size和发送方的window size不一定相同。在有些协议中size是固定的，而在另一些协议中可能会动态调整。
+
+
+### One-Bit Sliding Window Protocol
+
+发送方和接收方的 window size **都为 1**。即发送方在接收到接收方的ack后才能继续发送下一个帧。
+
+以下为一个sequence number为1位的示例：
+
+![2-28](pic/2-28.png)
+
+- 缺点：在**传输时间长、高带宽、帧长度短**的情况下传输效率很低。
+
+解决方案：在阻塞前允许至多 $w$ 个帧传输， $w$ 可以被设置为 $2BD+1$。（其中 $BD$ 为bandwidth-delay，即单向传输时间内可以传输的帧数量级，由于考虑来回传输要 $\times2$）
+
+### Sliding Window Protocol Using Go Back N
+
+- 发送方的 window size 为 $n$
+- 接收方的 window size 为1
+
+![2-29](pic/2-29.png)
+
+传输时有以下特点：
+
+- 两个方向都对ACK使用 **piggybacking**：不单独发送ACK；如果接收到ack $n$，则 $n$ 之前的帧($n-1,n-2,…$)都自动确认。
+- 通道有噪声
+- 需要限制网络层的数据流
+
+![2-30](pic/2-30.png)
+
+![2-31](pic/2-31.png)
+
+!!!Note
+	需要满足 **the sender window <= MAX_SEQ**。
+	假设MAX_SEQ=7, the sender window=8，此时如果连续发送8个数据帧0-7，则接收方返回的ack为7，即期望下次发送的seq_num为0，在这种情况下无法确定时8个数据帧都收到了还时全部丢失了。
+
+由于有多个独立的帧需要传出，因此需要多个计时器来分别管理timeout，可以使用一个timeout队列来管理。
+
+![2-32](pic/2-32.png)
+
+- 缺点：如果通道**出错率高**，则会导致大量包被重传。
+
+### Sliding Window Protocol Using Selective Repeat
+
+- 发送方的 window size 为 $n$
+- 接收方的 window size 为 $n$
+
+![2-33](pic/2-33.png)
+
+传输时有以下特点：
+
+- 数据双向传播，ACK可以使用piggybacking也可以单独传输(需要ACK计时器)
+- 通道有噪声
+- 需要限制网络层的数据流
+- 需要 **NACK** 包：接收方发现出错时发送
+
+传输过程中，发送方的window size从0开始增长，直到一个设定的最大值。
+
+接收方的window size 固定在预先设定的最大值，在这个固定的window中，为每个序列号都预留一个buffer。传输时检查到达帧都序列号是否满足要求，满足则接收。
+
+!!!Note
+	需要满足 **Maximum size <=  (1 + MAX_SEQ) / 2**。
+	否则会出现序列号重叠，导致接收方无法确定是新帧还是重发的旧帧。
+
+## Examples of data link protocols
+
+### Point-to-Point Protocol(PPP)
+
+PPP在数据链路层，是一种帧结构机制，能够在多种物理层上传输多种协议的数据包。
+
+PPP具有以下3个主要特点：
+
+- 帧封装与错误检测：PPP 提供了一种帧格式，用于标识数据的 **起始** 和 **结束**。
+- 链路控制协议(LCP, Link Control Protocol)：管理 PPP 链路的状态，确认通信链路可靠。
+- 网络控制协议(NCP,Network Control Protocol)：PPP设计了一种“通用框架”，每一种网络层协议，都配一个 **NCP** 。这些 NCP 都遵循 PPP 的统一格式（像插件一样），但具体字段和协商内容取决于对应的网络层协议。
+
+#### PPP Frame Format
+
+PPP帧以靠准**HDLC** flag byte，即 **0x7E(01111110)** 开头。如果遇到冲突，则使用ESC FLAG的方法，使用的ESC FLAG为 **0x7D**，然后对冲突字节进行 XOR 0x20 处理，这样可以保证数据中不出现 0x7E，可以直接扫描 0x7E 来确定帧。解码时只要去掉ESC FLAG然后对后面的字节进行 XOR 0x20 即可。
+
+![2-34](pic/2-34.png)
+
+#### PPP Link Up & Down
+
+![2-35](pic/2-35.png)
+
+- 链路初始状态为DEAD，表示物理层未建立连接。
+- 当物理连接建立后，链路状态转为ESTABLISH。此时PPP对等体将交换一系列LCP数据包。
+- 若LCP选项协商成功，链路状态将进入AUTHENTICATE。
+- 若认证成功，则进入NETWORK状态，并发送一系列NCP数据包以配置网络层。由于每个NCP协议都针对特定网络层协议设计，因此难以对其进行概括性描述。
+- 达到OPEN状态后即可进行数据传输。在此状态下，IP数据包将封装在PPP帧中通过SONET线路传输。
+- 数据传输完成后，链路进入TERMINATE状态，当物理层连接断开时，将由此状态回退至DEAD状态。
+
+**SONET** 和 **ADSL** 都是对PPP的不同应用。
+
+### SONET 
+
+SONET 是一种物理层协议，常用于广域光纤链路，是通信网络骨干（包括电话系统）的主要传输方式。它提供高速、同步、固定速率的光信号传输。
+
+![2-36](pic/2-36.png)
+
+#### ADSL
+
+**Asymmetric Digital Subscriber Loop**，基于OFDM调制。在ADSL物理层和PPP中间存在**AAL5**和**ATM**。
+
+![2-37](pic/2-37.png)
+
+- AAL5 frame: 把上层变长数据封装成固定长度的 48 字节块，并提供长度和 CRC 检测。用于适配ATM信元。![2-38](pic/2-38.png)
+
+- ATM(Asynchronous Transfer Mode): 链路层协议，异步传输，connected-oriented。有5个字节的header。
+
+- AAL5+ATM：把上层协议切分成固定长度信元，通过虚电路转发。
+
+  

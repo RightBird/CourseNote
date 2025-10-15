@@ -22,7 +22,7 @@
 
 > **Definition**
 >
-> DFA $K,\Sigma,\delta,s,F)$ 的一个 **configuration** 有 $K\times \Sigma^*$ 的形式，表示从当前状态 $K$ 开始经过 $\Sigma^*$ 所表示的多个操作。
+> DFA $（,\Sigma,\delta,s,F)$ 的一个 **configuration** 有 $K\times \Sigma^*$ 的形式，表示从当前状态 $K$ 开始经过 $\Sigma^*$ 所表示的多个操作。
 
 两个configuration之间的二元关系 $\vdash_M$ 满足：
 
