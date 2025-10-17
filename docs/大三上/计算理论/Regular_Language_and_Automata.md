@@ -82,7 +82,7 @@ $$
 E(q)=\{p\in K:(q,e)\vdash^*_M(p,e)\}
 $$
 
-则对于所有字符串 $w\in\Sigma^*$ ，
+则对于所有字符串 $w\in\Sigma^*$
 
 $$
 \begin{aligned}
