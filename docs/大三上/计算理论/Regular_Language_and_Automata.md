@@ -103,7 +103,7 @@ $$
 
 此时显然满足 $p\in E(q)$ ，则只需取 $P=E(q)$ 即可达成。
 
-- **Induction Hypothesis **
+- **Induction Hypothesis**
 
 假设对于所有满足 $|w|\leq k$ 的字符串，*Claim* 都成立。
 
@@ -223,7 +223,7 @@ $$
 
 构造 $L(M)=L(M_1)*$，满足
 
-- $K=K_1\cup\{s_1'\} $
+- $K=K_1\cup\{s_1'\}$
 - $F=F_1\cup\{s_1'\}$
 - $\Delta=\Delta_1\cup\{(s_1',e,s_1)\}\cup\{(q,e,s_1):q\in F_1\}$
 
