@@ -77,10 +77,13 @@ $\vdash_M^*$ 是 $\vdash_M$ 关于 reflexive, transitive 的 closure，仍满足
 > 对于任意字符串 $w\in \Sigma^*$ 和任意状态 $p,q\in K$ ，存在一个包含 $p$ 的集合 $P$，使得 $(q,w)\vdash^*_M(p,e)\Leftrightarrow (E(q),w)\vdash^*_{M'}(P,e)$ 
 
 定义 $E(q)$ 为状态 $q$ 可以在没有任何输入的情况下可以到达的所有状态的集合，即
+
 $$
 E(q)=\{p\in K:(q,e)\vdash^*_M(p,e)\}
 $$
+
 则对于所有字符串 $w\in\Sigma^*$ ，
+
 $$
 \begin{aligned}
 w\in L(M) &\Leftrightarrow (s,w)\vdash^*_M(f,e) \text{ for some }f\in F \text{ (Definition)}\\\\
@@ -89,6 +92,7 @@ w\in L(M) &\Leftrightarrow (s,w)\vdash^*_M(f,e) \text{ for some }f\in F \text{ (
 &\Leftrightarrow w\in L(M')
 \end{aligned}
 $$
+
 即只需证明 *Claim* 正确，即可证明 *Theorem* 正确。
 
 接下来使用归纳法来证明 *Claim*：
@@ -108,38 +112,51 @@ $$
 取 $|w|=k+1,w=va$，满足 $a\in \Sigma,v\in \Sigma^*$
 
 先证 $\Rightarrow$ ，即存在 $P$ 满足 $(q,va)\vdash^*_M(p,e)\Rightarrow (E(q),va)\vdash^*_{M'}(P,e)$ 
+
 $$
 (q,w)\vdash^*_M(q,e)\Leftrightarrow \exists ~r_1,r_2,(q,va)\vdash^*_M(r_1,a)\vdash^*_M(r_2,e)\vdash^*_M(p,e)
 $$
+
 根据 Induction Hypotheses, (其中 $r_1\in R_1$ )
 
 $$
 (q,va)\vdash^*_M(r_1,a)\Leftrightarrow(q,v)\vdash^*_M(r_1,e)\Leftrightarrow(E(q),v)\vdash^*_{M'} (R_1,e)
 $$
+
 根据构造的 $\delta$ 的定义，有
+
 $$
 (r_1,a,r_2)\in \Delta \Rightarrow E(r_2)\subseteq \delta(R_1,a)=P
 $$
+
 由 $(r_2,e)\vdash_{M'}^* (p,e)$ 易知 $p\in E(r_2) \Rightarrow p\in P$，则
+
 $$
 E(q,va)\vdash^*_{M'}(R_1,a)\vdash^*_{M'}(P,e)
 $$
+
 $\Rightarrow$ 证明完毕，接下来证明 $\Leftarrow$ ，即 $(q,va)\vdash^*_M(p,e)\Leftarrow (E(q),va)\vdash^*_{M'}(P,e)$ 
+
 $$
 (E(q),va)\vdash^*_{M'}(R_1,a)\vdash^*_{M'}(P,e) \text{ for some }p\in P
 $$
+
 则根据 $M'$ 的定义，$(R_1,a)\vdash^*_{M'}(P,e)\Rightarrow P=\delta(R_1,a)$，又有
+
 $$
 \delta(R_1,a)=\cup\{E(r_2):\exists r_2\in K \text{ and } (r_1,a,r_2)\in\Delta \text{ for some }r_1\in R_1\}
 $$
+
 则 $p\in P\Rightarrow \exists r_2$ 满足 $p\in E(r_2)$ 且$\exists r_1\in R_1, (r_1,a,r_2)\in \Delta$ 
 
 根据 $E(r_2)$ 的定义可得 $(r_2,e)\vdash^*_M (p,e)$
 
 又根据 Inductino Hypotheses，$(q,va)\vdash^*_M(r_1,a)$，则
+
 $$
 (q,va)\vdash^*_M(r_1,a)\vdash^*_M(r_2,e)\vdash^*_M (p,e)
 $$
+
 证明完毕。
 
 ### Example
@@ -150,6 +167,7 @@ $$
 ![2-5](pic/2-5.png)
 
 根据上图的的NFA，首先可以得到 $s'=E(q_0)=\{q_0,q_1,q_2,q_3\}$，然后得出转移关系：
+
 $$
 \begin{aligned}
 &\delta(s',a)=E(q_0)\cup E(q_4)=\{q_0,q_1,q_2,q_3,q_4\}\\
@@ -166,6 +184,7 @@ $$
 &\delta(\phi,a)=\delta(\phi,b)=\phi
 \end{aligned}
 $$
+
 于是可以得出等价的DFA为
 
 ![2-6](pic/2-6.png)
