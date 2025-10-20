@@ -278,3 +278,45 @@ $$
 
 根据这个定义可以得到 $L(M)=\cup\{R(1,j,n):q_j\in F,q_1=s\}$
 
+要证明 $L(M)$ 是正则的，只需证所有 $R(i,j,k)$ 是正则的。
+
+- **Base case**: $k=0$，则 $R(i,j,0)\left\{\begin{array}{ll} \{a|\delta(q_i,a)=q_j\} &i\neq j\\ \{a|\delta(q_i,a)=q_j\}\cup\{e\} &i= j \end{array}\right.$ 
+
+- **Induction step**: $R(i,j,k)=R(i,j,k-1)\cup R(i,k,k-1)\cup R(k,k,k-1)^*\cup  R(k,j,k-1)$
+
+
+
+## 2.4 Languages that are and are not regular
+
+!!!Note
+	正则表达式关于Union, intersection, complementation, concatenation, Kleene star操作封闭。
+	
+
+**直观理解**：FA只有有限个状态，并对这些状态进行重复。即满足FA必须要使状态可以在有限大的内存里保存下来。
+
+> **Pumping Theorem**
+>
+> 如果 $L$ 是一个正则语言，则存在一个整数 $n\geq 1$ 使得对于所有满足 $|w|\geq n$ 的 $w\in L$，都可以被写成 $w=xyz$ 满足：
+>
+> - $y\neq e$
+> - $|xy|\leq n$
+> - 对于所有 $i\geq 0$ 满足 $xy^iz\in L$
+
+#### Proof
+
+如果 $L$ 是一个被 DFA $M$ 接受的正则语言，$M$ 有 $n$ 个状态，则对于 $|w|\geq n$，考虑前 $n$ 步，即
+$$
+(q_0,a_1\cdot\cdot\cdot a_n)\vdash_M(q_1,a_2\cdot\cdot\cdot a_n)\vdash_M\cdot\cdot\cdot\vdash_M(q_n,e)
+$$
+根据鸽笼原理，其中必然存在 $0\leq i< j\leq n$，使得 $q_i=q_j$
+
+则区 $y=a_i\cdot\cdot\cdot a_j,x=a_1\cdot\cdot\cdot a_{i-1},z=a_{j+1}\cdot\cdot\cdot a_n$
+
+#### Usage
+
+通常使用反证法，先假定 $L$ 是正则的，存在一个 $n$。
+
+然后找出一个 $w$ 满足 $|w|>n$，使得无论如何拆分成 $w=xyz$ 都会存在 $xy^iz\notin L$ 。
+
+则可以说明 $L$ 不是正则的。
+
