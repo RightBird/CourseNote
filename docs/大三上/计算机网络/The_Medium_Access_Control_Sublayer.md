@@ -332,3 +332,337 @@ A范围内任何监听到RTS的站点必须保持一段时间静默来确保CTS�
 
 
 
+## Ethernet(IEEE 802.3)
+
+主要分为两种:
+
+- **Classical Ethernet**(3 - 10 Mbps)
+- **Switched Ethernet**: 使用交换机连接不同终端，传输速率在100(fast Ethernet), 1000(gigabit Ethernet), 10000(10 gigabit Ethernet) Mbps
+
+在cable中，信息通过 **Manchester encoding** 来传输
+
+![3-16](pic/3-16.png)
+
+!!!Note
+	交换机是链路层的设别。在 switch-base Ethernet LAN 中不存在冲突，因此不需要MAC协议。
+
+!!!Note
+	所有以太网技术给网络层提供的都是 **connectionless service**。（更简单、成本更低）
+
+### Ethernet Frame Structure
+
+#### Preamble(先导码 8 bytes)
+
+8个字节，每个字节都是10101010的形式（除了最后一个字节的最后两位为11）。最后一个字节被称为 **the Start of Frame delimiter(SFD)** 。先导码在Manchester编码中提供了6.4µs的10-MHz方波来用于接收方与发送方的时钟同步。
+
+#### MAC Addresses (12 bytes)
+
+分为Destination address 和 Source address，每个都是6字节。
+
+#### Type/Length (2bytes)
+
+- **Type**: 指定帧传输方式(0x0800表示数据包含 IPv4 包、0x0806表示包含 ARP 消息、0x86DD 表示包含 IPv6 包)
+- 所有不大于0x600(1536)的数字被理解为 **Length**，大于0x600的被理解为 **Type** 。
+
+#### Data (46-1500 bytes)
+
+这部分携带 **IP datagram**，最大传输单元(maximum transmission unit, MTU)为1500字节。
+
+!!!Note
+	以太网的有效帧大小为64-1518字节（Destination address 到 Checksum部分）。其中最小帧要求为64字节是为了区分有效帧和垃圾帧。
+
+#### Check-sum
+
+是32位CRC。
+
+![3-17](pic/3-17.png)
+
+### CSMA/CD with Binary Exponential Backoff
+
+Classic Ethernet 使用1-persistent CSMA/CD 算法。
+
+#### Binary Exponetial backoff
+
+一种生成碰撞后等待时间的算法。在以太网中，时隙被设定为512 bit times(51.2 µs)，每次发生碰撞后，需要等待一个随机时间，随机间隔产生方式如下：
+
+- 在 $i$ 次碰撞后($i\leq 10$)，取 $0\sim2^i-1$ 个之间的一个随机值 $k$ ，等待时间为 $k$ 个时隙
+- 在碰撞次数超过 **10** 次之后，随机间隔最大值被固定在 **1023** 个时隙
+- 碰撞次数超过 **16** 次之后，控制器放弃传输(throw in the towel)并报错。
+
+### Ethernet Performance
+
+假设有 $k$ 个站在传输数据，在竞争期的每个时隙中每个站都有 $p$ 的概率竞争成功。
+
+则记每个站竞争成功的概率 $A=kp(1-p)^{k-1}$ ($p=1/k$ 时取到最大值)
+
+在 $j$ 个时隙内有帧竞争成功并开始传输的概率为 $A(1-A)^{j-1}$，则竞争期的平均时隙数为
+$$
+\sum^{+\infty}_{j=0}jA(1-A)^{j-1}=\frac{1}{A}
+$$
+每个时隙的时间为 $2\tau$ ，因此平均竞争时间 $w=2\tau/A$
+
+假设帧的平均传输时间为 $P$，则
+$$
+\text{Channel efficiency}=\frac{P}{P+2\tau/A}
+$$
+!!!Note
+	电缆越长，竞争间隔越长。
+
+记帧长度为 $F$ ，网络带宽为 $B$ ，电缆长度为 $L$ ，信号传输速度为 $c$ ，最优平均竞时隙数为 $e$
+
+![3-18](pic/3-18.png)
+
+### Switched Ethernet
+
+- **Hub(集线器)**: 把几根电缆连接到一起，不会增加容量，它们在逻辑上等同于经典以太网中单根长电缆。
+- **Switch(交换机)**: 包含一个高速背板(backplane)，将所有端口连接在一起。
+
+![3-19](pic/3-19.png)
+
+交换机只把帧传输到指定的目标，而集线器后把帧传输到所有端口。
+
+!!!Note
+在集线器中，所有端口都处于同一个冲突域。但在交换机中，每个端口都是独立的冲突域。
+
+### Ethernet Technologies
+
+“BASE”指基带以太网，即物理介质仅承载以太网流量；几乎所有802.3标准均适用于基带以太网。缩写末尾字母代表物理介质类型。通常“T”表示双绞线铜缆。
+
+- Example: 10BASE-T, 10BASE-2, 100BASE-T, 1000BASE-LX and 10GBASE-T
+
+!!!Note
+	以太网同时涵盖链路层与物理层规范。
+
+#### Fast Ethernet
+
+快速以太网允许通过集线器或交换机进行互连。
+
+![3-20](pic/3-20.png)
+
+#### Gigabit Ethernet
+
+所有千兆以太网配置均采用点对点链路。与快速以太网类似，支持两种不同模式的操作：
+
+- **Full-duplex** mode: 外围存在一个中心交换机来连接终端（或其他交换机），不存在竞争，不需要CSMA/CD协议
+- **Half-duplex** mode: 使用集线器连接，双向不能同时传输，存在竞争和碰撞。由于传输时间大幅缩短，为保证 CSMA/CD 能检测到碰撞，**最大电缆长度必须缩短**，或者通过 **Carrier Extension**(增大帧长度)或 **Frame bursting**(将多个帧合到一起) 延长最小帧传输时间。
+
+![3-21](pic/3-21.png)
+
+![3-22](pic/3-22.png)
+
+#### 10-Gigabit Ethernet
+
+只支持 **full-duplex** 操作。
+
+![3-23](pic/3-23.png)
+
+
+
+## Wireless LANS (802.11 WiFi)
+
+802.11网络有两种使用模式：
+
+- **Infrastructure Mode**: 每个客户端(client)都和一个**AP(Access Point)**连接，APs可能通过有线网络连接。
+- **Ad-hoc Mode**: 没有AP，每个终端可以直接向户发送帧。
+
+![3-24](pic/3-24.png)
+
+### 802.11 Protocol Stack
+
+所有802.11协议中的数据链路层均划分为两个或更多子层：
+
+- **MAC**（介质访问控制）子层决定信道分配机制，即确定下一个传输主体。
+- **LLC**（逻辑链路层）旨在隐藏不同802变体间的差异，使其在网络层视角下不可区分。
+
+### 802.11 Physical Layer
+
+所有802.11技术均采用短距离无线电在2.4 GHz或5 GHz **ISM**（Industrial, Scientific and Medical）频段传输信号。 
+
+- **802.11b**：支持1、2、5.5、11Mbps的传输速率，采用**Barker Sequence**进行扩频。
+- **802.11a**：在5 GHz ISM的频段上支持6-54 Mbps的传输速率。使用OFDM调制
+- **802.11g**：同a使用OFDM调制，将 802.11a 的高速传输能力与更常用的 2.4 GHz 频段结合起来。
+- **802.11n**：MIMO(Multiple Input Mutiple Output) 技术
+
+### 802.11 MAC Sublayer Protocol
+
+存在的问题：
+
+- **Half duplex**: 无法在单一频率上同时发送数据和监听。
+- **Limited Range**: 存在 hidden station 和 exposed station 问题。
+
+![3-25](pic/3-25.png)
+
+解决冲突的方案：**CSMA/CA** (CSMA with Collision Avoidance)
+
+- **信道监听（Channel sensing before sending）**
+- **指数退避（Exponential backoff after collision）**
+
+![3-26](pic/3-26.png)
+
+相比于以太网，主要有两点不同：
+
+- 提前开始backoff来避免碰撞
+- 使用acknowledgements(ack)来判断是否碰撞
+
+802.11的工作模式有两种：
+
+- **DCF**(Distributed Coordination Function)：每个终端独立决定什么时候发送数据
+- **PCF**(Point Coordinate Function)：有AP来统一协调网络中的终端（由于很难仿制附近网络的干扰，PCF在实际中很少使用）
+
+为了减少多个设备同时发送数据时产生的混乱，802.11定义了两种通道侦测方式：
+
+- **Physical sensing**: 如果空闲就开始传输，传输过程中不侦测。如果发生碰撞就等待随机时间(Ethernet binary exponential backoff算法)。被用于传输 RTS 帧。
+
+- **Virtual sensing**: 通过 RTS/CTS 帧 和 NAV(Network Allocation Vector) 计时机制，让所有在范围内的设备都知道信道被占用多久，从而避免隐藏节点引发的碰撞。图中C接收到RTS之后，设置内部的NAV进行计时，保持一段时间沉默，D同理。**NAV不被传输。**
+
+  ![3-27](pic/3-27.png)
+
+802.11协议的核心是 **CSMA/CA + Physical&Virtual Sensing**。除此之外，还有一些其他技术可以提升表现：
+
+- **Reliability**: 降低传输速率以提高传输成功率；缩短帧长度来提高帧完整传输的概率。
+- **Power**: 定期传输 **Beacon** 帧来减少能耗。(Beacon由 AP 周期性广播，传输网络中的各种参数，可以控制设备休眠或唤醒)
+- **Quality of Services**: 帧发送后，需等待特定空闲时间才能再次发送帧，以确保信道未被占用。通过给不同帧设定不同的等待时间来控制帧的优先级。
+  ![3-28](pic/3-28.png)
+
+### The 802.11 Frame Structure
+
+#### Data Frame
+
+- **Address field**: 数据帧传入或传出 AP，但是AP可能是一个中转点，需要Address 3来提供远端目标。
+- *Protocol Version*: 设置为00
+- *Type*: 同时用于数据帧、控制帧或管理帧；*Subtype*：控制帧的RTS、CTS或ACK；
+  对于常规数据帧（无服务质量），其二进制值设为10和0000。
+- **To DS** 和 **From DS**: 指示帧是否发往或来自接入点连接的网络。
+-  *More Fragments*: 后续还有更多分片
+-  *Retry*: 重传
+- *Pwr*: 休眠状态;
+- *More data*: 发送方还有额外帧;
+- *The Protected Frame bit*: 使用WEP加密;
+- *The Order bit*: 要求严格按顺序处理;
+- *Duration*: 及其应答所需时间；控制帧中也存在该字段。
+- *Sequence*: 16位，其中12位用于完整帧，4位用于分片。
+
+![3-29](pic/3-29.png)
+
+#### Management Frame
+
+类似数据帧，缺少一个base station address，因为管理帧严格限制在一个分布系统内。
+
+#### Control Frame
+
+- 只有两个地址
+- 没有 Data 和 Sequence 字段
+- **Subtype**: RTS, CTS, ACK
+
+
+
+## Data Link Layer Switching
+
+### Bridge
+
+所有连接在同一个网桥端口上的设备，属于同一个冲突域；而连接在网桥不同端口上的设备，属于不同的冲突域。
+
+![3-30](pic/3-30.png)
+
+网桥必须决定是否转发或丢弃帧，以及转发到哪一个端口。
+
+一个简单的实现方式就是存储一个巨大的**哈希表**来列举所有可能的目的地及其所属的输出端口。在网桥首次使用时，所有哈希表都是空的，需要先使用 **flood** 算法，即所有未知目的地的帧，都转发到网桥的所有端口（除了发送的端口）；已知目的地的直接转发到对应端口即可。
+
+网桥工作在**混杂模式(promiscuous mode)**，可以看到任何端口上的任何帧。通过观察源地址，网桥可以知道机器位于哪个端口。
+
+网络拓扑结构是动态的，因为某些机器和网桥会频繁开关机并移动位置。为处理动态拓扑，每次哈希表条目创建时，都会记录帧的到达时间。当源地址已在表中存在的帧到达时，其条目会更新为当前时间。网桥会定时扫描哈希表中的所有条目，删除所有超过一定时间未发送的条目。（如果一个设备在几分钟内保持沉默，那么所有发送给它的信息都会被泛洪转发，直到它自己发送帧）
+
+路由转发的过程取决于源端口与目的端口：
+
+- 如果源端口和目的端口是同一个，则丢弃。
+- 如果源端口和目的端口不同，则转发到目的端口。
+- 如果目的端口未知，则进行泛洪发送。
+
+#### Protocol Processing at a Bridge
+
+在一般情况下，特定层的转发器可以重写该层的报头。
+
+![3-31](pic/3-31.png)
+
+#### Bridges from 802.x to 802.y
+
+连接 k 个不同局域网的网桥将包含 k 个不同的 MAC 子层和 k 个不同的物理层，每种类型各对应一层。
+
+![3-32](pic/3-32.png)
+
+### Spanning Tree Bridges
+
+网络拓扑中可能存在环路（用于提高可靠性或人为错误导致），但是环路会造成问题。比如在进行泛洪发送时帧可能在网络中循环。
+
+解决方案是给拓扑结构找到一个 **spanning tree** ，使得所有交换机可以互相连接且**每两个终端之间只有一条道路可以通信**。
+
+![3-33](pic/3-33.png)
+
+#### Spanning Tree Algorithm
+
+交换机使用分布式算法来构建spanning tree。每台交换机定期向所有端口的邻居广播配置消息，并处理从其他网桥接收的消息。这些消息不会被转发，因为其目的是构建生成树，该树随后可用于转发。
+
+- 选定根节点（MAC地址最低的交换机）
+- 基于根节点最短距离扩展树形结构（采用最低地址打破距离平局）
+- 若端口不在生成树中，则关闭其转发功能
+
+实现细节：
+
+- 每个交换机初始时都认为自己是树的根节点。
+- 每个交换机定期向邻居发送更新，包含：自身地址、根节点地址以及到根节点的距离（跳数）。
+- 交换机优先选择到最低根节点距离较短的端口。当距离相同时，采用最低地址进行决胜。
+
+> 不同的设备位于网络的不同层级。![3-34](pic/3-34.png)
+>
+> **物理层**
+>
+> - **Repeater**(中继器): 用于净化和放大输入信号，不理解帧、数据包、报头。
+> - **Hub**: 连接多条线路，通常不放大信号。所有接入集线器的设备必须以相同速率运行。不检查链路层的地址，也不使用。
+>
+> **数据链路层**
+>
+> - **Bridge**: 每个端口被隔离为独立的冲突域，线路可以运行于不同速率。仅在所需端口输出帧。
+> - **Switch**：相当于以太网中的网桥。
+>
+> **网络层**
+>
+> - **Router**: 根据数据包头选择输出线路；无法看到帧地址，也无法判断数据包是从局域网还是点对点线路传入的；连接不同类型的局域网。
+>
+> **传输层和更高层**
+>
+> - **Gateways**(网关): 网关可在传输层为应用层提供服务(e.g. reformatting)。
+
+### Virtual LANs
+
+VLAN可以实现逻辑拓扑与物理拓扑的解耦——通过软件完全重构建筑布线。
+
+- 基于 VLAN-aware switches
+- 常采用颜色命名法，便于打印网络拓扑图时区分
+
+要使VLAN正常工作，必须在网桥中自动设置配置表。帧不允许转发至具有不同VLAN ID的端口。单个端口可标记多个VLAN颜色。
+
+![3-35](pic/3-35.png)
+
+#### Interconnecting VLAN Switches
+
+ 每个VLAN中的端口构成一个广播域。
+
+- **VLAN trunking**: 在每台交换机上配置专用端口作为干线端口，用于连接两台VLAN交换机。
+
+干线端口同时属于所有VLAN，发往任意VLAN的帧都会通过干线链路转发至其他交换机。
+
+通过扩展以太网帧格式802.1Q，交换机可以识别干线链路接收帧所属的VLAN。
+
+![3-36](pic/3-36.png)
+
+#### The 802.1Q Frame Format
+
+唯一的区别就是增加了一对2字节字段。
+
+- **VLAN protocol ID**:  0X8100，由于该数值大于1500，所有以太网卡均将其解释为类型而非长度。
+- **TCI**: 包含3位 **priority**；1位 **CFI**(Canonical format indicator)最初用于标识MAC地址的位序——小端序或大端序；12位 **VLAN identifier**，作为查找表索引（即VLAN编号），用于确定发送端口。
+
+![3-37](pic/3-37.png)
+
+!!!Note
+	在802.1Q下，最大帧大小增加到 **1522** 字节，最小帧大小仍为 **64** 字节。网桥在传输过程中可能把最小帧大小从64字节扩大到68字节。

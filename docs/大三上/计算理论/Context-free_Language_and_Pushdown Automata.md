@@ -84,9 +84,9 @@ CFG $G=(S,V,\Sigma,R)$ 的一个 derivation可以用**符号树(parse tree)**来
 - 过程变量只能出现在中间节点
 - 最终的字符串由终止符从左到右组合生成
 
-
-
-
+> **Definition**
+>
+> 定义 derivations 的相似性
 
 
 
