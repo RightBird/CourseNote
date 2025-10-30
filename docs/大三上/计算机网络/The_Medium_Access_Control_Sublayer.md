@@ -74,13 +74,9 @@
 A和B主要指下面几种分布：
 
 - **M**: exponential
-
 - **Er**: r-stage Erlangian
-
 - **Hr**: r-stage Hyperexponential
-
 - **D**: Deterministic
-
 - **G**: General
 
 对于一个普遍的系统 G/G/1，定义**利用率(utilization factor)** $\rho=\lambda\tilde{x}$ 。在多服务系统 G/G/m 中，对应的利用率为 $\rho=\frac{\lambda\tilde{x}}{m}$。利用率表示了系统被使用的比例：
@@ -107,21 +103,29 @@ $$
 则 $\frac{dP_k(t)}{dt}$ 表示 $t$ 时间用户的流动率（流入率-流出率）
 
 对于 M/M/1 队列，系统的输入是一个 Poisson input，则 $P_k(t)=\frac{(\lambda t)^k}{k!}e^{-\lambda t}$，于是有
+
 $$
 \overline{N(t)}=\sum^{+\infty}_{k=0}kP_k(t)=\lambda t
 $$
+
 接下来考虑稳态的情况，系统中有 $k$ 个用户的概率 $p_k=(1-\rho)\rho^k$，则系统中的评价用户数：
+
 $$
 \overline{N}=\sum^{+\infty}_{k=0}kp_k=\frac{\rho}{1-\rho}
 $$
+
 根据 **Little's Result**，以及 $\rho=\lambda\tilde{x}=\lambda/\mu$，可以得到
+
 $$
 T=\overline{N}/\lambda=\frac{\frac{\rho}{1-\rho}}{\lambda}=\frac{1/\mu}{1-\rho}
 $$
+
 根据流动函数也同样可以得出 $W=\overline{N_q}/\lambda=(\overline{N}-m\rho)/\lambda=\frac{\rho/\mu}{1-\rho}$，
+
 $$
 T=\tilde{x}+W=\frac{1}{\mu}+\frac{\rho/\mu}{1-\rho}=\frac{1/\mu}{1-\rho}
 $$
+
 ![3-2](pic/3-2.png)
 
 #### Performance of Static FDM
@@ -129,13 +133,17 @@ $$
 对于一个capacity为 $C$ bps的通道，假设平均到达率为 $\lambda$ frames/sec，帧的平均长度为 $1/\mu$ bits，则平均服务时间 $\tilde{x}=\frac{1/\mu}{C}=\frac{1}{\mu C}$
 
 根据队列理论中 M/M/1 队列的结论以及 $\rho=\lambda\tilde{x}$ ，平均延迟为
+
 $$
 T=\frac{\tilde{x}}{1-\rho}=\frac{1}{\mu C-\lambda}
 $$
+
 接下来把单通道分别分配到 $N$ 个通道，即每个通道的capacity为 $C/N$ bps，则平均输入率变为 $\lambda/N$ ，根据 M/M/m 队列，平均延迟为
+
 $$
 T_N=\frac{1}{(\mu C/N)-(\lambda/N)}= \frac{N}{\mu C -\lambda}=NT
 $$
+
 从中可以看出FDMA的平均延迟比所有帧有序排列在中央队列中要差N倍。
 
 ### Dynamic Channel Allocation
@@ -396,15 +404,19 @@ Classic Ethernet 使用1-persistent CSMA/CD 算法。
 则记每个站竞争成功的概率 $A=kp(1-p)^{k-1}$ ($p=1/k$ 时取到最大值)
 
 在 $j$ 个时隙内有帧竞争成功并开始传输的概率为 $A(1-A)^{j-1}$，则竞争期的平均时隙数为
+
 $$
 \sum^{+\infty}_{j=0}jA(1-A)^{j-1}=\frac{1}{A}
 $$
+
 每个时隙的时间为 $2\tau$ ，因此平均竞争时间 $w=2\tau/A$
 
 假设帧的平均传输时间为 $P$，则
+
 $$
 \text{Channel efficiency}=\frac{P}{P+2\tau/A}
 $$
+
 !!!Note
 	电缆越长，竞争间隔越长。
 
