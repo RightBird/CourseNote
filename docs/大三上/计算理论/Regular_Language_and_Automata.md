@@ -210,7 +210,7 @@ $$
 
 构造 $L(M)=L(M_1)\circ L(M_2)$，满足：
 
-- $K=K_1\cup K_2 $
+- $K=K_1\cup K_2$
 - $F=F_2$
 - $\Delta=\Delta_1\cup\Delta_2\cup\{(q_i,e,s_2):q_i\in F_1\}$
 
@@ -218,7 +218,7 @@ $$
 
 #### Kleene Star
 
-构造 $L(M)=L(M_1)*$，满足
+构造 $L(M)=L(M_1)^*$，满足
 
 - $K=K_1\cup\{s_1'\}$
 - $F=F_1\cup\{s_1'\}$
