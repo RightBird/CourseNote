@@ -92,7 +92,7 @@ CFG $G=(S,V,\Sigma,R)$ 的一个 derivation 可以用**语法树(parse tree)**�
 > - $D=x_1\Rightarrow x_2\Rightarrow x_3\Rightarrow…\Rightarrow x_n,~~~x_i\in V^*,x_1\in V-\Sigma, x_n\in \Sigma^*$
 > - $D'=x_1'\Rightarrow x_2'\Rightarrow x_3'\Rightarrow…\Rightarrow x_n',~~~x_i'\in V^*,x_1'\in V-\Sigma, x_n'\in \Sigma^*$
 >
-> 则 $D \text{ precedes } D' (D\prec D') \Leftrightarrow \exist 1\leq k\leq n$ ，满足
+> 则 $D \text{ precedes } D' (D\prec D') \Leftrightarrow \exists 1\leq k\leq n$ ，满足
 >
 > - 对于所有 $i\neq k$ ，$x_i=x_i'$
 > - $x_{k-1}=x’_{k-1}=uAvBw$ 其中 $u,v,w\in V^*，A,B\in V-\Sigma$
@@ -111,9 +111,9 @@ CFG $G=(S,V,\Sigma,R)$ 的一个 derivation 可以用**语法树(parse tree)**�
 > 对于一个 CFG $G=(V,\Sigma,R,S)$，令 $A\in V-\Sigma,w\in\Sigma ^*$，则以下语句等价：
 >
 > - $A\Rightarrow^*w$
-> - 存在一个语法树根节点未 $A$ ，field 为 $w$
-> - 存在一个最左推导 $ A\overset{L^*}\Rightarrow w$
-> - 存在一个最右推导 $ A\overset{R^*}\Rightarrow w$
+> - 存在一个语法树根节点为 $A$ ，field 为 $w$
+> - 存在一个最左推导 $A\overset{L^*}\Rightarrow w$
+> - 存在一个最右推导 $A\overset{R^*}\Rightarrow w$
 
 !!!Note
 	一个字符串可以有多个最左或最右推导。(歧义语法)
@@ -123,7 +123,8 @@ CFG $G=(S,V,\Sigma,R)$ 的一个 derivation 可以用**语法树(parse tree)**�
 > 一种语法中，当某些单词具有两个语法树时，称该语法存在歧义(**ambiguous**)。
 
 - Example
-  ![3-3](pic/3-3.png)
+  
+![3-3](pic/3-3.png)
 
 ## 3.3 Pushdown Automata
 
@@ -148,7 +149,7 @@ CFG $G=(S,V,\Sigma,R)$ 的一个 derivation 可以用**语法树(parse tree)**�
 > - $\Sigma$ 是一个字母表（输入符）
 > - $\Gamma$ 是一个字母表（输出符）
 > - $s\in K$ 是初始状态
-> - $F\subseteq$ 是终止状态集合
+> - $F\subseteq K$ 是终止状态集合
 > - $\Delta$ 是转移关系，是 $(K\times(\Sigma \cup \{e\})\times \Gamma^*)\times(K\times \Gamma^*)$ 的子集
 
 **Example**
@@ -164,7 +165,7 @@ CFG $G=(S,V,\Sigma,R)$ 的一个 derivation 可以用**语法树(parse tree)**�
 
 > **Definition**
 >
-> 定义 PDA 的 configuration: $K\times\Sigma^*\times\Gamma^*$ 的一个成员 $(p,x,\alpha)\vdash_M(q,y,\zeta)$ 当且仅当存在某个转移关系 $((p,\alpha,\beta),(q,\gamma))$ 满足：
+> 定义 PDA 的 configuration: $K\times\Sigma^*\times\Gamma^*$ 的一个成员 $(p,x,\alpha)\vdash_M(q,y,\zeta)$ 当且仅当存在某个转移关系 $((p,a,\beta),(q,\gamma))$ 满足：
 >
 > - $x=ay,a\in\Sigma\cup \{e\}$
 > - $\alpha=\beta\eta$
@@ -197,8 +198,8 @@ $\vdash^*_M$ 是 $\vdash_M$ 在 reflexive 和 transitive 上的闭包。
 - $M$ 仅有两个状态：开始状态 $p$ ，结束状态 $q$
 - 栈字母表 $\Gamma=V$
 - $\Delta$ 包含以下转移关系：
-  $((p,e,e),(q,S))$
-  $((q,e,A),(q,x))$ 对于所有 $A\rightarrow x\in R$
+  $((p,e,e),(q,S))$;
+  $((q,e,A),(q,x))$ 对于所有 $A\rightarrow x\in R$;
   $((q,a,a),(q,e))$ 对于所有 $A\in \Sigma$
 
 这样构造出的 $M$ 可以模拟输入字符串的**最左推导**。
@@ -247,6 +248,7 @@ x取 $V=\{S\}\cup\Sigma\cup\{<q,A,p>|\forall q,p\in K,A\in\Gamma\cup\{e,Z\}\}$
 > **Claim**
 >
 > 对于任何 $q,p\in K, A\in \Gamma \cup \{e\}$ , 以及 $x\in\Sigma^*$,满足
+> 
 > $$
 > <q,A,p>\Rightarrow^*_G x\Leftrightarrow (q,x,A)\vdash^*_M (p,e,e)
 > $$
