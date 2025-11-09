@@ -22,7 +22,7 @@
 
 > **Definition**
 >
-> DFA $（,\Sigma,\delta,s,F)$ 的一个 **configuration** 有 $K\times \Sigma^*$ 的形式，表示从当前状态 $K$ 开始经过 $\Sigma^*$ 所表示的多个操作。
+> DFA $（K,\Sigma,\delta,s,F)$ 的一个 **configuration** 有 $K\times \Sigma^*$ 的形式，表示从当前状态 $K$ 开始经过 $\Sigma^*$ 所表示的多个操作。
 
 两个configuration之间的二元关系 $\vdash_M$ 满足：
 
@@ -168,6 +168,7 @@ $$
 
 根据上图的的NFA，首先可以得到 $s'=E(q_0)=\{q_0,q_1,q_2,q_3\}$，然后得出转移关系：
 
+
 $$
 \begin{aligned}
 &\delta(s',a)=E(q_0)\cup E(q_4)=\{q_0,q_1,q_2,q_3,q_4\}\\
@@ -184,6 +185,7 @@ $$
 &\delta(\phi,a)=\delta(\phi,b)=\phi
 \end{aligned}
 $$
+
 
 于是可以得出等价的DFA为
 
