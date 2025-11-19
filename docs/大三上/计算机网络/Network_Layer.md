@@ -468,7 +468,7 @@ Prefix的主要优势在于路由器可以仅根据IP地址的网络部分进行
 
 ![4-22](pic/4-22.png)
 
-##### IP Address Classes - Historical**
+##### IP Address Classes - Historical
 
 在采用Classless InterDomain Routing(CIDR)之前，IP地址的网络部分长度局限于8、16或24比特，这种寻址方案被称为**classful addressing**。
 
@@ -676,6 +676,53 @@ ARP 查询数据包的目的是查询子网上的所有其他节点，以确定�
 
 ![](pic/4-34.png)
 
+![](pic/4-35.png)
 
+**3. Proxy ARP**
+
+主机 1 发送 ARP 后，由路由器代替主机 4 回应 ARP，即提供自己的 MAC 地址，让主机 1 以为主机 4 就在本地网络，从而实现跨网段通信。(<u>主机 4 不会直接回复 APR  请求，因为路由器不会转发以太网层的广播</u>)
+
+##### ARP vs. DNS
+
+- ARP 仅将同一子网上的节点的 IP 地址解析为 MAC 地址
+- DNS 将互联网上任何位置的主机名解析为 IP 地址。
+
+ARP 被视为一种跨越链路层和网络层的协议。
 
 ### Routing Protocols
+
+#### Routing in the Internet
+
+Internet使用两级路由算法：
+
+- 在每个网络内部，使用 intradomain/interior gateway protocol 进行路由(Distance vector routing, Link state routing)
+- 在组成 internet 的哥哥网络之间，使用 interdomain/exterior gateway proticol 进行路由。
+
+**不同网络可能使用不同的 intradoamin protocols，但是一定使用相同的 interdomain protocols**。在 Internet中，interdomain routing protocol 被称为 **BGP**(Border Gateway Protocol)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
