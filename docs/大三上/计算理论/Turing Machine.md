@@ -158,6 +158,9 @@ $$
 >
 > ![](pic/4-12.png)
 
+!!!Note
+	R.E.对于 intersection不封闭。
+
 图灵机用于计算函数：
 
 > **Definition**
@@ -278,4 +281,168 @@ $$
 !!!Corollary
 	任何由 k-tape 图灵机计算的函数或由 k-tape 图灵机 decided 或 semidecided 的语言，也可以分别由标准图灵机计算, decided 或 semidecided 。
 
+### Two-way infinite tape
 
+- 磁带向左和向右均**无边界**。
+- 输入/输出采用相同约定。
+
+具有双向无限磁带的图灵机不比标准图灵机更强大。双向无限磁带可由双磁带机器轻松模拟。
+
+![](pic/4-21.png)
+
+### Multiple Heads
+
+一条磁带配有多个磁头。在单一步骤中，所有磁头同时读取扫描符号，并独立移动或写入。多头磁带机可通过k-tape机器轻松模拟。
+
+### Two Dimensional Tape
+
+允许其磁带为无限二维网格。解决诸如“拼图”等问题时，比标准TM实用得多。
+
+> **Theorem**
+>
+> 任何由多带、多头、双向无限带或多维带的TM所决定或半决定的语言，以及任何由此类TM计算的功能，均可分别由标准TM进行决定、半决定或计算。
+
+
+
+## 4.4 Nondeterministic Turing Machines
+
+> **Definition** 
+>
+> 一个**nondeterministic Turing Machine(NTM)** 是一个五元组 $(K,\Sigma,\Delta,s,H)$ ，其中 $K,\Sigma,H$ 和标准TM相同，$\Delta$ 为
+> $$
+> ((K-H)\times\Sigma)\times(K\times(\Sigma\cup\{\leftarrow,\rightarrow \}))
+> $$
+> 相比于TM，这里的转移关系是 **relation** 而不是 function。
+>
+> Configurations $\vdash_M$ 和 $\vdash^*_M$ 的定义与标准 TM 类似。
+>
+> - $\vdash_M$ 可以不是单值的：一个configuration可以在一步中yield几个结果。
+
+>  **Definition**
+>
+> 一个NTM $M=(K,\Sigma,\Delta,s,H)$ ，如果 $(s,\rhd\underline{\sqcup}w)\vdash^*_M (h,u\underline{a}v)$ ，则称 $M$ 接受(**accepts**) 输入 $w\in(\Sigma-\{\rhd,\sqcup\})^*$。（只要存在一个路径可以停止即可）
+>
+> 对于一个语言 $L\subseteq(\Sigma,\{\rhd,\sqcup\})^*$，对于所有 $w\in(\Sigma-\{\rhd,\sqcup\})^*:w\in L$ ，都满足 $M$ 接受 $s$ $\Leftrightarrow$ $M$ **semidicides** $L$。
+
+> **Definition**
+>
+> 一个NTM $M=(K,\Sigma,\Delta,s,\{y,n\})$ ，如果对于任何 $w\in(\Sigma-\{\rhd,\sqcup\})^*$ 都满足以下两个条件，则称 $M$ 决定(**decides**) 一个语言 $L\subseteq(\Sigma-\{\rhd,\sqcup\})^*$ :
+>
+> - 存在一个自然数 $N$ ，使得不存在 configuration $C$ 满足 $(s,\rhd\underline{\sqcup}w)\vdash^N_M C$ 。（即最多经过 $N$ 步，所有分支都停下来）
+> - $w\in L$ 当且仅当存在 $u,v\in\Sigma^*,a\in\Sigma,$ $(s,\rhd\underline{\sqcup}w)\vdash^*_M(y,u\underline{a}v)$
+>
+> 如果对于任何 $w\in(\Sigma-\{\rhd,\sqcup\})^*$ 都满足以下两个条件，则称 $M$ 计算(**computes**) 一个函数 $f:(\Sigma-\{\rhd,\sqcup\})^*\rightarrow (\Sigma-\{\rhd,\sqcup\})^*$ :
+>
+> - 存在一个自然数 $N$ ，使得不存在 configuration $C$ 满足 $(s,\rhd\underline{\sqcup}w)\vdash^N_M C$ 。（即最多经过 $N$ 步，所有分支都停下来）
+> - $(s,\rhd\underline{\sqcup}w)\vdash^*_M(h,u\underline{a}v)$ 当且仅当 $ua=\rhd\sqcup$ 且 $v=f(w)$
+
+!!!Remark
+	如果NTM决定一个语言且计算一个函数，则所有计算都需要停止在(condition(a))。
+	
+	如果NTM决定一个语言，则只需要至少一个可能的计算可以结束且接受输入。
+	
+	如果NTM计算一个函数，则需要所有可能的计算都到达同一个结果。
+
+> **Theorem**
+>
+> 如果一个 NTM $M$ semidecides/decides一个语言或计算一个函数，则存在一个标准 TM $M'$ semidecides/decides这个语言或计算这个函数。
+
+**Proof**
+
+对于一个 NTM $M$ ，都可以构造一个 $M'$ 。由于 $M$ 每一步可以到达的状态都是有限的，则假设对于所有 $(q,a)$ ，最大的可以转移到的状态数为 $r$ ，然后把这些转移标为 $1,2,…,r$ (或更少)。对于任何在 $k$ 步内结束的计算，都可以由一个长度为 $k$ 的数字序列来表示路径，其中的每个数字都小于 $r$ 。
+
+构造一个 $M'$ 在3个磁带上工作：
+
+![](pic/4-22.png)
+
+- tape1: 始终保持原始输入
+- tape2/tape3: 用于模拟对于一个给定数字序列 $d$ 的NTM计算 $M_d$ 。其中tape2用于存储  计算结果，每次都要从tape1复制内容重新计算；tape3用于计算 $\{1,…,r\}^*$ 的字典序(**lexicographically**)的下一个值，初始为 $e$
+
+![](pic/4-23.png)
+
+- $C^{1\rightarrow2}$ : 擦除第二个磁带并从第一个磁带拷贝数据到第二个磁带
+- $B^3$ : 生成字典序的下一个字符串的机器
+- $M^{2,3}_d$ : $M$ 的决定型版本，在磁带2和3上操作
+
+接下来只需说明 $M'$ halt on input $w$ **iff** (some computation of) $M$ halts: 
+
+假设 $M'$ 在输入 $w$ 后停止
+
+- $\Rightarrow$ $M_d$ 停止且第三个磁带上扫到的不是空白
+- $\Rightarrow$ 对于一个字符串 $i_1,i_2,…,i_n$ , $M_d$ 在第二个磁带上从 $w$ 开始，在第三个磁带上从 $i_1,i_2,…,i_n$ 开始，最后可以停止。
+- $\Rightarrow$ 存在一个计算可以让 $M$ 在 $w$ 上停止
+
+假设 $M$ 在输入 $w$ 后在运行 $n$ 步后停止
+
+- $\Rightarrow$ $M'$ 在至多 $r+r^2+r^3+…+r^n$ 次失败后，$B^3$ 可以找到一个字符串满足 $\{1,…,r\}^*$ 根据对应的选择使 $M'$ 可以停止，而 $M_d$ 将在扫描该字符串的最后一个符号时停机
+
+!!!Remark
+	用确定性模型模拟非确定性模型**并非逐步模拟**。它需要**指数级数量**的步骤来模拟n步的非确定性模型，而本章描述的所有其他模拟都是**多项式级别**的。
+
+
+
+## 4.5 Grammars
+
+> **Definition**
+>
+> 一个 **grammer**(or **unrestricted grammer**) 是一个四元组 $G=(V,\Sigma,R,S)$ ，其中
+>
+> - $V$ 是一个字母表
+> - $\Sigma\subseteq V$ 是终止符(**terminal symbols**)的集合, $V-\Sigma$ 是非终止符(**nonterminal symbols**) 的集合
+> - $S\in V-\Sigma$ 是开始符号(**start symbol**)
+> - $R$ 是规则(**rules**)集合 ，是 $(V^*(V-\Sigma)V^*)\times V^*$ 的有限子集
+
+- $u\rightarrow_G v\Leftrightarrow (u,v)\in R$
+- $u\Rightarrow_G v\Leftrightarrow \exists w_1,w_2\in V^*,\text{ and some rule } u'\rightarrow_Gv'\text{ such that } u=w_1u'w_2,v=w_1v'w_2$
+- $\Rightarrow^*_G$ 是 $\Rightarrow_G$ 对于 reflexive, transitive 的闭包。
+- 由 $G$ 产生的语言表示为 $L(G)=\{w\in\Sigma^*:S\Rightarrow^*_Gw\}$
+
+!!!Remark
+	任何 Context-free gammar 都是 grammar。
+
+**Example**
+
+生成语言 $\{a^nb^nc^n:n\geq 1\}$ 的grammar $G$ :![](pic/4-24.png)
+
+> **Theorem**
+>
+> 一个语言可以由一个 grammar 生成当且仅当这个语言可以是 R.E. 
+
+**Proof**
+
+- 先证 $\Rightarrow$ ，即假设 $L=L(G)$
+
+此时需要构建一个NTM $M$ 满足 $L(M)=L(G)$ 
+
+取一个双磁带 $M$ ，第一个磁带始终保持输入 $w$ ，第二个磁带 $M$ 试图在语法 $𝐺$ 中重建从 $𝑆$ 推导出 $𝑤$ 的过程，因此 $M$ 从在第二个磁带上写入 $S$ 开始。
+
+每一步由 $|R|+1$ 中可能状态：前 $|R|$ 中状态各自对应一条转换序列的起始点，该序列将对应规则应用于第二磁带的当前内容。第 $|R|+1$ 个选择：检查当前字符串是否等于 $𝑤$ ，如果等于，则 $M$ 停止并接受，否则 $M$ 陷入无限循环。
+
+ $𝑀$ 以非确定性方式执行推导 $𝑆=𝑤_0\Rightarrow_𝐺𝑤_1\Rightarrow_𝐺…\Rightarrow_𝐺𝑤_𝑛$ , 每一步都检查 $w_i=w$
+
+![](pic/4-25.png)
+
+- 再证 $\Leftarrow$ ，即假设 $L$ 是一个 R.E.
+
+设 $M$ 为一台图灵机，构造grammar $G$ 使得 $G$ 生成由 $M$ semidecide的语言。
+
+先约定以下规则：
+
+- 如果 $M$ 启动，则开始configuration $(s,\rhd\underline{\sqcup}w)$
+- $K$ 和 $\Sigma$ 不相交，并且都不包含新的结尾符号 $\lhd$
+- 如果 $M$ 停止，则停止configuration $(h,\rhd\underline\sqcup)$
+
+Main Idea: $𝐺$ 将模拟由 $𝑀$ 执行的逆向计算。中间字符串将作为配置的编码形式呈现。![](pic/4-27.png)
+
+![](pic/4-26.png)
+
+> **Definiton**
+>
+> 若存在图灵机 $𝑀$ ，对于任意输入 $𝑥$ ，机器在有限步数内**停止**并输出 $𝑓(𝑥)$，则函数 $𝑓$ 为**recursive(or computable)**函数。
+
+> **Definition**
+>
+> 若存在图灵机 $𝑀$ ，对于任意输入字符串 $𝑤$ ，机器都能停止并正确判定 $𝑤$ 是否属于语言 $𝐿$ ，则称语言 $𝐿$ 是 **recursive(or decidable)**的。
+>
+> - 如果 $w\in L$ , $M$ 接受 $w$
+> - 如果 $w\notin L$ , $M$ 拒绝 $w$
