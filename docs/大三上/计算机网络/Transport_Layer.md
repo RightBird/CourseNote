@@ -41,7 +41,7 @@ Internet中的传输层主要有两个协议：
 - **UDP(User Datagram Protocol)**: connectionless. 仅负责在应用程序间传输数据包，通常在操作系统中运行。
 - **TCP(Transmission Control Protocol)**: connection-oriented. 承担几乎所有功能，包括建立连接、通过重传机制增强可靠性，以及实现流量控制和拥塞控制。
 
-## 
+
 
 ## UDP
 
@@ -357,3 +357,166 @@ TCP采用滑动窗口机制以提升吞吐量。
 
 - 可发送紧急数据，例如允许用户终止远程机器上运行的进程
 - 发送方可发送1字节段，迫使接收方重新声明预期接收的下一个字节及窗口大小。此数据包称为窗口探测(**window probe**)。TCP标准明确提供此选项，以防窗口更新丢失时发生死锁。
+
+#### Silly Window Syndrome
+
+发生在 TCP 的发送方或接收方（甚至双方）因为每次只处理非常小的数据块，导致 TCP 窗口（window）剩余空间或发送数据量都很小，于是不断产生小数据包。
+
+##### Nagle’s Algorithm
+
+- 用于解决发送端发送多个小数据包。
+
+需要传输多个小数据包时，只发送第一个然后把其他的放入缓存。直到第一个数据包被确认，然后把所有缓存的数据放在同一个TCP段里传输并重新开始缓存新的数据。
+
+##### Clark's Solution
+
+- 用于解决接收端不断向发送端通告微小的窗口。
+
+接收端读取数据后不立即通告发送端，而是在有足够大数据之后再向发送端通告一个较大的窗口值。
+
+#### Cumulative Acknowledgement
+
+为了处理数据分段可能乱序到达的问题， 接收端会缓存(**buffer**)数据，直至能按顺序传递给应用程序。只有当接收端收到确认字节之前的所有数据时，才能发送确认。这种机制被称为**累积确认(cumulative acknowledgement)**。
+
+- Example: 若接收端收到段0、1、2、4、5、6和7，则可确认至段2末尾字节（含该字节）的所有数据。当发送方超时后重传段3时，由于接收方已缓存分段4至7，收到段3即可确认至段7末尾的所有字节。
+
+### TCP Timer Management
+
+TCP使用多种计时器，在概念上至少有以下几种：
+
+- RTO(Retransmission TimeOut)
+- Persistence Timer
+- Keepalive Timer
+- TIME-WAIT Timer
+
+#### RTO
+
+在TCP中，ACK往返的时间(RTT)范围更大，变化更剧。如图，如果RTO设为T1则会导致大量不必要的重传，而设为T2又会导致真正丢包时恢复速度慢。
+
+![](pic/5-19.png)
+
+因此，需要使用动态 RTO 计算算法来解决：
+
+- SRTT(Smoothed Round-Trip Time): 指数加权移动平均法
+  $$
+  SRTT=\alpha SRTT+(1-\alpha)R \text{ where }\alpha=7/8
+  $$
+
+- RTTVAR(Round-Trip Time VARiation): 使超时值同时对往返时间变异量及平滑往返时间敏感
+  $$
+  RTTVAR=\beta RTTVAR+(1-\beta)|SRTT-R|\text{ where }\beta=3/4
+  $$
+
+- 
+
+$$
+RTO=SRTT+4\times RTTVAR
+\\RTO=\min(1\text{sec},RTP)
+$$
+
+其中 $R$ 为最新采集的 RTT，即发送数据后，根据收到的对应 ACK，直接测量到的实际往返时间。但是这样采集RTT存在问题：如果重传发生，则无法确定收到的ACK是首次传输还是后续的重传。
+
+> **Karn’s algorithm**
+>
+> 对已重传的数据段不更新估计值。此外，每次重传时超时时间翻倍，直至数据段首次成功送达。
+
+#### Persistence Timer
+
+该计时器用于防止死锁(**deadlock**):
+
+- 当发送方收到“windowsize=0”的信息后，会一直等待，如果此时接收方发送的更新包丢失，那么会进入死锁状态。
+- persistance timer在发送方接收到 "windowsize=0" 后启动，计时结束后发送一个 **prob** 来询问窗口是否就绪。
+
+#### Keepalive Timer
+
+当连接处于闲置状态较长时间时，keepalive timer触发，让一方检查另一方是否仍在连接中。
+
+#### TIME WAIT timer
+
+当 TCP 连接关闭时（通常是主动关闭的一方），会进入 TIME-WAIT 状态。其运行时间为最大数据包生存周期的两倍，以确保连接关闭时，所有由此创建的数据包均已消失。
+
+### TCP Congestion Control
+
+网络层在路由器队列膨胀时检测拥塞，并尝试通过丢弃数据包等方式进行管理。传输层需接收网络层的拥塞反馈，并相应降低其向网络发送的流量速率。
+
+在Internet中，<u>TCP承担着拥塞控制的核心职责，同时也是可靠传输的主要实现者</u>。TCP拥塞控制基于**AIMD(Additive Increase Multiplicative Decrease)**控制法则，通过窗口机制运作，并将**数据包丢失**作为二进制信号。
+
+TCP中维护了两个窗口: **congesion window(发送窗口), flow control window(接收窗口)**
+
+- **congesion window(cwnd)**: 大小表示发送方在网络中可以拥有的最大字节数，只有发送方自己知道，不会通过链路传输。对应的发送速率为 $Rate=\frac{cwnd}{RTT}$ , $cwnd$ 大小根据 AIMD 规则动态调整。
+- **flow control window**: 大小规定接收方可以缓存的字节数，接收方通过TCP头来告知发送方窗口大小。
+
+两个窗口并行跟踪，可发送字节数取两者中**较小值**。若拥塞窗口或流量控制窗口暂时满载，TCP将停止发送数据。
+
+!!!Note
+	所有Internet TCP算法均假设丢包由拥塞引起，并监控超时机制，这是因为大多数有线网络和光纤有很小的 bit-error rate。这种方式在无线链路中通常不适用。
+
+在TCP中实现中，需要考虑数据包的传输速率和cwnd大小的设定：
+
+- 数据包的传输速率通过 **ack clock** 来估计。（ack应答时间反应了穿越链路中最慢部分的传输速率）![](pic/5-20.png)
+
+- cwnd的大小需要满足尽量充分利用网络带宽但又不能导致拥塞太快发生。采用慢启动(**Slow start**)
+
+#### Slow-Start 
+
+开始时每次RTT都让cwnd翻倍，指数级增长。
+
+![](pic/5-21.png)![](pic/5-22.png)
+
+为了控制慢启动，发送方会设置一个阈值(**slow start threhold**)
+
+- 如果**发生超时（丢包）**：慢启动阈值调整为cwnd的一半，重新启动整个过程。
+- 如果**cwnd超过慢启动阈值**：TCP切换到 **additive increase**。![](pic/5-22.png)
+
+即采用线性+指数模型使TCP连接的拥塞窗口长期保持在接近最优值的状态——既不会过小导致吞吐量低下，也不会过大引发拥塞。
+
+![](pic/5-24.png)
+
+#### Fast Retransmission
+
+将3次重复ack认为是丢包，丢包后立刻重传下一期待的 segment(**Fast Retransmission**)并重新设置慢启动阈值。
+
+- 可快速修复单个分段丢失，通常在超时前完成
+- 但发送方/接收方在等待ACK跳转期间存在静默期
+- 慢启动阈值仍设为当前拥塞窗口的一半。通过将拥塞窗口设为一个数据包即可重启慢启动
+
+#### TCP Tahoe
+
+最大数据段大小为 1KB，初始cwnd为64KB，采用线性+指数模型和快速重传。
+
+如图所示在t=0和t=13时发生了timeout![](pic/5-25.png)
+
+#### Fast Recovery
+
+在 Fast Retransmission 期间每收到一个新的重复 ACK，意味着：某个新的包已经成功到达接收方，且这些包是丢失包之后的连续段。
+
+**Fast Recovery** 是一种启发式机制，利用重复 ACK 的信息继续发送新包，而不是像 Tahoe 那样把 cwnd 直接降到 1 MSS 重新慢启动。
+
+在Fast Recovery阶段，每收到一个新的重复 ACK，就假装它是对丢失包之后的包的确认，通过接收ACK的数量可以估计正在传输的数据包数量。 在丢包之后，先把慢启动阈值调整到cwnd的一半，然后如果估计的正在传输数据包数量小于阈值则可以传输新的数据包，无需等待重传的ack再重启慢启动，即保持 cwnd 接近 ssthresh，不重置到 1 MSS。
+
+![](pic/5-26.png)
+
+#### TCP Reno
+
+在TCP Tahoe的基础上引入了fast recovery机制，避免采用慢启动机制（仅在首次启动和timeout发生时使用）
+
+![](pic/5-27.png) 
+
+#### Two larger changes
+
+- **SACK (Selcetive ACKnowledgements)**：相比传统TCP累计ACK，SACK可以列出 **最多 3 个已接收的字节范围**![](pic/5-28.png)
+- **ECN (Explicit Congestion Notification)**：通过**标记而非丢包**让主机提前减慢发送速度。在连接建立时通过 **TCP 标志位** 表示支持：**ECE**、**CWR**。ECN需要主机和路由器同时支持。
+
+#### TCP NewReno
+
+Reno可以处理单次丢包，但是多个丢包会导致超时。
+
+NewReno进一步优化ACK策略：使用SACK，接收方发送ACK范围，使发送方无需猜测即可重传。
+
+#### Feedback Signals for Congestion Control
+
+![](pic/5-29.png)
+
+### BBR (Bottleneck Bandwidth and Round-trip propagation time)
+
+不考。
