@@ -175,10 +175,13 @@ nav:
         - Sets, Relations, and Language: 大三上/计算理论/Sets_Relations_Language.md
         - Regular Language and Automata: 大三上/计算理论/Regular_Language_and_Automata.md
         - Context-free Language and Pushdown Automata: 大三上/计算理论/Context-free_Language_and_Pushdown Automata.md
+        - Turing Machine: 大三上/计算理论/Turing Machine.md
       - 计算机网络:
         - Physical Layer: 大三上/计算机网络/Physical_Layer.md
         - Data Link Layer: 大三上/计算机网络/Data_Link_Layer.md
         - MAC Sublayer: 大三上/计算机网络/The_Medium_Access_Control_Sublayer.md
+        - Network Layer: 大三上/计算机网络/Network_Layer.md
+        - Transport Layer: 大三上/计算机网络/Transport_Layer.md
   - C++:
     - C++基础: 
       - 数据类型: C++/C++基础/data_type.md
