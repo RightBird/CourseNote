@@ -446,3 +446,231 @@ Main Idea: $𝐺$ 将模拟由 $𝑀$ 执行的逆向计算。中间字符串将
 >
 > - 如果 $w\in L$ , $M$ 接受 $w$
 > - 如果 $w\notin L$ , $M$ 拒绝 $w$
+
+
+
+## 4.7 Numerical Functions
+
+> **Definiton**
+>
+> 定义**基本函数(basic funtions)**为以下三个：
+>
+> - **零函数(Zero Functions**, $Z$ **)**: $Z()=0$
+> - **后继函数(Successor Function,** $S$ **)**: $S(n)=n+1$
+> - **投影函数(Projection Functions,** $P_i^k$ **)**: $P_i^k(x_1,x_2,…,x_k)=x_i$
+
+> **Definition**
+>
+> 定义两种将函数组合成更复杂函数的方式：
+>
+> - **Composition**: 对于 $k,l\geq 0$ ，令 $N_k\rightarrow N$ 是一个k元函数， $h_1,…,h_k$ 是l元函数，则 $g$ 对 $h_1,…,h_k$ 的**composition**为 
+>
+> $$
+> f(n_1,…,n_l)=g(h_1(n_1,…,n_l),…,h_k(n_1,…,n_l))
+> $$
+>
+> - **Recursive**: 对于 $k\geq0$ ，令 $g$ 是一个k元函数， $h$ 是一个 (k+2)元函数，则由 $g$ 和 $h$ 定义的 (k+1)元递归函数为
+>
+> $$
+> f(n_1,…,n_k,0)=g(n_1,…,n_k)\\
+> f(n_1,…,n_k,m+1)=h(n_1,…,n_k,m,f(n_1,…,n_k,m))
+> $$
+>
+> 于是可以定义**原始递归函数(primitive recursive functions)** 为所有基本函数以及可以由基本函数在若干次组合和递归之后生成的函数。
+
+#### Example
+
+$plus(m, n) = m + n:$
+
+- plus(m, 0) = m
+- plus(m,n+1) = succ(plus(m, n))
+
+$mult(m, n) = m · n:$
+
+- mult(m, 0) = 0
+- mult(m, n+1) = plus(m, mult(m, n))
+
+$exp(m,n)=m^n:$
+
+- exp(m, 0) = 1
+- exp(m, n+1) = mult(m, exp(m, n))
+
+所有常函数:
+
+- $f(n_1,…,n_k)=succ(…succ(zero(n_1,…,n_k)))$
+- sgn(0) = 0, sgn(n+1) = 1
+
+$m\sim n=\max\{m-n,0\}:$
+
+- 先定义pred函数: $pred(0)=0,pred(n+1)=n$ 为原始递归
+- $m\sim 0 =m$
+- $m\sim(n+1)=pred(m\sim n)$
+
+> **Definition**
+>
+> 一个**primitive recursive predicate**是一个值只能取0或1的原始递归函数。
+
+#### Example
+
+- $iszero(n):iszero(0)=1, iszero(m+1)=0$
+- $positive(n)=sgn(n)$
+- $greater-than-or-equal(m,n)=iszero(n\sim m)$
+- $less-than(m,n)=1\sim greater-than-or-equal(m,n)$
+
+
+
+任何primitive recursive predicate的 **negation** 也是primitive recursive predicate:
+$$
+\neg p(m)=1\sim p(m)
+$$
+任何两个primitive recursive predicate 的 **disjuntion**和**conjuntion**也是primitive recursive predicate
+$$
+p(m,n)\vee q(m,n)=1\sim iszero(p(m,n)+q(m,n))\\
+p(m,n)\wedge q(m,n)=1\sim iszero(p(m,n)\cdot q(m,n))
+$$
+如果 $f$ 和 $g$ 是原始递归函数， $p$ 是一个primitive recursive predicate，则根据以下规则定义的函数也是原始递归的
+$$
+f(n_1,…,n_k)=\left \{ \begin{array}{lr} 
+	g(n_1,…,n_k) & \text{if }p(n_1,…n_k) \\
+  h(n_1,…,n_k) & \text{otherwise}
+\end{array}\right.
+$$
+以上定义规则等价于
+$$
+f(n_1,…,n_k)=p(n_1,…,n_k)\cdot g(n_1,…,n_k)+(1\sim p(n_1,…,n_k))\cdot h(n_1,…,n_k)
+$$
+
+#### Example
+
+余数函数 $rem$
+
+- $rem(0,n)=0$
+
+$$
+rem(m+1,n)=\left\{\begin{array}{lr}
+0, & if~equal(rem(m,n),pred(n)) \\
+rem(m+1,n) & otherwise
+\end{array}\right.
+$$
+
+除法函数 $div$
+
+- $div(0,n)=0$
+
+$$
+div(m+1,n)=\left\{\begin{array}{lr}
+div(m,n)+1, & if~equal(rem(m,n),pred(n)) \\
+div(m,n) & otherwise
+\end{array}\right.
+$$
+
+$𝑑𝑖𝑔𝑖𝑡(𝑚, 𝑛, 𝑝)$ 取base-p表示数n的第m位数字:
+$$
+digit(m,n,p)=div(rem(n,p^m),p^{m\sim 1})
+$$
+求和函数 $sum_f(n,m)=\Sigma^m_{k=0}f(n,k)$
+
+- $sum(n,0)=0$
+- $sum(n,m+1)=sum(n,m)+f(n,m+1)$
+
+求积函数 $mult_f(n,m)=\Pi^m_{k=0}f(n,k)$ 同理
+
+$\exists 𝑡_{(\leq 𝑚)} 𝑝(𝑛_1, … , 𝑛_𝑘, 𝑡)$
+$$
+\exists 𝑡_{(\leq 𝑚)} 𝑝(𝑛_1, … , 𝑛_𝑘, 𝑡)\Leftrightarrow \Sigma^m_{t=0}p(n_1,…,n_k,t)\neq 0
+$$
+$\forall 𝑡_{(\leq 𝑚)} 𝑝(𝑛_1, … , 𝑛_𝑘, 𝑡)$
+$$
+\forall 𝑡_{(\leq 𝑚)} 𝑝(𝑛_1, … , 𝑛_𝑘, 𝑡)\Leftrightarrow \Pi^m_{t=0}p(n_1,…,n_k,t)\neq 0
+$$
+整除判定函数 $y|x$
+$$
+y|x \Leftrightarrow\exists 𝑡_{(\leq x)} (y\cdot t=x)
+$$
+判断质数函数 $prime(x)$
+$$
+prime(x)\Leftrightarrow(x>1)\wedge \forall t_{(<x)}[t=1\vee \neg(t|x)]
+$$
+
+#### Enumerable
+
+原始递归函数集合是 **可数的(enumerable)** 的：
+
+- 每个原始递归函数原则上都可以用**基本函数**来定义，因此可以表示为**有限字母表**中的字符串；该字母表应包含恒等函数、后继函数和零函数的符号，用于表示原始递归和复合运算，此外还需包含括号以及用于在二进制基本函数中索引的符号0和1。
+- 我们可枚举字母表中所有字符串，并保留其中作为原始递归函数合法定义的字符串。
+
+> **Remark**
+>
+> 原始递归函数集合是递归函数集合的**真子集(proper subset)**。
+
+根据原始递归函数可数的性质，可以列举出一元原始递归函数 $f_1,f_2,f_3,…$，定义一个函数 $g(n)=f_n(n)+1$ 。假设 $g$ 是原始递归函数，则必然存在一个 $m$ 使得 $g=f_m$ 但是此时须满足 $g(m)=f_m(m)=f_m(m)+1$ ，矛盾，则 $g$ 不是一个原始递归函数。
+
+![](pic/4-28.png)
+
+#### Minimalization
+
+> **Definition**
+>
+> 令 $g$ 是一个 (k+1)元函数，他和 $g$ 的**最小化(minimalization)** k元函数为
+> $$
+> f(n_1,…,n_k)=\left\{\begin{array}{l}
+> \text{the last }m \text{ such that } g(n_1,…,n_k)=1 \text{ if such } m \text{ exists}\\
+> 0 \text{ otherwise}
+> \end{array}\right.
+> $$
+> $g$ 的最小化用以下式子表示
+> $$
+> \mu m[g(n-1,…,n_k,m)=1]
+> $$
+> 一个(k+1)元函数是**可最小化的(minimalizable)**如果满足：
+> $$
+> \forall n_1,…,n_k\in N,\exists m\in N \text{ such that }g(n_1,…,n_k,m)=1
+> $$
+
+!!!Supplyment
+	the TM of recursive function always halt. (**False**)
+	
+
+	the TM of primitive recursive function always halt (**True**)
+
+使用最小化操作可以定义 **logarithm function**
+
+> **Definition**
+>
+> 若函数可通过复合运算、递归定义及可最小化函数的最小化操作从基本函数推导得出，则称其为$\mu$-递归函数($\mu$**-recursive function**)。
+
+**Example**
+$$
+\log(m,n)=\lceil \log_{m+2}(n+1)\rceil=\mu p[greater-than-or-equal((m+2)^p,n+1)]
+$$
+
+> **Theroem**
+>
+> 一个函数 $f:N^k\rightarrow N$ 是$\mu$-递归函数当且仅当这函数是递归函数（即可以用TM计算）
+
+**Proof**
+
+1. $\Rightarrow$ : 如果 $f:N^k\rightarrow N$ 是$\mu$-递归函数
+
+则这个函数是由基本函数经过**组合、递归和最小化**操作得到的，这些操作都可以由图灵机实现，则这个函数可以用图灵机计算。
+
+2. $\Leftarrow$ : 假设存在一个TM $M=(K,\Sigma,\delta,s,\{h\})$ 计算函数 $f:N\rightarrow N$  
+
+首先约定以下规则：
+
+- $K\cup\Sigma =\phi$ ，取 $b=|\Sigma|+|K|$ ，建立映射 $\mathbb{E}:\Sigma\cup K\rightarrow \{0,1,…,b-1\}$ ，其中 $\mathbb{E}(0)=0,\mathbb{E}(1)=1$
+- configuration $(q,a_1a_2…\underline{a_k}…a_n)$ 使用 b-base的方法表示成一个整数$a_1a_2…a_kq…a_n$，即$\mathbb{E}(a_1)b^n+…+\mathbb{E}(a_k)b^{n-k+1}+\mathbb{E}(q)b^{m-k}+\mathbb{E}(a_{k+1})b^{n-k-1}+…+E(a_n)$
+
+接下来定义 $f(n)=num(output(last(comp(n))))$
+
+- $halted(n) = 𝑒𝑞𝑢𝑎𝑙(𝑑𝑖𝑔𝑖𝑡(\log(𝑏 \sim 2, 𝑛 \sim 1)\sim 2,𝑛,𝑏) ,\mathbb{E}(h))$
+- $𝑖𝑠𝑐𝑜𝑚𝑝(𝑚, 𝑛) $是一个predicate，表示 $𝑚$ 是某次计算中的配置序列，该计算未必已终止，用于保证序列合法。
+- $comp(n)=\mu m[iscomp(m,n) \text{ and } halted(last(m))]$ : 生成从初始配置到最终停止配置的所有配置序列编码
+- $lastpos(n)=\mu m[equal(digit(m,n,b),E(\rhd))\text{ or } equal(m,n)]$
+- $last(n)=rem(n,b^{lastpos(n)})$
+- $ouptut(n)=rem(n,b^{\log(b\sim 2,n\sim1)}\sim2)$
+- $num(n)=digit(1,n,b)\cdot2+digit(2,n,b)\cdot2^2+…+digit(\log(b\sim2,n\sim1)\sim2)\cdot2^{\log(b\sim2,n\sim1)}$
+
+comp函数将图灵机计算过程中的每一步的b-base数字都罗列出来，然后last取最后一步的结果即输出，然后通过num和output把结果输出出来。
+
+这些函数的复合过程满足$\mu$-递归的定义，证明完毕。
