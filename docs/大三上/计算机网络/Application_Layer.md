@@ -313,3 +313,269 @@ URL 设计具有开放性，这意味着浏览器可以轻松地使用多种协�
 ![](pic/6-23.png)
 
 ![](pic/6-24.png)
+
+### Cookies
+
+**HTTP Cookie**是一小段数据（最多 4KB），服务器会将其发送到用户的 Web 浏览器。通常，它用于判断两个请求是否来自同一浏览器，即保持用户登陆。cookie可以为**无状态**的HTTP协议记住状态信息。
+
+Cookie主要有以下三个目的：
+
+- Session management（会话管理）: 登陆信息、购物车信息或其他要记住的信息。
+- Personalization：用户偏好、主题和其他设置。
+- **Tracking**：记录和分析用户行为。
+
+一个 Cookie 最多可以包含五个字段：
+
+- **Domain**：指示 Cookie 的来源。
+- **Path**：服务器目录结构中的一个路径，用于标识服务器文件树的哪些部分可以使用该 Cookie。
+- **Content**：存储 Cookie 的内容。
+- **Expires**：指定 Cookie 的过期时间。如果缺少该字段，则浏览器关闭时就丢弃cookie(**nonpersistent cookie**)；如果提供了时间和日期，则为 **persistent cookie**。
+- **Secure**：用于指示浏览器只能通过安全传输方式将 Cookie 返回给服务器。此功能用于电子商务。
+
+![](pic/6-25.png)
+
+### **HTTP Performance**
+
+使用 **PLT(Page Load Time)** 来衡量web的性能。减小PLT的方式主要有以下几种：
+
+- 减小传输内容的大小（压缩技术）
+- 优化 HTTP 以更好地利用可用带宽
+- 优化 HTTP 以避免重复传输相同内容（缓存与代理）
+- 将内容移至更靠近客户端的位置（CDNs, Content Distribute Networks)
+
+#### Change HTTP: Parallel Connections
+
+浏览器建立多个 TCP 连接，因此可以并行发送多个 HTTP 请求。
+
+**优点**：能更好地填满带宽
+
+**缺陷**：
+
+- 每个 TCP 连接建立至少需要 1 个 RTT，TCP 连接释放也有成本。(**extra overhead**)
+- 相互之间会发生网络资源的竞争。<u>TCP 独立地对每个连接执行拥塞控制</u>。因此，连接之间相互竞争，**导致丢包增加**，并且总体而言，它们比单个连接更消耗网络资源。
+
+#### Change HTTP: Persistent Connections
+
+HTTP 1.1 使用持久连接（连接重用）：
+
+- 向单个服务器建立 1 个 TCP 连接
+- 可将其用于**多个 HTTP 请求**
+- 可以对请求进行**流水线处理**，即在请求 1 的响应到达之前发送请求 2。
+- 持久连接的优势取决于页面结构，但对网络资源消耗较小。
+
+!!!Note
+	由于存在**资源竞争、头部信息处理复杂、连接管理开销、缓存策略干扰**的问题，persistent connection 可能会更慢。
+
+![](pic/6-26.png)
+
+#### Change HTTP: HTTP/1.1 vs HTTP/2
+
+1. Server Push：HTTP/2允许服务器推送
+2. 在 HTTP/1.1 中，可以通过同一个 TCP 连接连续发送多个请求，但规则是这些请求必须按顺序处理，并且结果必须按顺序返回。而在 HTTP/2 中，响应可以以任意顺序返回。
+
+![](pic/6-27.png)
+
+#### Change HTTP: HTTP/3
+
+HTTP/3: HTTP-over-**QUIC**。HTTP/3 的主要优化在于它用于支持 HTTP 消息的传输协议：它不依赖于 TCP，而是依赖于称为 **QUIC(Quick UDP Internet Connection** 的增强版 UDP。
+
+1. 建立连接的延迟低
+
+![](pic/6-28.png)
+
+2. 改进拥塞控制方案，以及**plug-and-play**协议 (Reno, CUBIC, BBR)
+
+3. 基于**单调递增打包数(monotonically increased packed number)**的可靠传输。
+
+- 在 QUIC 中，packet 是 QUIC 协议定义的传输单元，封装在 UDP 数据报中。
+- QUIC packet 是位于应用层之下、UDP 之上的协议数据单元。
+
+!!!Note
+	QUIC 的 ACK 和 TCP 的 ACK 在“形式和层次”上不同。TCP 是字节流协议，采用基于字节序号的确认；QUIC 是基于数据包的协议，采用基于 **QUIC packet** number 的确认。
+
+仅凭数据包数量无法保证数据接收的顺序和传输的可靠性，需要使用**stream offset**。
+
+![](pic/6-29.png)
+
+4. 解决 “**Head-of-Line blocking” (HOL blocking) problem** (队头阻塞问题)
+
+QUIC 的多路复用和 HTTP2 类似。在一条 QUIC 连接上可以并发发送多个HTTP 请求 (stream)。 多路复用是 HTTP2 最强大的特性，能够将多条请求在一条 TCP 连接上同时发出去。但也恶化了 TCP 的一个问题，队头阻塞，如下图示。
+
+![](pic/6-30.png)
+
+- QUIC 最基本的传输单元是 Packet，不会超过 MTU 的大小，避免IP分片。整个加密和认证过程都是基于 Packet 的，不会跨越多个 Packet。QUIC把TLS1.3集成进协议，把TLS消息直接封装在QUIC packet中，每个packet独立解密，不等待“前面的字节”，这样就能避免 TLS 协议存在的队头阻塞。
+- Stream 之间相互独立，比如 Stream2 丢了一个 Packet，不会影响 Stream3 和 Stream4。不存在 TCP 队头阻塞。
+
+![](pic/6-31.png)
+
+5. 连接迁移
+
+<u>任何一条 QUIC 连接不再以 IP 及端口四元组标识，而是以一个 64位的随机数作为 ID 来标识</u>，这样就算 IP 或者端口发生变化时，只要 ID 不变，这条连接依然维持着，上层业务逻辑感知不到变化，不会中断，也就不需要重连。
+
+#### Web Caching
+
+HTTP使用两个策略来处理缓存：
+
+1. **Page freshness validation**：客户端在本地判断页面副本是否仍然有效
+
+- 可以基于"**Expires**"头的时间信息来判断页面是否仍然有效。
+- 也可以使用启发式方法进行猜测（cacheable, freshly valid, not modified recently）：使用 **Last-Modified** 头；页面可缓存性可能随时间变化
+- 本地缓存的好处是内容可以立即可用。
+
+2. **Revalidate copy** with remote server （conditional requests）
+
+- 基于副本的**时间戳**，例如服务器端的“**Last-Modified**”头。如果客户端从“Last-Modified”标头中获取了缓存页面的最后更新时间，则可以使用“**If-Modified-Since**”标头将此时间发送给服务器，以便仅在页面在此期间发生更改时才请求该页面。![](pic/6-32.png)![](pic/6-33.png)
+- 或者基于服务器返回的“**Etag**”标头等内容进行验证。“Etag”是页面内容的简称，类似于校验和，但更可靠（可以是加密哈希值）。客户端可以通过向服务器发送“**if-None-Match**”标头来验证缓存的副本，该标头列出了缓存副本的标签。如果任何标签与服务器响应的内容匹配，则可以使用相应的缓存副本。![](pic/6-34.png)
+- 使用服务器远程验证的好处是内容在一个往返时间 (RTT) 后即可使用。
+
+#### Web Proxies
+
+客户端联系代理，由代理来联系服务器。
+
+![](pic/6-35.png)
+
+### HTTP Message Format
+
+HTTP的消息格式为是基于文本的命令，包括request行和header行。
+
+#### Request
+
+request行由三个字段：**method**, **URL**, **HTTP version**。在请求中使用的Methods有
+
+![](pic/6-36.png)
+
+其中比较重要的方式为：
+
+- **GET**: 请求服务器发送页面。
+- **POST**: 用于用户填写表单时，将数据上传到服务器，服务器随后根据 URL 对数据进行处理。
+- **PUT**: 用于用户填写表单时。它将数据上传到服务器。服务器随后根据 URL 对数据进行处理。
+
+#### Request Headers
+
+请求行后面会附加一些额外信息，这些信息被称为 **request headers**。
+
+![](pic/6-37.png)
+
+- **User-Agent**: 允许客户端告知服务器其浏览器实现(例如 Mozilla/5.0 和 Chrome/5.0.375.125)。此信息有助于服务器根据浏览器定制响应，因为不同的浏览器可能具有差异很大的功能和行为。
+- **Accept**: 告知服务器，如果客户端可接受的内容有限，则客户端愿意接受哪些内容。(Accepy, Accept-Charset, Accept-Encoding, Accept-Language)
+- **If-Modified-Since/If-None-Match**: 用于缓存，允许客户端仅在缓存的页面副本失效时才请求发送该页面。
+- **Host**: 定服务器名称，取自 URL。Host是**必需**的。
+- **Authorization**: 受保护页面所必需的。
+- **Referer**: 提供指向当前请求 URL 的来源 URL，告诉服务器客户端是如何访问到该页面的。
+- **Set-Cookie**: 服务器向客户端发送 Cookie 的方式。客户端需要保存 Cookie，并在后续请求中使用 Cookie 标头将其返回给服务器。
+- **Last-Modified**: 指示页面上次修改的时间，用于页面缓存。
+- **Expires**: 指示页面的有效期，用于页面缓存。
+- **Location**: 由服务器用于通知客户端应尝试不同的 URL。如果页面已移动，或者允许多个 URL 指向同一页面（可能位于不同的服务器上），则可以使用此标头。也适用于拥有 .com 域名主页，但根据客户端的 IP 地址或首选语言将其重定向到国家/地区页面的公司。
+- **Accept-Ranges**: 如果页面非常大，小型客户端可能不希望一次性获取整个页面。一些服务器接受字节范围的请求，以便将页面分成多个小单元进行获取。
+- **Date**: 可用于双向通信，包含消息发送的时间和日期。
+- **Range**: 指示响应提供的页面字节范围。
+- **ETag**: 提供一个简短的标签，用作页面内容的名称，用于页面缓存。
+- **Cache-Control**: 提供关于如何缓存页面的其他明确指令。
+- **Upgrade**: 用于切换到新的通信协议。
+
+**Example**
+
+![](pic/6-38.png)
+
+#### Response
+
+每个请求都会收到一个响应，该响应包含一个状态行(**status line**)，以及可能的其他信息。状态行包含一个三位数的状态码，用于指示请求是否已满足，如果未满足，则说明原因。第一位数字用于将响应分为五种主要类型。
+
+![](pic/6-39.png)
+
+**Example**
+
+![](pic/6-40.png)
+
+### Static Web Pages
+
+静态网页是指包含文件内容的网页。（包含视频也算静态）
+
+<u>**HTML** 是一种格式化(makeup)语言</u>，用于描述文档的格式。
+
+- 格式化语言包含明确的格式化命令。
+- 格式化语言相对于没有明确格式化规则的语言的主要优势在于，它将内容与其呈现方式分离。
+- 浏览器只需理解格式化命令并将其应用于内容即可。这使得任何 Web 浏览器都可以重新格式化任何网页。
+- 其他示例：LaTeX、TeX 和 Markdown
+
+![](pic/6-41.png)![](pic/6-42.png)
+
+![](pic/6-43.png)
+
+#### **HTML** —— Input and Forms
+
+<u>HTML 1.0 基本上是单向的</u>，用户可以从信息提供者那里获取页面，但很难将信息反向发送回去。
+
+为了实现双向交互，需要两个必要条件：
+
+- 第一种要求是 HTTP 能够双向传输数据：**POST**
+- 第二种要求是能够呈现收集和打包输入的用户界面元素：HTML 2.0 中包含了表单(**forms**)，并具备此功能。表单包含允许用户填写信息或做出选择的框(boxes)或按钮(buttons)，然后将œ信息发送回页面所有者。
+
+![](pic/6-44.png)![](pic/6-45.png)
+
+![](pic/6-46.png)
+
+#### **HTML** —— CSS (Cascading Style Sheets)
+
+CSS 定义了一种简单的语言，用于描述控制标记内容外观的规则。
+
+样式表可以放在 HTML 文件中（例如，使用 `<style>` 标签），但更常见的做法是将其放在单独的文件中并引用。
+
+### Dynamic Web Pages
+
+动态网页由**程序执行生成**，内容随用户请求而变化。
+
+- 常见的场景有：电子商务、图书馆目录、股票市场、收发电子邮件。
+
+![](pic/6-47.png)
+
+#### Server-Side Dynamic Web Page Generation
+
+用于处理动态页面请求的多个 API(Application Programming Interface)
+
+- GGI(Gommon Gateway Interface): 提供了一个接口，允许 Web 服务器与后端程序和脚本通信，这些程序和脚本可以接收输入（例如，来自表单的输入）并生成 HTML 页面作为响应。（常用Python, Ruby, Perl等）
+- 服务器内嵌脚本(Embedded Scripts):将小型脚本嵌入到 HTML 页面中，并由服务器执行这些脚本以生成页面 (**PHP**, JSP)
+
+#### Client-Side Dynamic Web Page Generation
+
+PHP 和 CGI 都无法响应鼠标移动或直接与用户交互。为此，需要将脚本嵌入到 HTML 页面中，这些脚本在客户端机器而非服务器机器上执行。
+
+- 从 HTML 4.0 开始，可以使用 **`<script>` 标签**来嵌入此类脚本。
+
+最流行的客户端脚本语言是 **JavaScript**。其他还有VBScript, Applets。
+
+#### AJAX (Asynchronous Javascript and XML)
+
+AJAX 不是一种语言，而是一组协同工作的技术，旨在实现 Web 应用程序的以下功能：
+
+- 使用 HTML 和 CSS 将信息呈现为页面。
+- 使用 DOM(Document Object Mode)在用户浏览页面时更改页面内容。
+- 使用 XML(eXtensible Makeup Language)使程序能够与服务器交换应用程序数据。
+- 提供一种异步方式，使程序能够发送和接收 XML 数据。
+- 使用 JavaScript 将所有这些功能整合在一起。
+
+#### DOM (Document Object Model)
+
+DOM 是 HTML 页面的表示形式，可供程序访问。这种表示形式以树状结构呈现，反映了 HTML 元素的结构。
+
+- 根节点是一个 html 元素，代表整个 HTML 代码块。
+
+DOM 模型的重要性在于，它为程序提供了一种直接的方式来修改页面的部分内容。无需重写整个页面，只需替换包含更改的节点即可。DOM 是一种强大的页面生成方法，能够实现页面的演进。
+
+![](pic/6-48.png)
+
+```html
+<html>
+  <body>
+    <form action="action.php" method="post">
+    <p>Please enter your name: <input type="txt" name="age"></p>
+    <p>Please enter your age: <input type="txt" name="age"></p>
+    <input type="submit">
+    </form>
+  </body>
+</html>
+```
+
+#### Technologies to Generate Dynamic Web Pages
+
+![](pic/6-49.png)
