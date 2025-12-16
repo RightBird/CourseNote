@@ -194,3 +194,83 @@ $$
 #### d) 给定一个 TM $M$ ，$M$ 是否在所有输入字符串都停止?
 
 证明同 c)
+
+#### e) 给定两个 TM $M_1,M_2$ ，它们是否在相同的输入字符串停止？
+
+- $H=\{\text{"M"}|M \text{ halts on every input}\}$
+- $L=\{^"M_1M_2^"|M_1\text{ and } M_2\text{ halt on the same input}\}$
+- $f(^"M^")=$ the encoding of $M'y$ and = {1. "$y$" is the the description of the machine that immediately accepts any input; 2. run $M$ on $x$ ; 3. if $M$ halts, accept }
+- $^"M^" \in H\Rightarrow L(M'y)=\Sigma^*\Rightarrow f(^"M^") \in L$  
+- $^"M^" \notin H\Rightarrow L(M'y)=\phi\Rightarrow f(^"M^") \notin L$
+- $H\leq L$  
+
+![](pic/5-8.png)
+
+![](pic/5-9.png)
+
+![](pic/5-10.png)
+
+## 5.5 Properties of Re. Languages
+
+> **Theorem**
+>
+> $L$ 是递归的当且仅当 $L$ 和 $\overline{L}$ 都是 R.E.。
+
+**Proof**
+
+如果 $L$ 是递归的：
+
+-  $L$ 是 R.E.
+-  $\overline{L}$ 也是递归的因此 $\overline{L}$ 是 R.E.
+
+如果 $L$ 和 $\overline{L}$ 都是 R.E.：
+
+- 对于一个输入字符串 $w$ ，同时运行 $L$ 和 $\overline{L}$ 的判定机器。
+- 由于 $w\in L$ 或 $w\in \overline{L}$ ，则必然有一个可以停下来。
+
+> **Definition**
+>
+> 定义图灵机 $M$ **enumerates** 语言 $L$ 当且仅当存在 $M$ 的某些固定状态 $q$ :
+> $$
+> L=\{w:(s,\rhd\underline{\sqcup})\vdash_M(q,\rhd\underline{\sqcup}w)\}
+> $$
+> 一个语言是 **Turing-enumerable** 当且仅当存在一个图灵机可以enumerable 这个语言。
+
+> **Theorem**
+>
+> 一个语言是**递归可枚举**的当且仅当这个语言是 **Turing-enumerable** 的。
+
+**Proof**
+
+$\Rightarrow$ 如果语言是递归可枚举的，则存在一个TM $M$ 可以半决定 $L$ ，此时需要构建一个TM $M'$ enumerates $L$ 。
+
+首先枚举所有 $L$ 的字母表可以生成的字符串，然后用 $M'$ 使用dovetail（交错枚举）对所有字符串在 $M$ 上模拟：
+
+- $w_0$ 执行一步
+- $w_0, w_1$ 各执行一步
+- $w_0, w_1, w_2$ 各执行一步
+- ……
+
+![](pic/5-11.png)
+
+这样 $M'$ 就可以枚举出 $L$ 。
+
+$\Leftarrow$ 如果 $M$ enumerates $L$ ，需要说明 $L$ 是 R.E.
+
+构造一个 $M'$ ，输入$w$ 时，在空磁带上模拟 $M$ ，每次枚举到一个停止的字符串，就和 $w$ 进行对比，如果相等则停止，否则继续。
+
+![](pic/5-12.png)
+
+那么被 $M'$ 可以半决定 $L$ 。
+
+> **Definition**
+>
+> $M$ 时一个可以枚举语言 $L$ 的图灵机。如果满足以下条件，则称 $M$ **字典序枚举(lexicographically enumerates)** $L$ :
+>
+> - 每当 $(q,\rhd \underline{\sqcup}w)\vdash^+_M(q,\rhd \underline{\sqcup}w')$ 时，需满足 $w'$ 的字典序在 $w$ 后面。
+>
+> 一个语言是**字典序图灵可枚举的(lexicographically Turing enumerable)** 当且仅当存在一个图灵机可以字典序枚举这个语言。
+
+> **Theorem**
+>
+> 一个语言是**递归的**当且仅当这个语言是**字典序图灵可枚举的**。
