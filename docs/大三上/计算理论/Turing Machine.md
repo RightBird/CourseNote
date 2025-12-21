@@ -631,7 +631,7 @@ $$
 > 
 > $$
 > f(n_1,…,n_k)=\left\{\begin{array}{l}
-> \text{the last }m \text{ such that } g(n_1,…,n_k)=1 \text{ if such } m \text{ exists}\\
+> \text{the last }m \text{ such that } g(n_1,…,n_k,m)=1 \text{ if such } m \text{ exists}\\
 > 0 \text{ otherwise}
 > \end{array}\right.
 > $$
