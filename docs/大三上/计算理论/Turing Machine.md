@@ -628,12 +628,14 @@ $$
 > **Definition**
 >
 > 令 $g$ 是一个 (k+1)元函数，他和 $g$ 的**最小化(minimalization)** k元函数为
+> 
 > $$
 > f(n_1,…,n_k)=\left\{\begin{array}{l}
 > \text{the last }m \text{ such that } g(n_1,…,n_k)=1 \text{ if such } m \text{ exists}\\
 > 0 \text{ otherwise}
 > \end{array}\right.
 > $$
+> 
 > $g$ 的最小化用以下式子表示
 > $$
 > \mu m[g(n-1,…,n_k,m)=1]
