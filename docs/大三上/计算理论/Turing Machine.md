@@ -477,7 +477,6 @@ Main Idea: $𝐺$ 将模拟由 $𝑀$ 执行的逆向计算。中间字符串将
 >
 > $$
 > f(n_1,…,n_k,0)=g(n_1,…,n_k) \\
-> 
 > f(n_1,…,n_k,m+1)=h(n_1,…,n_k,m,f(n_1,…,n_k,m))
 > $$
 >
@@ -530,16 +529,18 @@ $$
 $$
 任何两个primitive recursive predicate 的 **disjuntion**和**conjuntion**也是primitive recursive predicate
 $$
-p(m,n)\vee q(m,n)=1\sim iszero(p(m,n)+q(m,n))\\
+p(m,n)\vee q(m,n)=1\sim iszero(p(m,n)+q(m,n))\newline
 p(m,n)\wedge q(m,n)=1\sim iszero(p(m,n)\cdot q(m,n))
 $$
 如果 $f$ 和 $g$ 是原始递归函数， $p$ 是一个primitive recursive predicate，则根据以下规则定义的函数也是原始递归的
+
 $$
 f(n_1,…,n_k)=\left \{ \begin{array}{lr} 
 	g(n_1,…,n_k) & \text{if }p(n_1,…n_k) \\
   h(n_1,…,n_k) & \text{otherwise}
 \end{array}\right.
 $$
+
 以上定义规则等价于
 $$
 f(n_1,…,n_k)=p(n_1,…,n_k)\cdot g(n_1,…,n_k)+(1\sim p(n_1,…,n_k))\cdot h(n_1,…,n_k)
