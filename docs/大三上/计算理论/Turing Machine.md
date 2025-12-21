@@ -170,9 +170,11 @@ $$
 > 假设 $M$ 在输入 $w$ 后停止了，且 $(s,\rhd\underline{\sqcup} w)\vdash_M^*(h,\underline{\sqcup}y)$ , 其中 $y\in\Sigma_0^*$ , 则称 $y$ 为 $M$ 在 $w$ 输入下的输出，记作 $M(w)$ 。  
 >
 > 对于一个函数 $f:\Sigma_0^*\rightarrow \Sigma^*_0$ , 如果满足以下条件:
+> 
 > $$
 > \forall w\in\Sigma^*_0,M(w)=f(w)
 > $$
+> 
 >  则称 $M$ 计算(**computes**) $f$ 。如果存在一个图灵机 $M$ 可以计算函数 $f$ , 则函数 $f$ 是 **recursive** 的。
 >
 > ![](pic/4-13.png)
