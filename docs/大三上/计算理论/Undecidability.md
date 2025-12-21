@@ -33,6 +33,7 @@
 ### Universal Turing Machine
 
 **通用图灵机(Universal Turing Machine)**能够模拟所有图灵机，对于一个通用图灵机 $U$ ，在输入 $M$ 和 $w$ 时，应该与 $M$ 输入 $w$ 的输出相同，也需要满足相同的停机条件。
+
 $$
 U(^"M^",^"w^")=^"M(w)^"
 $$
