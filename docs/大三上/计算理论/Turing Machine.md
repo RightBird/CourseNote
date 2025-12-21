@@ -579,9 +579,11 @@ div(m,n) & otherwise
 $$
 
 $𝑑𝑖𝑔𝑖𝑡(𝑚, 𝑛, 𝑝)$ 取base-p表示数n的第m位数字:
+
 $$
 digit(m,n,p)=div(rem(n,p^m),p^{m\sim 1})
 $$
+
 求和函数 $sum_f(n,m)=\Sigma^m_{k=0}f(n,k)$
 
 - $sum(n,0)=0$
