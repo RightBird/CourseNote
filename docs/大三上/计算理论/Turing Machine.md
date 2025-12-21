@@ -220,6 +220,7 @@ $$
 > **Definition**
 >
 > 对于一个整数 $k\geq 1$ , 一个 **k-tape TM** 是一个五元组 $(K,\Sigma,\delta,s,H)$ 其中 $K,\Sigma,s,H$ 的定义与普通 TM 相同，转移函数 $\delta$ 为：
+> 
 > $$
 > \delta:(K-H)\times\Sigma^k\rightarrow K\times(\Sigma\cup\{\leftarrow,\rightarrow\})^k
 > $$
@@ -227,6 +228,7 @@ $$
 > **Defition**
 >
 > $M=(K,\Sigma,\delta,s,H)$ 是一个 k-tape TM，则 $M$ 的 **configuration** 满足：
+> 
 > $$
 > K\times(\rhd\Sigma^*\times(\Sigma^*(\Sigma-\sqcup))\cup\{e\})^k
 > $$
