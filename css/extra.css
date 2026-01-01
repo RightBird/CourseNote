@@ -1,0 +1,81 @@
+body {
+      font-family: "LXGW WenKai", sans-serif;
+      /* Lite version */
+      /* font-family: "LXGW WenKai Lite", sans-serif; */
+      /* TC version */
+      /* font-family: "LXGW WenKai TC", sans-serif; */
+      /* Screen version */
+      /* font-family: "LXGW WenKai Screen", sans-serif; */
+    }
+
+/* 调整 H1-H6 标题的字体 */
+.md-typeset h1 {
+    font-size: 2em; /* H1 的字体大小 */
+    margin-bottom: 0.5em; /* H1 下边距 */
+}
+
+.md-typeset h2 {
+    font-size: 1.8em; /* H2 的字体大小 */
+    margin-bottom: 0.5em; /* H2 下边距 */
+}
+
+.md-typeset h3 {
+    font-size: 1.6em; /* H3 的字体大小 */
+    margin-bottom: 0.5em; /* H3 下边距 */
+}
+
+.md-typeset h4 {
+    font-size: 1.4em; /* H4 的字体大小 */
+    margin-bottom: 0.4em; /* H4 下边距 */
+}
+
+.md-typeset h5 {
+    font-size: 1.25em; /* H5 的字体大小 */
+    margin-bottom: 0.3em; /* H5 下边距 */
+}
+
+.md-typeset h6 {
+    font-size: 1.1em; /* H6 的字体大小 */
+    margin-bottom: 0em; /* H6 下边距 */
+}
+
+/* 调整代码块和其他元素的样式 */
+.md-typeset pre {
+    background-color: #f7f7f7; /* 代码块背景颜色 */
+    padding: 1em; /* 代码块内边距 */
+    border-radius: 5px; /* 代码块边框圆角 */
+    line-height: 2;
+}
+
+/* 调整列表的样式 */
+.md-typeset ul, .md-typeset ol {
+    margin-left: 0px;  /* 增加左边距 */
+    padding-left: 0px; /* 确保列表有足够的缩进 */
+}
+
+/* 强制调整所有的 ul 和 ol 的样式 */
+.md-typeset ul,
+.md-typeset ol {
+    margin-left: 20px; /* 确保所有列表都有足够的缩进 */
+    padding-left: 20px;
+}
+
+/* 强制嵌套列表的缩进 */
+.md-typeset ul ul,
+.md-typeset ol ol {
+    margin-left:15px;
+}
+
+/* 自定义列表项的符号 */
+.md-typeset ul li {
+    list-style-type: disc; /* 圆点符号 */
+}
+
+.md-typeset ol li {
+    list-style-type: decimal; /* 数字符号 */
+}
+
+/* 自定义嵌套列表项的符号 */
+.md-typeset ul ul li {
+    list-style-type: circle; /* 子列表使用圆形符号 */
+}
