@@ -20,7 +20,7 @@
 
   **Feedback-based** flow control (the data link layer): 接收方给发送方许可
 
-  **Feedback-based** flow control (the data link layer): 限制发送方的传输速率
+  **Rate-based flow** control (the transportation layer): 限制发送方的传输速率
 
 ### Position of the Data Link Layer
 
