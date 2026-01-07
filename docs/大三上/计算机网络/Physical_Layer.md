@@ -76,7 +76,7 @@
 - 在需求高数据传输速率或低开销是有成本效益
 - 传输延迟大
 
-##### Twisted Pairs 
+#### Twisted Pairs 
 
 ![1-1](pic/1-1.png)
 
