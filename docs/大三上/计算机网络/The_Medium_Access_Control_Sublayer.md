@@ -216,7 +216,7 @@ $$
 
 - 如果发生collision，则终端等待一个随机时间然后重新开始
 
-由于通道空闲时通道的传输率位1，这个协议被称为**1-persistent CSMA**
+由于通道空闲时通道的传输率为1，这个协议被称为**1-persistent CSMA**
 
 #### Nonpersistent CSMA
 
