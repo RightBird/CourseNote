@@ -416,13 +416,13 @@ QUIC 的多路复用和 HTTP2 类似。在一条 QUIC 连接上可以并发发�
 
 HTTP使用两个策略来处理缓存：
 
-1. **Page freshness validation**：客户端在本地判断页面副本是否仍然有效
+1.**Page freshness validation**：客户端在本地判断页面副本是否仍然有效
 
 - 可以基于"**Expires**"头的时间信息来判断页面是否仍然有效。
 - 也可以使用启发式方法进行猜测（cacheable, freshly valid, not modified recently）：使用 **Last-Modified** 头；页面可缓存性可能随时间变化
 - 本地缓存的好处是内容可以立即可用。
 
-2. **Revalidate copy** with remote server （conditional requests）
+2.**Revalidate copy** with remote server （conditional requests）
 
 - 基于副本的**时间戳**，例如服务器端的“**Last-Modified**”头。如果客户端从“Last-Modified”标头中获取了缓存页面的最后更新时间，则可以使用“**If-Modified-Since**”标头将此时间发送给服务器，以便仅在页面在此期间发生更改时才请求该页面。![](pic/6-32.png)![](pic/6-33.png)
 - 或者基于服务器返回的“**Etag**”标头等内容进行验证。“Etag”是页面内容的简称，类似于校验和，但更可靠（可以是加密哈希值）。客户端可以通过向服务器发送“**if-None-Match**”标头来验证缓存的副本，该标头列出了缓存副本的标签。如果任何标签与服务器响应的内容匹配，则可以使用相应的缓存副本。![](pic/6-34.png)
