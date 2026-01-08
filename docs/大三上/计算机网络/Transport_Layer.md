@@ -469,7 +469,7 @@ TCP中维护了两个窗口: **congesion window(发送窗口), flow control wind
 为了控制慢启动，发送方会设置一个阈值(**slow start threhold**)
 
 - 如果**发生超时（丢包）**：慢启动阈值调整为cwnd的一半，重新启动整个过程。
-- 如果**cwnd超过慢启动阈值**：TCP切换到 **additive increase**。![](pic/5-22.png)
+- 如果**cwnd超过慢启动阈值**：TCP切换到 **additive increase**。![](pic/5-23.png)
 
 即采用线性+指数模型使TCP连接的拥塞窗口长期保持在接近最优值的状态——既不会过小导致吞吐量低下，也不会过大引发拥塞。
 
