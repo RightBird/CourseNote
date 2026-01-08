@@ -411,7 +411,10 @@ TCP使用多种计时器，在概念上至少有以下几种：
 
 $$
 RTO=SRTT+4\times RTTVAR
-\\RTO=\min(1\text{sec},RTP)
+$$
+
+$$
+RTO=\min(1\text{sec},RTO)
 $$
 
 其中 $R$ 为最新采集的 RTT，即发送数据后，根据收到的对应 ACK，直接测量到的实际往返时间。但是这样采集RTT存在问题：如果重传发生，则无法确定收到的ACK是首次传输还是后续的重传。
