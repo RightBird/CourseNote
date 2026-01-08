@@ -459,7 +459,7 @@ request行由三个字段：**method**, **URL**, **HTTP version**。在请求中
 - **User-Agent**: 允许客户端告知服务器其浏览器实现(例如 Mozilla/5.0 和 Chrome/5.0.375.125)。此信息有助于服务器根据浏览器定制响应，因为不同的浏览器可能具有差异很大的功能和行为。
 - **Accept**: 告知服务器，如果客户端可接受的内容有限，则客户端愿意接受哪些内容。(Accepy, Accept-Charset, Accept-Encoding, Accept-Language)
 - **If-Modified-Since/If-None-Match**: 用于缓存，允许客户端仅在缓存的页面副本失效时才请求发送该页面。
-- **Host**: 定服务器名称，取自 URL。Host是**必需**的。
+- **Host**: 指定服务器名称，取自 URL。Host是**必需**的。
 - **Authorization**: 受保护页面所必需的。
 - **Referer**: 提供指向当前请求 URL 的来源 URL，告诉服务器客户端是如何访问到该页面的。
 - **Set-Cookie**: 服务器向客户端发送 Cookie 的方式。客户端需要保存 Cookie，并在后续请求中使用 Cookie 标头将其返回给服务器。
