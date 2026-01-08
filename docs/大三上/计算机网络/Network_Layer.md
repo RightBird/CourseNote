@@ -573,7 +573,7 @@ IPv6 地址由八组四位十六进制数字组成，组与组之间用冒号分
 由于许多地址中包含大量0，因此允许通过以下三种来优化表示：
 
 - 可以省略组前导0，因此 0123 可以写成123
-- 可以用一对冒号替换一组或多组 16 位零。如8000:123:4567:89AB:CDER
+- 可以用一对冒号替换一组或多组 16 位零。如8000::123:4567:89AB:CDER
 - IPv4 地址可以写成一对冒号和一个旧的点分十进制数。
 
 相比于IPv4，IPv6数据报去除了几个字段：
@@ -599,7 +599,7 @@ IPv6 引入了（可选）扩展头的概念。每个扩展头都是可选的，
 - **The hop-by-hop header**: 用于存储路径上所有路由器必须检查的信息。
 - **The destination options header**
 - **The routing header**: 列出到达目标地址途中必须访问的一个或多个路由器。它与 IPv4 的loose source routing非常相似。
-- **The fragmentation header**: 类似IPv5处理分片。但是在IPv6中，只有源主机可以对数据包进行分片。
+- **The fragmentation header**: 类似IPv4处理分片。但是在IPv6中，只有源主机可以对数据包进行分片。
 - **The authentication header**: 提供一种机制，数据包的接收者可以通过该机制确认数据包的发送者。
 - **The encrypted security payload**: 加密数据包的内容，以便只有预期的接收者才能读取。
 
@@ -727,7 +727,7 @@ Internet使用两级路由算法：
 
 ![](pic/4-36.png)
 
-> **Routers vs Switched(Bridges)**
+> **Routers vs Switches(Bridges)**
 >
 > - 路由器会从帧中提取数据包，并根据数据包中的网络地址决定其发送目的地。
 > - 交换机（或网桥）则会根据数据包的 MAC 地址传输整个帧。交换机无需了解用于交换数据包的网络层协议，而路由器则需要。
