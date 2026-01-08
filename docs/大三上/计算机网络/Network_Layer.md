@@ -296,7 +296,7 @@ $$
 
 组的成员关系由 **IGMP(The Internet Group Management Protocol) 协议** 管理。
 
-Internet 中网络层的多播由两个部分组成：IGBP 和 多播路由协议。
+Internet 中网络层的多播由两个部分组成：IGMP 和 多播路由协议。
 
 IGMP只有三种消息类型，每种消息都包含一个IP数据报，其中<u>IP protocol number为2</u>，三种消息分别为：
 
