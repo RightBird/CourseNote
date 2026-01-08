@@ -61,7 +61,7 @@ DNS服务器服务器可以划分成三大类：
 
 根域名服务器(Root Nameservers)位于 **DNS 层级最顶端**，负责告诉客户端顶级域名（TLD）服务器的位置。每个“服务器”实际上是 **由多个服务器集群组成**。
 
-大多数服务器都使用 **IP Anycast** 技术提供服务外：
+大多数服务器都使用 **IP Anycast** 技术提供服务：
 
 - 同一 IP 地址在 **多个地理位置**上部署
 - 可以使用 **anycast routing** 到达
@@ -377,15 +377,15 @@ HTTP 1.1 使用持久连接（连接重用）：
 
 #### Change HTTP: HTTP/3
 
-HTTP/3: HTTP-over-**QUIC**。HTTP/3 的主要优化在于它用于支持 HTTP 消息的传输协议：它不依赖于 TCP，而是依赖于称为 **QUIC(Quick UDP Internet Connection** 的增强版 UDP。
+HTTP/3: HTTP-over-**QUIC**。HTTP/3 的主要优化在于它用于支持 HTTP 消息的传输协议：它不依赖于 TCP，而是依赖于称为 **QUIC(Quick UDP Internet Connection)** 的增强版 UDP。
 
-1. 建立连接的延迟低
+1.建立连接的延迟低
 
 ![](pic/6-28.png)
 
-2. 改进拥塞控制方案，以及**plug-and-play**协议 (Reno, CUBIC, BBR)
+2.改进拥塞控制方案，以及**plug-and-play**协议 (Reno, CUBIC, BBR)
 
-3. 基于**单调递增打包数(monotonically increased packed number)**的可靠传输。
+3.基于**单调递增打包数(monotonically increased packed number)**的可靠传输。
 
 - 在 QUIC 中，packet 是 QUIC 协议定义的传输单元，封装在 UDP 数据报中。
 - QUIC packet 是位于应用层之下、UDP 之上的协议数据单元。
@@ -397,7 +397,7 @@ HTTP/3: HTTP-over-**QUIC**。HTTP/3 的主要优化在于它用于支持 HTTP �
 
 ![](pic/6-29.png)
 
-4. 解决 “**Head-of-Line blocking” (HOL blocking) problem** (队头阻塞问题)
+4.解决 “**Head-of-Line blocking” (HOL blocking) problem** (队头阻塞问题)
 
 QUIC 的多路复用和 HTTP2 类似。在一条 QUIC 连接上可以并发发送多个HTTP 请求 (stream)。 多路复用是 HTTP2 最强大的特性，能够将多条请求在一条 TCP 连接上同时发出去。但也恶化了 TCP 的一个问题，队头阻塞，如下图示。
 
@@ -408,7 +408,7 @@ QUIC 的多路复用和 HTTP2 类似。在一条 QUIC 连接上可以并发发�
 
 ![](pic/6-31.png)
 
-5. 连接迁移
+5.连接迁移
 
 <u>任何一条 QUIC 连接不再以 IP 及端口四元组标识，而是以一个 64位的随机数作为 ID 来标识</u>，这样就算 IP 或者端口发生变化时，只要 ID 不变，这条连接依然维持着，上层业务逻辑感知不到变化，不会中断，也就不需要重连。
 
