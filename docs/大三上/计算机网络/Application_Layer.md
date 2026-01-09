@@ -1,5 +1,22 @@
 # Application Layer
 
+> 一些常见的协议和对应的端口
+>
+> | Protocol | Port  |
+> | -------- | ----- |
+> | FTP      | 20/21 |
+> | SSH      | 22    |
+> | Telnet   | 23    |
+> | SMTP     | 25    |
+> | DNS      | 53    |
+> | DHCP     | 67/68 |
+> | HTTP     | 80    |
+> | POP3     | 110   |
+> | IMAP     | 143   |
+> | HTTPS    | 443   |
+>
+> 
+
 ## Overview
 
 应用层协议通常就是应用程序的一部分，基于传输层构建分布式网络服务（DNS、Web）。
@@ -31,6 +48,8 @@
 - **Timing**
 
 ![](pic/6-3.png)![](pic/6-4.png)
+
+
 
 ## DNS (Domain Name System)
 
