@@ -220,6 +220,15 @@ Low-Earth Orbit 卫星
 - 适用于地面基础设施欠发达地区的通信需求
 - 满足关键广播传输需求
 
+> **NOTE**
+>
+> 一些传输损伤(impairments):
+>
+> - Multpath fading：不同路径的信号相互叠加干扰，**无线独有**。
+> - Crosstalk：相邻电线间的电磁干扰，**有线独有**。
+> - Thermal Noise：导体中电子的热运动产生的噪声，无法避免，**两者都有**。
+> - Different Fourier components propagating at different speed：**有线独有**。
+
 
 
 ## Digital modulation and multiplexing
