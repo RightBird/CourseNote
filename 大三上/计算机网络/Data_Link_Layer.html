@@ -1,0 +1,4395 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Course Note for ZJU CS">
+      
+      
+        <meta name="author" content="RightBird">
+      
+      
+        <link rel="canonical" href="http://RightBird.io/CourseNote/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Data_Link_Layer.html">
+      
+      
+        <link rel="prev" href="Physical_Layer.html">
+      
+      
+        <link rel="next" href="The_Medium_Access_Control_Sublayer.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Data Link Layer - CourseNote</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-link-layer" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="CourseNote" class="md-header__button md-logo" aria-label="CourseNote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CourseNote
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Link Layer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RightBird/CourseNote" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CourseNote
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Grading%20Policy.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程笔记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../C%2B%2B/C%2B%2B%E5%9F%BA%E7%A1%80/data_type.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C++
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="CourseNote" class="md-nav__button md-logo" aria-label="CourseNote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CourseNote
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RightBird/CourseNote" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CourseNote
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大二上
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大二上
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    高级数据结构与算法分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%201%20---AVL%20Trees%2C%20Splay%20Trees%2C%20and%20Amortized%20Analysis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%202%20---Red-Black%20Trees%20and%20B%2B%20Trees.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 ---Red-Black Trees and B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%203%20---Inverted%20File%20Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 ---Inverted File Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%204%20---Leftist%20Heaps%20and%20Skew%20Heaps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 ---Leftist Heaps and Skew Heaps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%205%20---Binomial%20Queue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 ---Binomial Queue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%206%20---Backtracking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 ---Backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%207%20---Divide%20and%20Conquer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 ---Divide and Conquer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%208%20---Dynamic%20Programming.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8 ---Dynamic Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%209%20---Greedy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9 ---Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter10%20---NP-Completeness.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter10 ---NP-Completeness
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter11%20---Approximation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter11 ---Approximation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter12%20---Local%20Search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter12 ---Local Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter13%20---Randomized%20Algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter13 ---Randomized Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter14%20---Parallel%20Algorithms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter14 ---Parallel Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter15%20---External%20Sorting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter15 ---External Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/%E4%B9%A0%E9%A2%98.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    习题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机组成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter1%20%20Computer%20Abstractions%20and%20Technology.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter1  Computer Abstractions and Technology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter2%20%20Instructions%20Language%20of%20the%20Computer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2  Instructions Language of the Computer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter3%20%20Arithmetic%20for%20Computer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter3  Arithmetic for Computer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter4%20The%20Processor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter4 The Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter5%20Large%20and%20Fast%20Exploiting%20Memory%20Hierarchy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter5 Large and Fast Exploiting Memory Hierarchy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter6%20Storage%20and%20other%20IO%20Topics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter6 Storage and other IO Topics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件安全原理与实践
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件安全原理与实践
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab1/report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab2/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab3/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab4/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Final/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大二下
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大二下
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机体系结构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/Cache.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面向对象程序设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    面向对象程序设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据库系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Relational%20model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relational Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/SQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Advanced%20SQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/E-R%20model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E-R model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Relational%20Database%20Design.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relational Database Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Storage%20and%20File%20Structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage and File Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Indexing%20and%20Hashing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing and Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Query%20Processing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Query%20Optimization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Transactions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Concurrency%20Control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concurrency Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Recovery%20System.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大三上
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大三上
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Sets_Relations_Language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets, Relations, and Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Regular_Language_and_Automata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regular Language and Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Context-free_Language_and_Pushdown%20Automata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-free Language and Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Turing%20Machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Undecidability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Physical_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physical Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Link Layer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Data_Link_Layer.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Link Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-of-the-data-link-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position of the Data Link Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services-of-data-link-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services of Data Link Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#framing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Framing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Framing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#byte-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Byte Count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flag-byte-with-byte-stuffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flag Byte with Byte Stuffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flag-byte-with-bit-stuffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flag Byte with Bit Stuffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coding-violations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coding Violations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Control
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-correcting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-Correcting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-detecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-Detecting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementary-data-link-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elementary data link protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Elementary data link protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-utopian-simplex-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Utopian Simplex Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-simplex-stop-and-wait-protocol-for-an-error-free-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Simplex Stop-and-Wait Protocol for an Error-Free Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-simplex-stop-and-wait-protocol-for-a-noisy-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Simplex Stop-and-Wait Protocol for a Noisy Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliding-window-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sliding Window Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-essence-of-all-sliding-window-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Essence of All Sliding Window Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-bit-sliding-window-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-Bit Sliding Window Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window-protocol-using-go-back-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Protocol Using Go Back N
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window-protocol-using-selective-repeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Protocol Using Selective Repeat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples-of-data-link-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples of data link protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples of data link protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#point-to-point-protocolppp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point-to-Point Protocol(PPP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sonet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SONET
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="The_Medium_Access_Control_Sublayer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MAC Sublayer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transport_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transport Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Application_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network_Security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/C%2B%2B%E5%9F%BA%E7%A1%80/data_type.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据类型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/C%2B%2B%E5%9F%BA%E7%A1%80/Variable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    库函数
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    库函数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/iostream.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    iostream
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/string.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    string
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    STL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/STL/%E8%BF%AD%E4%BB%A3%E5%99%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    迭代器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/STL/vector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-of-the-data-link-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position of the Data Link Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services-of-data-link-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services of Data Link Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#framing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Framing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Framing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#byte-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Byte Count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flag-byte-with-byte-stuffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flag Byte with Byte Stuffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flag-byte-with-bit-stuffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flag Byte with Bit Stuffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coding-violations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coding Violations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Control
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-correcting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-Correcting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-detecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-Detecting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementary-data-link-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elementary data link protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Elementary data link protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-utopian-simplex-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Utopian Simplex Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-simplex-stop-and-wait-protocol-for-an-error-free-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Simplex Stop-and-Wait Protocol for an Error-Free Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-simplex-stop-and-wait-protocol-for-a-noisy-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Simplex Stop-and-Wait Protocol for a Noisy Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliding-window-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sliding Window Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-essence-of-all-sliding-window-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Essence of All Sliding Window Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-bit-sliding-window-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-Bit Sliding Window Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window-protocol-using-go-back-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Protocol Using Go Back N
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window-protocol-using-selective-repeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Protocol Using Selective Repeat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples-of-data-link-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples of data link protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples of data link protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#point-to-point-protocolppp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point-to-Point Protocol(PPP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sonet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SONET
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-link-layer">Data Link Layer<a class="headerlink" href="#data-link-layer" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>数据链路层借助物理层服务，通过communication channels发送和接收比特。</p>
+<p>一般 communication channels 的特征:</p>
+<ul>
+<li>Errors</li>
+<li>Finite data rate</li>
+<li>Propagation delay</li>
+</ul>
+<p>数据链路层的三个主要功能:</p>
+<ul>
+<li>
+<p><strong>Framing</strong>: 把比特流拆分成离散的frames</p>
+</li>
+<li>
+<p><strong>Error control</strong>: 错误检测与修复，通过 acknowledgement, timer, sequence numbers等方式实现</p>
+</li>
+<li>
+<p><strong>Flow control</strong>: 防止发送方的数据淹没接收方。</p>
+</li>
+</ul>
+<p><strong>Feedback-based</strong> flow control (the data link layer): 接收方给发送方许可</p>
+<p><strong>Rate-based flow</strong> control (the transportation layer): 限制发送方的传输速率</p>
+<h3 id="position-of-the-data-link-layer">Position of the Data Link Layer<a class="headerlink" href="#position-of-the-data-link-layer" title="Permanent link">&para;</a></h3>
+<p><img alt="2-1" src="pic/2-1.png" /></p>
+<p><img alt="2-2" src="pic/2-2.png" /></p>
+<div class="admonition supplyment">
+<p class="admonition-title">Supplyment</p>
+<p>大部分数据链路层在硬件上实现，即 <strong>netword interface card(NIC)</strong>。还有一部分数据链路层中软件上实现，在用户的CPU上运行。</p>
+</div>
+<h3 id="services-of-data-link-layer">Services of Data Link Layer<a class="headerlink" href="#services-of-data-link-layer" title="Permanent link">&para;</a></h3>
+<p>不同的协议有不同的服务</p>
+<h4 id="unacknowledged-connectionless-service">Unacknowledged connectionless service<a class="headerlink" href="#unacknowledged-connectionless-service" title="Permanent link">&para;</a></h4>
+<p>无需确认直接把独立的帧发送到目的地。适用于出错率低、实时性强的应用。</p>
+<p>Example: Ethernet</p>
+<h4 id="acknowledged-connectionless-service">Acknowledged connectionless service<a class="headerlink" href="#acknowledged-connectionless-service" title="Permanent link">&para;</a></h4>
+<p>无需建立连接，但是每一帧的发送都需要单独确认。适用于可靠性差的通道。</p>
+<p>Example: 802.11 WiFi</p>
+<h4 id="acknowledged-connection-oriented-service">Acknowledged connection-oriented service<a class="headerlink" href="#acknowledged-connection-oriented-service" title="Permanent link">&para;</a></h4>
+<p>发送方和接收方在传输之前需要先建立连接，这种服务有三个阶段：</p>
+<ul>
+<li>建立连接</li>
+<li>传输数据帧</li>
+<li>释放连接</li>
+</ul>
+<p>适合长时间的、不可靠的连接。</p>
+<p>Example: 卫星通道、长距离电话</p>
+<h2 id="framing">Framing<a class="headerlink" href="#framing" title="Permanent link">&para;</a></h2>
+<p>数据链路层接收来自网络层的数据包，并将它们封装成<strong>帧(frames)</strong>进行传输。</p>
+<p>由于通道存在噪声，物理层传输时需要添加一些额外信息来降低出错率。在数据链路层常用的处理方法时把比特流拆分成离散的数据帧(frames)，计算一个简短的 <strong>checksum</strong>，到达目的地后进行重新计算，如果不同则说明传输过程出现了错误。</p>
+<p>常见Frame格式: a header, a payload field, and a trailer</p>
+<p><img alt="2-3" src="pic/2-3.png" /></p>
+<h3 id="byte-count">Byte Count<a class="headerlink" href="#byte-count" title="Permanent link">&para;</a></h3>
+<p>使用header的一部分来确定frame里的字节数。</p>
+<p><img alt="2-3" src="pic/2-4.png" /></p>
+<h3 id="flag-byte-with-byte-stuffing">Flag Byte with Byte Stuffing<a class="headerlink" href="#flag-byte-with-byte-stuffing" title="Permanent link">&para;</a></h3>
+<p>在每一帧的开头和结尾都添加特殊的标识字节。通常开头和结尾使用相同的字节，称为 <strong>flag byte</strong>。如果出现了两个连续的flag bytes则说明是一个帧的结束和下一个帧的开始。</p>
+<p>但是 flag bytes 可能会中数据中出现，这种情况会造成干扰。</p>
+<ul>
+<li>解决方案：在数据中每个 flag bytes 出现的位置前面插入一个 <strong>special escape byte(ESC)</strong></li>
+</ul>
+<p>但是这样数据中如果出现ESC也会造成干扰。</p>
+<ul>
+<li>解决方案：如果出现ESC则则ESC前面再加一个ESC。</li>
+</ul>
+<p><img alt="2-5" src="pic/2-5.png" /></p>
+<p>Application Example: <strong>PPP(Point-to-Point Protocol)</strong></p>
+<h3 id="flag-byte-with-bit-stuffing">Flag Byte with Bit Stuffing<a class="headerlink" href="#flag-byte-with-bit-stuffing" title="Permanent link">&para;</a></h3>
+<p>将 framing 在 bit 级别完成。</p>
+<p>Example; <strong>HDLC(High-Level Data Link Control)</strong> 协议：</p>
+<ul>
+<li>每个帧都以 01111110(0x7E) 开头或结束，即以此为 flag bytes</li>
+<li>如果发送的数据中有5个连续的1，则自动中后面插入一个0。</li>
+</ul>
+<p><img alt="2-6" src="pic/2-6.png" /></p>
+<p>优点：保证在最低的转换密度下维持物理层的同步。</p>
+<p>Application Example: <strong>USB(Universal Serial Bus)</strong></p>
+<h3 id="coding-violations">Coding Violations<a class="headerlink" href="#coding-violations" title="Permanent link">&para;</a></h3>
+<p>物理层编码通常会加入额外编码来帮助接收方，因此会存在一部分信号组合是不可能出现的，可以使用这部分信号来作为帧的开始或结束。</p>
+<p>比如 <strong>4B/5B</strong> 中4位信号后被映射到5位信号，这样32中信号可能中有16种是没有被使用的。</p>
+<p>对于 <strong>Manchester encoding</strong>： 可以使用未转换过的信号作为帧开头。</p>
+<p><img alt="2-7" src="pic/2-7.png" /></p>
+<h2 id="error-control">Error Control<a class="headerlink" href="#error-control" title="Permanent link">&para;</a></h2>
+<p>对于传输错误，网络工程师开发了两种最基本的处理策略：</p>
+<ul>
+<li><strong>Error-Correcting Codes</strong>: 传输足够的额外信息让接收方能够对数据进行纠错。对于无线网络等不可靠通道，更适合传输足够信息来还原原数据。</li>
+<li><strong>Error-Detecting Codes</strong>（Forward Error Correction, FEC): 传输的额外信息足够判断是否出现错误。对于可靠性高的通道，比如光纤，使用 error-detecting code 成本更低。</li>
+</ul>
+<p>两种策略都需要传输额外的信息。并且由于传输的额外信息也可能会出错，两种策略都无法保证完全避免错误。</p>
+<p>两种错误处理策略都不仅仅在数据链路层使用：</p>
+<ul>
+<li>Error-Correcting Codes 通常在物理层（特别是噪声大的通道）、以及更高层（特别是实时媒体或内容分发）使用</li>
+<li>Error-Detecting Codes 通常在链路层、网络层和传输层使用。</li>
+</ul>
+<h3 id="error-correcting">Error-Correcting<a class="headerlink" href="#error-correcting" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Definition</strong></p>
+<p><strong>Block Code</strong> 是一个由 <span class="arithmatex">\(m\)</span> 位数据和 <span class="arithmatex">\(r\)</span> 位额外位(或check bits)组成的帧。其中 <span class="arithmatex">\(r\)</span> 位的check bits是由 <span class="arithmatex">\(m\)</span> 位数据通过一个函数单独计算得到的。</p>
+<ul>
+<li>在 systematic code 中，信息明文传输。</li>
+<li>中 linear code 中，信息可能明文传输；也可能编码后传输。</li>
+</ul>
+</blockquote>
+<h4 id="hamming-codes">Hamming Codes<a class="headerlink" href="#hamming-codes" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>Definition</strong></p>
+<p><strong>Hamming distance</strong> 是两个 codewords 不同bit的数量。</p>
+</blockquote>
+<ul>
+<li>如果需要可靠地<strong>找到</strong> <span class="arithmatex">\(d\)</span> 位错误，则任意两个码字之间距离至少为 <span class="arithmatex">\(d+1\)</span> （即 distance <span class="arithmatex">\(d+1\)</span> code）</li>
+<li>如果需要可靠地<strong>纠正</strong> <span class="arithmatex">\(d\)</span> 位错误，则任意两个码字之间距离至少位 <span class="arithmatex">\(2d+1\)</span>（即 distance <span class="arithmatex">\(2d+1\)</span> code）</li>
+</ul>
+<p>对于<strong>1位</strong>错误考虑，码字由 <span class="arithmatex">\(m\)</span> 位数据位和 <span class="arithmatex">\(r\)</span> 位检查位，记 <span class="arithmatex">\(n=m+r\)</span>。则对于 <span class="arithmatex">\(2^m\)</span> 个不同的合法码字，都有 <span class="arithmatex">\(n\)</span> 个非法码字与其距离为1，再加上合法码字自身，即每个合法码字需要 <span class="arithmatex">\(n+1\)</span> 个码字来确定：<span class="arithmatex">\((n+1)2^m\leq 2^n\)</span>，即
+$$
+m+r+1\leq2^r
+$$
+上式计算了给定 <span class="arithmatex">\(m\)</span> ，进行对 single errors 的纠错需要的最少检查位数量。</p>
+<p>对于一个由 <span class="arithmatex">\(k\)</span> 位数据位和 <span class="arithmatex">\(n-k\)</span> 位检查位的码字，编码方式如下：</p>
+<ul>
+<li>
+<p>从最低有效位开始，检查位位于每一个2的幂次方位，即1、2、4、…</p>
+</li>
+<li>
+<p>对所有值为1的位，取其位地址，依次进行XOR操作，得到对于的Hamming Code</p>
+</li>
+</ul>
+<p>通过解码计算得到的 <span class="arithmatex">\(n-k\)</span> 位被称为 <strong>syndrome word</strong>，范围在 <span class="arithmatex">\(0\)</span> 到 <span class="arithmatex">\(2^{(n-k)}-1\)</span> </p>
+<p>下面给出一个样例：</p>
+<p><strong>编码</strong></p>
+<ul>
+<li>如图所示8位数据位00111001</li>
+<li>则Hamming Code 位 1010⊕1001⊕0111⊕0011=0111</li>
+<li>传输的块位001101001111</li>
+</ul>
+<p><img alt="2-8" src="pic/2-8.png" /></p>
+<p><strong>解码</strong></p>
+<ul>
+<li>Hamming Code 为 0111</li>
+<li>则 Syndrome code 为</li>
+<li><strong>0111</strong>⊕1010⊕1001⊕0111⊕0110⊕0011=0110（出错的位置）</li>
+</ul>
+<p><img alt="2-9" src="pic/2-9.png" /></p>
+<ul>
+<li>如果syndrome code全为0，则说明没有出错。</li>
+<li>如果只有1位被设为1，则说明出错位在检查位，不需要纠错。</li>
+<li>否则syndrome code指向出错的位置，需要对这位数据进行取反。</li>
+</ul>
+<h4 id="convolutional-code">Convolutional Code<a class="headerlink" href="#convolutional-code" title="Permanent link">&para;</a></h4>
+<p>卷积码不是block code，输入的位并不一定直接出现在码字中</p>
+<p>对于一个 <span class="arithmatex">\((n,m,K)\)</span> 卷积码：</p>
+<ul>
+<li>一次输入 <span class="arithmatex">\(m\)</span> 位</li>
+<li>对于每一个输入输出 <span class="arithmatex">\(n\)</span> 位</li>
+<li><span class="arithmatex">\(K\)</span> = <strong>constraint length</strong>，需要考虑 <span class="arithmatex">\(K\)</span> 个输入，即输出与前面 <span class="arithmatex">\(K-1\)</span> 个输入有关</li>
+<li>通常 <span class="arithmatex">\(m\)</span> 和 <span class="arithmatex">\(n\)</span> 都很小</li>
+</ul>
+<p>以下为一个 <span class="arithmatex">\((3,1,3 )\)</span> 卷积码的示例：</p>
+<p><img alt="2-10" src="pic/2-10.png" /></p>
+<p><img alt="2-11" src="pic/2-11.png" /></p>
+<p><img alt="2-12" src="pic/2-12.png" /></p>
+<p><img alt="2-13" src="pic/2-13.png" /></p>
+<ul>
+<li>802.11中使用的 NASA binary convolutional code</li>
+</ul>
+<p><img alt="2-14" src="pic/2-14.png" /></p>
+<h3 id="error-detecting">Error-Detecting<a class="headerlink" href="#error-detecting" title="Permanent link">&para;</a></h3>
+<h4 id="parity">Parity<a class="headerlink" href="#parity" title="Permanent link">&para;</a></h4>
+<p>奇偶校验，通过添加1位奇偶校验位来进行错误检测。</p>
+<ul>
+<li>奇校验：加上校验位后1的个数为奇数；偶校验：加上校验位后1的个数为偶数</li>
+<li>可以用于检测 single-bit errors</li>
+</ul>
+<p>优点：需要的校验位少，传输效率高</p>
+<p>缺点：如果遇到较长一串 <strong>burst error</strong>，则成功检测错误的概率只有 0.5。对于 burst error，有以下的解决方案</p>
+<ul>
+<li><strong>Interleaving</strong></li>
+</ul>
+<p><img alt="2-15" src="pic/2-15.png" /></p>
+<ul>
+<li><strong>Two-dimensional parity</strong></li>
+</ul>
+<p><img alt="2-16" src="pic/2-16.png" /></p>
+<h4 id="checksum">Checksum<a class="headerlink" href="#checksum" title="Permanent link">&para;</a></h4>
+<p>将数据累加得到 N 位的words，被广泛使用，如<strong>TCP/IP/UDP</strong>。相比于奇偶校验有更强的保护能力。</p>
+<h5 id="16-bit-internet-checksum"><strong>16-bit Internet Checksum</strong><a class="headerlink" href="#16-bit-internet-checksum" title="Permanent link">&para;</a></h5>
+<p>对数据根据16位拆分，然后进行反码(one's complement)加法。</p>
+<p>发送：</p>
+<ol>
+<li>将数据拆分成16位</li>
+<li>将checksum设为0，进行累加</li>
+<li>如果有溢出位，则要加回前面16位（反码加法规则）</li>
+<li>最后结果取反得到最终值</li>
+</ol>
+<p><img alt="2-17" src="pic/2-17.png" /></p>
+<p>接收：</p>
+<ol>
+<li>将数据拆分成16位</li>
+<li>对所有值累加，包括sum</li>
+<li>如果有溢出位，则要加回前面16位</li>
+<li>最后结果取反检查是否为0</li>
+</ol>
+<p><img alt="2-18" src="pic/2-18.png" /></p>
+<p>Internet checksum 有效且简单，但是由于只是简单相加，在某些情况下保护能力较弱。</p>
+<ul>
+<li>无法检测0数据的删除或添加</li>
+<li>无法检测信息位的交换</li>
+</ul>
+<h4 id="cyclic-redundancy-check-crc">Cyclic Redundancy Check (CRC)<a class="headerlink" href="#cyclic-redundancy-check-crc" title="Permanent link">&para;</a></h4>
+<p>发送：</p>
+<ul>
+<li>对于 <span class="arithmatex">\(m\)</span> 位的块，生成一个 <span class="arithmatex">\((n-m)\)</span> 位的 <strong>frame check sequence(FCS)</strong>。</li>
+<li>最后生成的 <span class="arithmatex">\(n\)</span> 位的帧能够被预先确定的一个key(<strong>predetermined bit pattern</strong>)整除（最高位和最低位必须为1）</li>
+</ul>
+<p>接收：</p>
+<ul>
+<li>将得到的帧除以预先设定的key</li>
+<li>如果没有余数，则认定为没出错</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li><span class="arithmatex">\(T\)</span> ：n 位被传输的帧</li>
+<li><span class="arithmatex">\(D\)</span> ：m 位数据块；即 <span class="arithmatex">\(T\)</span> 的前 m 位</li>
+<li><span class="arithmatex">\(F\)</span> ：(n-m) 位的FCS；即 <span class="arithmatex">\(T\)</span> 的后 (n-m) 位</li>
+<li><span class="arithmatex">\(P\)</span> ：预先决定的 <strong>n-m+1</strong> 位除数</li>
+<li><span class="arithmatex">\(Q\)</span> ：除法的商</li>
+<li><span class="arithmatex">\(R\)</span> ：除法的余数</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>使用的是模2除法，即每次XOR操作。</p>
+</div>
+<p><img alt="2-19" src="pic/2-19.png" /></p>
+<h2 id="elementary-data-link-protocols">Elementary data link protocols<a class="headerlink" href="#elementary-data-link-protocols" title="Permanent link">&para;</a></h2>
+<h3 id="a-utopian-simplex-protocol">A Utopian Simplex Protocol<a class="headerlink" href="#a-utopian-simplex-protocol" title="Permanent link">&para;</a></h3>
+<ol>
+<li>数据单向传输</li>
+<li>传输和接收的网络层都时刻就绪</li>
+<li>传输时间可以忽略</li>
+<li>buffer空间无限</li>
+<li>数据链路层的传输通道永远不会被破坏或丢帧</li>
+</ol>
+<p><img alt="2-20" src="pic/2-20.png" /></p>
+<h3 id="a-simplex-stop-and-wait-protocol-for-an-error-free-channel">A Simplex Stop-and-Wait Protocol for an Error-Free Channel<a class="headerlink" href="#a-simplex-stop-and-wait-protocol-for-an-error-free-channel" title="Permanent link">&para;</a></h3>
+<p>这个协议用于防止发送方发送过快导致接收方来不及处理。一个常见的解决方案是接收方向发送方进行反馈(<strong>feedback</strong>)。</p>
+<p><img alt="2-21" src="pic/2-21.png" /></p>
+<h3 id="a-simplex-stop-and-wait-protocol-for-a-noisy-channel">A Simplex Stop-and-Wait Protocol for a Noisy Channel<a class="headerlink" href="#a-simplex-stop-and-wait-protocol-for-a-noisy-channel" title="Permanent link">&para;</a></h3>
+<p>一种解决方案是添加一个计时器。接收方只有在接收到正确的数据帧是才发送确认(ACK)，如果接收到被破坏的帧会直接无视掉。如果发送方在一定时间内没有接收到确认，则认定为超时，重新发送数据。</p>
+<h5 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h5>
+<p>需要保证接收方有足够的时间来处理，即考虑接收方处理数据的最坏情况以及确认帧传输的时间。</p>
+<ul>
+<li>如果timeout时间太短，则会导致很多不必要的重传。</li>
+<li>如果timeout时间太长，虽然连接是理想的，但是会导致传输效率降低。</li>
+</ul>
+<h5 id="duplicate-frames">Duplicate frames<a class="headerlink" href="#duplicate-frames" title="Permanent link">&para;</a></h5>
+<p>考虑一种情况，接收方接收到了发送方的数据，但是发送的确认帧在传输过程中丢失或传输到的时候已经超过了timeout，那么发送方会重新发送数据，这样会造成数据帧的重复。</p>
+<p>可以使用 <strong>Sequence Number</strong> 来解决这个问题。接收方可以根据序列号来确认数据是否重复。</p>
+<p>在这个基本协议中，只需考虑前序数据帧是否到达，在最小情况下，只需要<strong>1位</strong>序列号就可以满足需求。</p>
+<ul>
+<li>
+<p>正常情况<img alt="2-22" src="pic/2-22.png" /></p>
+</li>
+<li>
+<p>ACK丢失<img alt="2-23" src="pic/2-23.png" /></p>
+</li>
+<li>
+<p>传输错误或丢失（如果一直丢失，会一直重传）<img alt="2-24" src="pic/2-24.png" /></p>
+</li>
+<li>
+<p>ACK到达超时<img alt="2-25" src="pic/2-25.png" /></p>
+</li>
+</ul>
+<p><img alt="2-26" src="pic/2-26.png" /></p>
+<p><img alt="2-27" src="pic/2-27.png" /></p>
+<h2 id="sliding-window-protocols">Sliding Window Protocols<a class="headerlink" href="#sliding-window-protocols" title="Permanent link">&para;</a></h2>
+<p>以下协议考虑双方互相的通信，而非单向通信。</p>
+<blockquote>
+<p><strong>Definiton</strong></p>
+<p><strong>Piggybacking(驮运)</strong> 指在双向通信的过程中，将ack附加在即将发送的帧上一起发送，而非单独发送ack帧。</p>
+</blockquote>
+<p>Sliding window bidirectional protocol(双向滑动窗口协议) 主要有以下三种，不同点为<strong>效率、复杂度和buffer需求量</strong>：</p>
+<ul>
+<li>A One-Bit Sliding Window Protocol (stop-and-wait)</li>
+<li>A Protocol Using Go Back N</li>
+<li>A Protocol Using Selective Repeat</li>
+</ul>
+<h3 id="the-essence-of-all-sliding-window-protocols">The Essence of All Sliding Window Protocols<a class="headerlink" href="#the-essence-of-all-sliding-window-protocols" title="Permanent link">&para;</a></h3>
+<p>发送方会根据允许发送的帧数维护一个序列号的集合，这些帧被放在 <strong>sending window</strong> 中直到确认接收方已经成功接收到数据。</p>
+<p>如果 maximum window size 为 <span class="arithmatex">\(n\)</span>，则发送方需要 <span class="arithmatex">\(n\)</span> 个buffers来存储这些帧。如果 sending window 已满，则数据链路层会停止接收网络层的需求直到有buffer空出来，这种行为被称为 <strong>Flow Control</strong> 。</p>
+<p>类似的，接收方也会根据允许接收的帧数来维护一个 <strong>receiving window</strong>，落入这个窗口的帧会被放入接收方的buffer，否则会被丢弃。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>如果接收方的window size为1，则表示数据链路层只能顺序接收帧，否则允许乱序接收。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>接收方的window size和发送方的window size不一定相同。在有些协议中size是固定的，而在另一些协议中可能会动态调整。</p>
+</div>
+<h3 id="one-bit-sliding-window-protocol">One-Bit Sliding Window Protocol<a class="headerlink" href="#one-bit-sliding-window-protocol" title="Permanent link">&para;</a></h3>
+<p>发送方和接收方的 window size <strong>都为 1</strong>。即发送方在接收到接收方的ack后才能继续发送下一个帧。</p>
+<p>以下为一个sequence number为1位的示例：</p>
+<p><img alt="2-28" src="pic/2-28.png" /></p>
+<ul>
+<li>缺点：在<strong>传输时间长、高带宽、帧长度短</strong>的情况下传输效率很低。</li>
+</ul>
+<p>解决方案：在阻塞前允许至多 <span class="arithmatex">\(w\)</span> 个帧传输， <span class="arithmatex">\(w\)</span> 可以被设置为 <span class="arithmatex">\(2BD+1\)</span>。（其中 <span class="arithmatex">\(BD\)</span> 为bandwidth-delay，即单向传输时间内可以传输的帧数量级，由于考虑来回传输要 <span class="arithmatex">\(\times2\)</span>）</p>
+<h3 id="sliding-window-protocol-using-go-back-n">Sliding Window Protocol Using Go Back N<a class="headerlink" href="#sliding-window-protocol-using-go-back-n" title="Permanent link">&para;</a></h3>
+<ul>
+<li>发送方的 window size 为 <span class="arithmatex">\(n\)</span></li>
+<li>接收方的 window size 为1</li>
+</ul>
+<p><img alt="2-29" src="pic/2-29.png" /></p>
+<p>传输时有以下特点：</p>
+<ul>
+<li>两个方向都对ACK使用 <strong>piggybacking</strong>：不单独发送ACK；如果接收到ack <span class="arithmatex">\(n\)</span>，则 <span class="arithmatex">\(n\)</span> 之前的帧(<span class="arithmatex">\(n-1,n-2,…\)</span>)都自动确认。</li>
+<li>通道有噪声</li>
+<li>需要限制网络层的数据流</li>
+</ul>
+<p><img alt="2-30" src="pic/2-30.png" /></p>
+<p><img alt="2-31" src="pic/2-31.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>需要满足 <strong>the sender window &lt;= MAX_SEQ</strong>。
+假设MAX_SEQ=7, the sender window=8，此时如果连续发送8个数据帧0-7，则接收方返回的ack为7，即期望下次发送的seq_num为0，在这种情况下无法确定时8个数据帧都收到了还时全部丢失了。</p>
+</div>
+<p>由于有多个独立的帧需要传出，因此需要多个计时器来分别管理timeout，可以使用一个timeout队列来管理。</p>
+<p><img alt="2-32" src="pic/2-32.png" /></p>
+<ul>
+<li>缺点：如果通道<strong>出错率高</strong>，则会导致大量包被重传。</li>
+</ul>
+<h3 id="sliding-window-protocol-using-selective-repeat">Sliding Window Protocol Using Selective Repeat<a class="headerlink" href="#sliding-window-protocol-using-selective-repeat" title="Permanent link">&para;</a></h3>
+<ul>
+<li>发送方的 window size 为 <span class="arithmatex">\(n\)</span></li>
+<li>接收方的 window size 为 <span class="arithmatex">\(n\)</span></li>
+</ul>
+<p><img alt="2-33" src="pic/2-33.png" /></p>
+<p>传输时有以下特点：</p>
+<ul>
+<li>数据双向传播，ACK可以使用piggybacking也可以单独传输(需要ACK计时器)</li>
+<li>通道有噪声</li>
+<li>需要限制网络层的数据流</li>
+<li>需要 <strong>NACK</strong> 包：接收方发现出错时发送</li>
+</ul>
+<p>传输过程中，发送方的window size从0开始增长，直到一个设定的最大值。</p>
+<p>接收方的window size 固定在预先设定的最大值，在这个固定的window中，为每个序列号都预留一个buffer。传输时检查到达帧都序列号是否满足要求，满足则接收。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>需要满足 <strong>Maximum size &lt;=  (1 + MAX_SEQ) / 2</strong>。
+否则会出现序列号重叠，导致接收方无法确定是新帧还是重发的旧帧。</p>
+</div>
+<h2 id="examples-of-data-link-protocols">Examples of data link protocols<a class="headerlink" href="#examples-of-data-link-protocols" title="Permanent link">&para;</a></h2>
+<h3 id="point-to-point-protocolppp">Point-to-Point Protocol(PPP)<a class="headerlink" href="#point-to-point-protocolppp" title="Permanent link">&para;</a></h3>
+<p>PPP在数据链路层，是一种帧结构机制，能够在多种物理层上传输多种协议的数据包。</p>
+<p>PPP具有以下3个主要特点：</p>
+<ul>
+<li>帧封装与错误检测：PPP 提供了一种帧格式，用于标识数据的 <strong>起始</strong> 和 <strong>结束</strong>。</li>
+<li>链路控制协议(LCP, Link Control Protocol)：管理 PPP 链路的状态，确认通信链路可靠。</li>
+<li>网络控制协议(NCP,Network Control Protocol)：PPP设计了一种“通用框架”，每一种网络层协议，都配一个 <strong>NCP</strong> 。这些 NCP 都遵循 PPP 的统一格式（像插件一样），但具体字段和协商内容取决于对应的网络层协议。</li>
+</ul>
+<h4 id="ppp-frame-format">PPP Frame Format<a class="headerlink" href="#ppp-frame-format" title="Permanent link">&para;</a></h4>
+<p>PPP帧以靠准<strong>HDLC</strong> flag byte，即 <strong>0x7E(01111110)</strong> 开头。如果遇到冲突，则使用ESC FLAG的方法，使用的ESC FLAG为 <strong>0x7D</strong>，然后对冲突字节进行 XOR 0x20 处理，这样可以保证数据中不出现 0x7E，可以直接扫描 0x7E 来确定帧。解码时只要去掉ESC FLAG然后对后面的字节进行 XOR 0x20 即可。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>在为了提高传输效率的“压缩模式”下，PPP 帧的 <strong>Address（地址）</strong> 和 <strong>Control（控制）</strong> 字段通常是可以一起省略的。</p>
+</div>
+<p><img alt="2-34" src="pic/2-34.png" /></p>
+<h4 id="ppp-link-up-down">PPP Link Up &amp; Down<a class="headerlink" href="#ppp-link-up-down" title="Permanent link">&para;</a></h4>
+<p><img alt="2-35" src="pic/2-35.png" /></p>
+<ul>
+<li>链路初始状态为DEAD，表示物理层未建立连接。</li>
+<li>当物理连接建立后，链路状态转为ESTABLISH。此时PPP对等体将交换一系列LCP数据包。</li>
+<li>若LCP选项协商成功，链路状态将进入AUTHENTICATE。</li>
+<li>若认证成功，则进入NETWORK状态，并发送一系列NCP数据包以配置网络层。由于每个NCP协议都针对特定网络层协议设计，因此难以对其进行概括性描述。</li>
+<li>达到OPEN状态后即可进行数据传输。在此状态下，IP数据包将封装在PPP帧中通过SONET线路传输。</li>
+<li>数据传输完成后，链路进入TERMINATE状态，当物理层连接断开时，将由此状态回退至DEAD状态。</li>
+</ul>
+<p><strong>SONET</strong> 和 <strong>ADSL</strong> 都是对PPP的不同应用。</p>
+<h3 id="sonet">SONET<a class="headerlink" href="#sonet" title="Permanent link">&para;</a></h3>
+<p>SONET 是一种物理层协议，常用于广域光纤链路，是通信网络骨干（包括电话系统）的主要传输方式。它提供高速、同步、固定速率的光信号传输。</p>
+<p><img alt="2-36" src="pic/2-36.png" /></p>
+<h4 id="adsl">ADSL<a class="headerlink" href="#adsl" title="Permanent link">&para;</a></h4>
+<p><strong>Asymmetric Digital Subscriber Loop</strong>，基于OFDM调制。在ADSL物理层和PPP中间存在<strong>AAL5</strong>和<strong>ATM</strong>。</p>
+<p><img alt="2-37" src="pic/2-37.png" /></p>
+<ul>
+<li>
+<p>AAL5 frame: 把上层变长数据封装成固定长度的 48 字节块，并提供长度和 CRC 检测。用于适配ATM信元。<img alt="2-38" src="pic/2-38.png" /></p>
+</li>
+<li>
+<p>ATM(Asynchronous Transfer Mode): 链路层协议，异步传输，connected-oriented。有5个字节的header。</p>
+</li>
+<li>
+<p>AAL5+ATM：把上层协议切分成固定长度信元，通过虚电路转发。</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "content.code.annotate", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../window.MathJax = {
+  tex: {
+    inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;/(&#39;, &#39;/)&#39;]],
+    displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;/[&#39;, &#39;/]&#39;]]
+  }
+};
+"></script>
+      
+    
+  </body>
+</html>

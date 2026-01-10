@@ -1,0 +1,4095 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Course Note for ZJU CS">
+      
+      
+        <meta name="author" content="RightBird">
+      
+      
+        <link rel="canonical" href="http://RightBird.io/CourseNote/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Network_Security.html">
+      
+      
+        <link rel="prev" href="Application_Layer.html">
+      
+      
+        <link rel="next" href="../../C%2B%2B/C%2B%2B%E5%9F%BA%E7%A1%80/data_type.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Network Security - CourseNote</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#network-security" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="CourseNote" class="md-header__button md-logo" aria-label="CourseNote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CourseNote
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Network Security
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RightBird/CourseNote" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CourseNote
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Grading%20Policy.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程笔记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../C%2B%2B/C%2B%2B%E5%9F%BA%E7%A1%80/data_type.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C++
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="CourseNote" class="md-nav__button md-logo" aria-label="CourseNote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CourseNote
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RightBird/CourseNote" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CourseNote
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大二上
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大二上
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    高级数据结构与算法分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%201%20---AVL%20Trees%2C%20Splay%20Trees%2C%20and%20Amortized%20Analysis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 ---AVL Trees, Splay Trees, and Amortized Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%202%20---Red-Black%20Trees%20and%20B%2B%20Trees.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 ---Red-Black Trees and B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%203%20---Inverted%20File%20Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 ---Inverted File Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%204%20---Leftist%20Heaps%20and%20Skew%20Heaps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 ---Leftist Heaps and Skew Heaps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%205%20---Binomial%20Queue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 ---Binomial Queue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%206%20---Backtracking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 ---Backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%207%20---Divide%20and%20Conquer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 ---Divide and Conquer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%208%20---Dynamic%20Programming.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8 ---Dynamic Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter%209%20---Greedy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9 ---Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter10%20---NP-Completeness.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter10 ---NP-Completeness
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter11%20---Approximation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter11 ---Approximation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter12%20---Local%20Search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter12 ---Local Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter13%20---Randomized%20Algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter13 ---Randomized Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter14%20---Parallel%20Algorithms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter14 ---Parallel Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Chapter15%20---External%20Sorting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter15 ---External Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/%E4%B9%A0%E9%A2%98.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    习题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机组成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter1%20%20Computer%20Abstractions%20and%20Technology.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter1  Computer Abstractions and Technology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter2%20%20Instructions%20Language%20of%20the%20Computer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2  Instructions Language of the Computer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter3%20%20Arithmetic%20for%20Computer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter3  Arithmetic for Computer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter4%20The%20Processor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter4 The Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter5%20Large%20and%20Fast%20Exploiting%20Memory%20Hierarchy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter5 Large and Fast Exploiting Memory Hierarchy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/Chapter6%20Storage%20and%20other%20IO%20Topics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter6 Storage and other IO Topics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件安全原理与实践
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件安全原理与实践
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab1/report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab2/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab3/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Lab4/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8A/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/Final/Report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大二下
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大二下
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机体系结构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/Cache.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面向对象程序设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    面向对象程序设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据库系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Grading%20Policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Relational%20model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relational Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/SQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Advanced%20SQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/E-R%20model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E-R model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Relational%20Database%20Design.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relational Database Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Storage%20and%20File%20Structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage and File Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Indexing%20and%20Hashing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing and Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Query%20Processing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Query%20Optimization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Transactions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Concurrency%20Control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concurrency Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E4%BA%8C%E4%B8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/Recovery%20System.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大三上
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大三上
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Sets_Relations_Language.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets, Relations, and Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Regular_Language_and_Automata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regular Language and Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Context-free_Language_and_Pushdown%20Automata.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-free Language and Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Turing%20Machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/Undecidability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Physical_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physical Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Data_Link_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Link Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="The_Medium_Access_Control_Sublayer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MAC Sublayer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Transport_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transport Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Application_Layer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Security
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Network_Security.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic knowledge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic knowledge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cryptography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-key-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symmetric-Key Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-key-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public-Key Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Signatures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#management-of-public-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Management of Public Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#communication-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Communication Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Email Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-security-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web Security (https)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/C%2B%2B%E5%9F%BA%E7%A1%80/data_type.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据类型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/C%2B%2B%E5%9F%BA%E7%A1%80/Variable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    库函数
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    库函数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/iostream.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    iostream
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/string.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    string
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    STL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/STL/%E8%BF%AD%E4%BB%A3%E5%99%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    迭代器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%E5%BA%93%E5%87%BD%E6%95%B0/STL/vector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic knowledge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic knowledge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cryptography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-key-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symmetric-Key Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-key-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public-Key Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Signatures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#management-of-public-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Management of Public Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#communication-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Communication Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Email Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-security-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web Security (https)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="network-security">Network Security<a class="headerlink" href="#network-security" title="Permanent link">&para;</a></h1>
+<p>网络安全问题大致可以分为4个领域：</p>
+<ul>
+<li>Secrecy (机密性)</li>
+<li>Authentication (身份认证)</li>
+<li>Nonrepudiation (不可否认)</li>
+<li>Integrity control (完整性)</li>
+</ul>
+<h2 id="basic-knowledge">Basic knowledge<a class="headerlink" href="#basic-knowledge" title="Permanent link">&para;</a></h2>
+<h3 id="cryptography">Cryptography<a class="headerlink" href="#cryptography" title="Permanent link">&para;</a></h3>
+<h4 id="kerckhoffs-principle">Kerckhoff’s Principle<a class="headerlink" href="#kerckhoffs-principle" title="Permanent link">&para;</a></h4>
+<p><strong>所有的算法(algorithms)都必需是公开的，只有密钥(keys)是保密的。</strong></p>
+<p>密钥越长，密码分析者需要应对的工作量就越大。通过穷举搜索密钥空间破解系统的所需工作量与密钥长度呈指数关系。</p>
+<p>加密方法可分为两类：<strong>替换密码（substitution cipher）</strong>和<strong>换位密码（transposition cipher）。</strong></p>
+<h4 id="substitute-ciphers">Substitute ciphers<a class="headerlink" href="#substitute-ciphers" title="Permanent link">&para;</a></h4>
+<p>在替换密码中，每个字母或字母组合都被替换为另一个字母或字母组合。</p>
+<ul>
+<li><strong>Caesar cipher</strong>: 例如每个字母向后移动 k 个位置。</li>
+<li>密码本<img alt="" src="pic/7-1.png" /></li>
+</ul>
+<p>基本的攻击手段是利用<u>自然语言的统计特性</u>。<img alt="" src="pic/7-2.png" /></p>
+<h4 id="transposition-ciphers">Transposition Ciphers<a class="headerlink" href="#transposition-ciphers" title="Permanent link">&para;</a></h4>
+<p>转位密码改变字母的顺序，但不进行伪装。</p>
+<p><img alt="" src="pic/7-3.png" /></p>
+<ul>
+<li>要破解置换密码，密码分析者首先必须意识到自己面对的是置换密码。(通过观察E、T、O、A、N、I等字母的出现频率，可轻松判断其是否符合明文的常规分布模式。)</li>
+<li>接下来需推测列数（即密钥长度）。(多数情况下，可根据上下文推测可能的单词或短语。)</li>
+<li>最后一步是排列列序。(当列数k较小时，可依次检验k(k − 1)组列对，观察其双字符组合频率是否符合英文明文特征。匹配度最佳的列对被视为正确位置，随后将剩余各列依次作为该列对的后续列进行试配。)</li>
+</ul>
+<div class="admonition two fundamental cryptographic principles">
+<p class="admonition-title">Two</p>
+<p>(1) 所有加密消息必须包含一定冗余度。(2) 必须采取措施确保每条接收到的消息均可验证为最新消息。</p>
+</div>
+<h3 id="symmetric-key-algorithms">Symmetric-Key Algorithms<a class="headerlink" href="#symmetric-key-algorithms" title="Permanent link">&para;</a></h3>
+<p>在对称密钥算法中，加密和解密使用相同的密钥。</p>
+<p><img alt="" src="pic/7-4.png" /></p>
+<ul>
+<li>P-box: 打乱顺序。</li>
+<li>S-box: 非线性的查表替换。</li>
+</ul>
+<p><img alt="" src="pic/7-5.png" /></p>
+<h4 id="des-data-encryption-standard">DES (Data Encryption Standard)<a class="headerlink" href="#des-data-encryption-standard" title="Permanent link">&para;</a></h4>
+<ul>
+<li>明文以64位为单位分组加密，生成64位密文。</li>
+<li>该算法采用56位密钥参数化，包含19个独立阶段。</li>
+<li>第一阶段对64位明文进行密钥无关的置换操作。</li>
+<li>最后阶段是该置换操作的精确逆运算。</li>
+<li>倒数第二阶段将最左侧32位与最右侧32位互换。</li>
+<li>其余16个阶段功能相同，但采用密钥的不同函数进行参数化。</li>
+</ul>
+<p><img alt="" src="pic/7-6.png" /></p>
+<p>该算法设计允许使用与加密相同的密钥进行解密，只需按相反顺序执行步骤。</p>
+<p>对于iteration的每一步，左侧输出即右侧输入的副本，右侧输出为左侧输入与右侧输入及本阶段密钥 <span class="arithmatex">\(K_i\)</span> 的函数值进行按位异或运算的结果。这个转换函数包含以下4步：</p>
+<ul>
+<li>根据固定的置换与复制规则，将32位 <span class="arithmatex">\(R_{i-1}\)</span> 展开构造出48位数 <span class="arithmatex">\(E\)</span>。</li>
+<li>对 <span class="arithmatex">\(E\)</span> 与 <span class="arithmatex">\(K_i\)</span> 进行异或运算。</li>
+<li>将该输出划分为 8 个 6 位组，每组分别输入不同 S-box。每个 S-box 的 64 种可能输入均映射至 4 位输出。</li>
+<li>这 8 × 4 位数据通过 P-box 处理。</li>
+</ul>
+<p><img alt="" src="pic/7-7.png" /></p>
+<p>DES的原始密钥是64位，包括8位的奇偶校验位。开始后先丢弃8个校验位，然后对剩下的56位进行重新排列。</p>
+<p>每次迭代前，密钥被划分为两个 28 位单元。每个单元根据迭代次数进行 1 位或 2 位的左循环移位（每一轮的循环左移位数是固定表决定的，即左移位数与轮数有关）。对左移后的 56 位再进行一次置换选择，选出48位作为当前轮的密钥。</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>64 位主密钥
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>   ↓ 去掉校验位 + 置换（PC-1）
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a>56 位
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="4 "></span></a>   ↓ 分成两半
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos="5 "></span></a>C0(28) || D0(28)
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos="6 "></span></a>   ↓ 每轮循环左移
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos="7 "></span></a>Ci || Di
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos="8 "></span></a>   ↓ 选择 + 置换（PC-2）
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos="9 "></span></a>48 位轮密钥 Ki
+</code></pre></div>
+<h4 id="triple-des">Triple DES<a class="headerlink" href="#triple-des" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>whitening</strong>: 一种增强DES的技术。在将明文块输入DES前，先与随机生成的64位密钥进行异或运算；随后在传输前，将生成的密文与第二个64位密钥进行异或运算。若接收方持有两个白化密钥，可通过逆向操作轻松解除。</li>
+</ul>
+<p><strong>Triple DES</strong>: EDE (Encrypt Decrypt Encrypt)，采用加密-解密-加密的三重处理方式，旨在与现有单密钥DES系统保持向后兼容性。</p>
+<p><img alt="" src="pic/7-8.png" /></p>
+<h4 id="rijndael">Rijndael<a class="headerlink" href="#rijndael" title="Permanent link">&para;</a></h4>
+<p>与DES类似，Rijndael采用置换与替换操作，并采用多轮处理。<u>有别于DES的是，所有操作均涉及完整字节，以实现硬件与软件的高效实现。</u></p>
+<h4 id="other-symmetric-key-ciphers">Other Symmetric-Key Ciphers<a class="headerlink" href="#other-symmetric-key-ciphers" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="pic/7-9.png" /></p>
+<h3 id="public-key-algorithms">Public-Key Algorithms<a class="headerlink" href="#public-key-algorithms" title="Permanent link">&para;</a></h3>
+<p>加密密钥和解密密钥可以完全不同，即:</p>
+<ul>
+<li><span class="arithmatex">\(D(E(P))=P\)</span></li>
+<li>很难从 E(加密密钥) 中推导出 D(解密密钥)</li>
+<li>E 不能被选择明文攻击(plaintext attack)破解</li>
+</ul>
+<p>公钥密码学要求每位用户拥有两把密钥：<strong>公钥(public key)</strong>供全世界用于加密发往该用户的密文，<strong>私钥(private key)</strong>则用于解密接收到的密文。</p>
+<h4 id="rsa">RSA<a class="headerlink" href="#rsa" title="Permanent link">&para;</a></h4>
+<p>基于数论的基本规则实现：</p>
+<ul>
+<li>选择两个大质数， <span class="arithmatex">\(p\)</span> 和 <span class="arithmatex">\(q\)</span> (通常是1024位)</li>
+<li>计算 <span class="arithmatex">\(n=p\times q\)</span> 和 <span class="arithmatex">\(z=(p-1)\times (q-1)\)</span></li>
+<li>选择一个与 <span class="arithmatex">\(z\)</span> 互质的数称为 <span class="arithmatex">\(d\)</span> </li>
+<li>找到 <span class="arithmatex">\(e\)</span> 使得满足 <span class="arithmatex">\(e\times d=1\text{mod} z\)</span></li>
+<li>则 <span class="arithmatex">\((n,e)\)</span> 为公钥， <span class="arithmatex">\((n,d)\)</span> 为私钥</li>
+</ul>
+<p><img alt="" src="pic/7-10.png" /></p>
+<h4 id="ecc-elliptic-curve-cryptography">ECC (Elliptic Curve Cryptography)<a class="headerlink" href="#ecc-elliptic-curve-cryptography" title="Permanent link">&para;</a></h4>
+<p>基于椭圆曲线离散对数的数学难题，使用特定的曲线方程和基点生成公钥和私钥，子算法 ECDHE 用于秘钥交 换，ECDSA 用于数字签名。</p>
+<p>比起 RSA，ECC 在安全强度和性能上都有明显的优势。160 位的 ECC 相当于 1024 位的 RSA，而 256 位的 ECC 则相当于 2048 位的 RSA。因为秘钥短，所以相应的计算量、消耗 内存和带宽也就少，加解密的性能就会好，对于现在移动互联网非常有吸引力。 </p>
+<h3 id="digital-signatures">Digital Signatures<a class="headerlink" href="#digital-signatures" title="Permanent link">&para;</a></h3>
+<p>数字签名使数字文件能够以无法伪造的方式签署，基本要求为：</p>
+<ul>
+<li>接收方能够验证发件人声称的身份。</li>
+<li>发件人日后不得否认消息内容。</li>
+<li>接收方不可能自行伪造该消息。</li>
+</ul>
+<h4 id="symmetric-key-signatures">Symmetric-Key Signatures<a class="headerlink" href="#symmetric-key-signatures" title="Permanent link">&para;</a></h4>
+<ul>
+<li>有一个<strong>中心权威机构(central authority)</strong>，如图中的Big brother</li>
+<li>A和B代表 Alice 和 Bob 的身份</li>
+<li>P 时发送的前面明文(plaintext)</li>
+<li><span class="arithmatex">\(R_A\)</span> 是 Alice 选择的一个随机数， <span class="arithmatex">\(t\)</span> 是用于确保消息新鲜度的时间戳</li>
+<li><span class="arithmatex">\(K_A,K_B,K_{BB}\)</span> 是Alice, Bob, BB 分别对应的密钥</li>
+</ul>
+<p><img alt="" src="pic/7-11.png" /></p>
+<p>这样的架构存在一个潜在问题：<strong>Replay Attack</strong> (回放攻击)</p>
+<p>回放攻击是指攻击者截获一条“合法的通信消息”，不需要破解任何加密内容，而是把这条消息在之后再次发送（或延迟发送），从而欺骗接收方。</p>
+<p>为最大限度规避此问题，系统全程采用时间戳机制。需检查所有近期消息，确认其中是否存在回放攻击。</p>
+<h4 id="public-key-signatures">Public-Key Signatures<a class="headerlink" href="#public-key-signatures" title="Permanent link">&para;</a></h4>
+<p>使用对称密钥数字签名所有人都必须同意信任中心权威机构，而签名文档并不需要一个可信权威机构。</p>
+<p>公钥加密与解密算法具备以下特性：除常规属性D(E(P)) = P外，还满足E(D(P)) = P。<strong>RSA</strong> 就拥有这个性质。原则上，任何公钥算法都可以用于数字签名。</p>
+<p><strong>注意图中私钥和公钥的使用顺序。</strong></p>
+<p><img alt="" src="pic/7-12.png" /></p>
+<h4 id="message-digests">Message Digests<a class="headerlink" href="#message-digests" title="Permanent link">&para;</a></h4>
+<p>对于数字签名，<strong>认证(authentication)</strong>是必要的，而<strong>保密(secrecy)</strong>并非总是必要的。</p>
+<p>以下认证方案基于<strong>单向哈希函数</strong>的原理，该<u>函数可处理任意长度的明文，并从中计算出固定长度的比特串</u>，不需要对整个消息进行加密。</p>
+<p>使用的哈希函数被称为 <strong>message digest(MD)</strong>，主要有以下4个性质：</p>
+<ul>
+<li><strong>Efficiency</strong>: 给定一个 <span class="arithmatex">\(P\)</span> ，很容易计算出 <span class="arithmatex">\(MD(P)\)</span></li>
+<li><strong>Confidential</strong>: 给定 <span class="arithmatex">\(MD(P)\)</span> ，实际无法推导出 <span class="arithmatex">\(P\)</span></li>
+<li><strong>Uniqueness</strong>: 给定一个 <span class="arithmatex">\(P\)</span> ，无法找到 <span class="arithmatex">\(P'\)</span> 使得 <span class="arithmatex">\(MD(P)=MD(P')\)</span> (哈希值长度至少应为128位，越长越好)</li>
+<li><strong>Trustworthiness</strong>: 输入即使仅改变1位也会产生截然不同的输出。（哈希必须彻底畸变原始位序列）</li>
+</ul>
+<p>从明文计算消息摘要的速度远快于使用公钥算法加密该明文，因此消息摘要可用于加速数字签名算法。</p>
+<ul>
+<li>Alice 首先计算其明文的消息摘要，随后对摘要进行签名，并将签名摘要与明文一并发送给 Bob。</li>
+<li>若P中途被替换了，当Bob计算MD(P)时将发现异常。</li>
+</ul>
+<p><img alt="" src="pic/7-13.png" /></p>
+<p>消息摘要在对称密钥密码系统中也可以发挥作用，BB不再使用 <span class="arithmatex">\(K_{BB}(A, t, P)\)</span> 对P进行签名，而是通过将MD应用于P来计算消息摘要，从而得到MD(P)。</p>
+<p><img alt="" src="pic/7-14.png" /></p>
+<h4 id="sha-1-secure-hash-algorithm">SHA-1 (Secure Hash Algorithm)<a class="headerlink" href="#sha-1-secure-hash-algorithm" title="Permanent link">&para;</a></h4>
+<p>通过复杂的位操作，使每个输出位都受到每个输入位的影响。以512位元组为单位处理输入数据，生成160位元消息摘要。</p>
+<p><img alt="" src="pic/7-15.png" /></p>
+<h4 id="sha-2">SHA-2<a class="headerlink" href="#sha-2" title="Permanent link">&para;</a></h4>
+<p>已开发出新版SHA-1算法，可生成224、256、384和512位的哈希值。这些版本统称为SHA-2。</p>
+<h4 id="the-birthday-attack">The Birthday Attack<a class="headerlink" href="#the-birthday-attack" title="Permanent link">&para;</a></h4>
+<p>生日攻击是指两个不同的明文，却具有相同的摘要值。</p>
+<h3 id="management-of-public-keys">Management of Public Keys<a class="headerlink" href="#management-of-public-keys" title="Permanent link">&para;</a></h3>
+<p>公钥需要一些机制来确保能够安全地交换：</p>
+<ul>
+<li>CA (Certification Authority)</li>
+<li>Standard X.509</li>
+<li>Public key infrastructure</li>
+</ul>
+<h4 id="ca-certification-authority">CA (Certification Authority)<a class="headerlink" href="#ca-certification-authority" title="Permanent link">&para;</a></h4>
+<p>CA是认证公钥的机构，Certificate的核心功能是为主体（个人、公司等）建立公钥。</p>
+<p><img alt="" src="pic/7-16.png" /></p>
+<h4 id="public-key-infrastructures">Public Key Infrastructures<a class="headerlink" href="#public-key-infrastructures" title="Permanent link">&para;</a></h4>
+<p><strong>PKI(Public Key Infrastructure)</strong> 包含多个组件，包括用户、CA机构、证书和目录。PKI的作用在于为这些组件构建架构体系，并为各类文档与协议制定标准规范。<strong>层级式</strong>CA体系是PKI中最简洁的实现形式。</p>
+<p>顶级CA（根CA）为二级CA签发证书，我们称之为RA。当根CA授权新的RA时，它会生成一份X.509证书，声明已批准该RA，并在其中包含新RA的公钥，完成签名后交付给RA。同样地，当RA批准新的CA时，它会生成并签名一份证书，声明其批准行为并包含该CA的公钥。</p>
+<p><img alt="" src="pic/7-17.png" /></p>
+<ul>
+<li>默认所有用户都知晓根证书的公钥。</li>
+<li>追溯至根证书的证书链称为<strong>chain of trust</strong>或<strong>certification path</strong>。</li>
+<li>现代浏览器预装了超过100个根证书的公钥。</li>
+<li>大多数浏览器允许用户检查根证书（通常以根证书签名的证书形式呈现），并可删除任何可疑证书。</li>
+</ul>
+<h2 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h2>
+<h3 id="communication-security">Communication Security<a class="headerlink" href="#communication-security" title="Permanent link">&para;</a></h3>
+<h4 id="ipsec-ip-security">IPsec (IP security)<a class="headerlink" href="#ipsec-ip-security" title="Permanent link">&para;</a></h4>
+<p>完整的IPsec设计是一个支持多种服务(services)、算法(algorithms)和粒度(granularities)的框架。</p>
+<ul>
+<li>多种服务：非所有用户都愿意为持续使用全部服务付费，因此服务采用套餐式灵活组合。核心服务包括保密性、数据完整性及防范回放攻击。所有服务均基于对称密钥加密技术，因高性能是关键需求。</li>
+<li>多种算法：当前被认为安全的算法未来可能被破解。</li>
+<li>多种粒度：可保护单个TCP连接，也可覆盖主机对间所有流量，或安全路由器对间所有流量等多种场景。</li>
+</ul>
+<p>IPsec位于IP层（网络层），但是是connection oriented的。IPsec中的“连接”称为<strong>SA(Security Association)</strong>。</p>
+<ul>
+<li>SA是两个终端点之间的单工链接，并关联一个安全标识符。</li>
+<li>若需双向安全通信，则需建立两个安全关联。</li>
+<li>安全标识符承载于安全连接传输的数据包中，用于在安全数据包到达时查询密钥及其他相关信息。</li>
+</ul>
+<p>IPsec主要包含两个部分：</p>
+<ul>
+<li>第一部分描述了两种可添加至数据包的新头部，用于承载安全标识符、完整性控制数据及其他信息：<strong>AH</strong> (The IPsec Authentication Header 认证头)、<strong>ESP</strong> (Encapsulating Security Payload, 封装安全负荷)</li>
+<li>另一部分 <strong>ISAKMP (Internet Security Association and Key Management Protocol)</strong> 负责密钥建立。ISAKMP 是一个框架，执行工作的主要协议是 <strong>IKE</strong> (<strong>Internet Key</strong> <strong>Exchange</strong>, 互联网密钥交换)</li>
+</ul>
+<p>IPsec有两种工作模式：</p>
+<ul>
+<li><strong>Transport Mode</strong>: IP头的协议字段被修改，以指示IPsec头紧随常规IP头（位于TCP头之前）。适用于同一网络内部。</li>
+<li><strong>Tunnel Mode</strong>: 整个IP数据包（含头部）被封装到具有全新IP头的新数据包主体中。适用于跨网络传输。</li>
+</ul>
+<h5 id="ah"><strong>AH</strong><a class="headerlink" href="#ah" title="Permanent link">&para;</a></h5>
+<p>AH提供完整性检查和防回放安全性，但不提供保密性（即不加密数据）。</p>
+<ul>
+<li>在IPv4中，它位于IP头（含所有选项）与TCP头之间。</li>
+<li>在IPv6中，它只是另一个扩展头，按此方式处理。</li>
+</ul>
+<p><img alt="" src="pic/7-22.png" /></p>
+<ol>
+<li><strong>Next header</strong>: <u>用于存储IP头中原来的协议号(TCP: 6, UDP: 17)，IP头中的协议号需要改为51来指示AH头。</u></li>
+<li><strong>Payload len</strong>: AH 头的长度-2（以 32 位字为单位）</li>
+<li><strong>Security parameters index:</strong> 即连接标识符。由发送方插入以指向接收方数据库中的特定记录，该记录包含该连接使用的共享密钥及其他连接信息。</li>
+<li><strong>Sequence number field</strong>: 某一SA下的数据包编号。每个数据包（包括重传数据包）均获得唯一编号，该字段旨在检测重放攻击。序列号不可循环递增，若耗尽全部2³²个序列号，则必须建立新安全关联以继续通信。</li>
+<li><strong>Authentication data</strong>: 可变长度字段，包含有效负载的数字签名。由于数据包需极快处理，而所有已知公钥算法速度过慢，通常<strong>不使用公钥加密</strong>。由于IPsec基于<strong>对称密钥加密</strong>，且发送方与接收方在建立安全关联前协商共享密钥，故签名计算采用该共享密钥。AH仅处理完整性校验，不涉及数据加密。</li>
+</ol>
+<h5 id="esp"><strong>ESP</strong><a class="headerlink" href="#esp" title="Permanent link">&para;</a></h5>
+<p>同时适用于传输模式和隧道模式。ESP仅处理保密性。</p>
+<p>ESP头部由两个32位字组成，即与AH中同样的<strong>Security parameters index</strong> 和 <strong>Sequence number</strong>字段。</p>
+<p>将HMAC置于末尾在硬件实现中具有优势：HMAC可在数据位通过网络接口输出时实时计算并追加至末尾。</p>
+<p><img alt="" src="pic/7-23.png" /></p>
+<h4 id="firewalls">Firewalls<a class="headerlink" href="#firewalls" title="Permanent link">&para;</a></h4>
+<p>防火墙充当数据<strong>包过滤器</strong>，但是打破了协议的标准分层结构：</p>
+<ul>
+<li>防火墙虽然是<strong>网络层设备</strong>，却会窥探<strong>传输层</strong>和<strong>应用层</strong>来执行过滤。</li>
+</ul>
+<p><img alt="" src="pic/7-20.png" /></p>
+<p>防火墙通常依赖标准端口编号规则来判定数据包携带的流量类型。但是端口号不一定可靠：</p>
+<ul>
+<li>某些点对点应用会动态选择端口以规避被轻易识别</li>
+<li>IPsec等加密方案可隐藏高层信息，使防火墙无法识别。</li>
+</ul>
+<p>现代互联网通常通过以下方式进行流量分类：</p>
+<ul>
+<li>五元组信息（IP地址、端口、协议）</li>
+<li>连接状态跟踪</li>
+<li>深度包检测（DPI）</li>
+<li>行为与统计分析</li>
+</ul>
+<p>但是仍然存在风险：</p>
+<ul>
+<li><strong>Dos(Denial of Service)</strong>: 攻击者旨在瘫痪目标系统而非窃取数据。——DNS拒绝服务攻击</li>
+<li><strong>DDoS</strong> (Distributed Denial of Service) 攻击</li>
+</ul>
+<h4 id="vpn-virtual-private-networks">VPN (Virtual Private Networks)<a class="headerlink" href="#vpn-virtual-private-networks" title="Permanent link">&para;</a></h4>
+<p>VPN是在公共网络（即Internet）之上构建的覆盖网络，但具备私有网络的大部分特性。</p>
+<ul>
+<li>为每个办公室配备防火墙，并在所有办公室之间通过互联网建立隧道。</li>
+</ul>
+<p>系统启动时，每对防火墙需协商安全关联(SA)参数，包括服务类型、模式、算法及密钥。若采用IPsec隧道技术，可将任意两对办公室间的全部流量整合至单一认证加密SA中，从而实现完整性控制、保密性，甚至显著抵御流量分析。</p>
+<p><u>防火墙、VPN与隧道模式下带ESP的IPsec是天然组合，在实践中广泛应用。</u></p>
+<p>另一种方案是由ISP搭建VPN。</p>
+<p><img alt="" src="pic/7-21.png" /></p>
+<h4 id="wireless-security">Wireless Security<a class="headerlink" href="#wireless-security" title="Permanent link">&para;</a></h4>
+<p>802.11i修订版引入了名为<strong>Wi-Fi Protected Access</strong> (<strong>WPA</strong>)的新安全框架。WPA摒弃单一加密密钥模式，采用分层密钥结构：通过衍生多重密钥来保护单播与组播/广播流量，同时保障信息保密性与完整性。</p>
+<p>初始认证阶段建立成对主密钥（PMK）后，WPA通过四次握手过程推导并安装所有会话密钥，同时确认双方均持有PMK。</p>
+<ul>
+<li>WPA的四次握手不是用来认证用户，而是用来证明双方已认证成功并安全地产生会话密钥。</li>
+<li>PMK是后续4次握手的根密钥。</li>
+</ul>
+<p>在无线网络中，无线客户端作为请求方(supplicant)，接入点(AP)作为认证方(authenticator)。</p>
+<h5 id="wpa"><strong>WPA的主要层级</strong><a class="headerlink" href="#wpa" title="Permanent link">&para;</a></h5>
+<p><img alt="" src="pic/7-24.png" /></p>
+<h5 id="pair-wise-master-key-pmk"><strong>Pair-wise Master Key (PMK)</strong><a class="headerlink" href="#pair-wise-master-key-pmk" title="Permanent link">&para;</a></h5>
+<p>成对主密钥（PMK）位于密钥层次结构顶端，<strong>用于单播流量及WPA四次握手</strong>过程中的间接密钥生成。无线客户端和AP持有PMK，该密钥应贯穿整个会话周期，因此<strong>必须严格保密</strong>。</p>
+<p>定义该密钥有两种方式：</p>
+<ul>
+<li>Pre-shared key：手动配置，用于WPA个人模式。</li>
+<li>AAA (Authentication, Authorization, and Accounting) Key：适用于多无线客户端的WPA企业模式。</li>
+</ul>
+<h5 id="pairwise-transient-key-ptk"><strong>Pairwise Transient Key (PTK)</strong><a class="headerlink" href="#pairwise-transient-key-ptk" title="Permanent link">&para;</a></h5>
+<p>PTK通过组合以下属性生成：</p>
+<ul>
+<li>PMK（成对主密钥）</li>
+<li>ANonceAP（AP，仅使用一次的随机数）</li>
+<li>SNonce（客户端）</li>
+<li>AP MAC地址</li>
+<li>客户端MAC地址</li>
+</ul>
+<p>这些属性被输入伪随机函数(PRF)；输出即为PTK（成对临时密钥）。</p>
+<p>PTK用于保护两项内容：</p>
+<ul>
+<li>WPA四次握手过程</li>
+<li>用户数据</li>
+</ul>
+<p>PTK被分割为多个子密钥，TKIP与AES-CCMP分别采用不同子密钥进行加密。</p>
+<p><img alt="" src="pic/7-25.png" /></p>
+<h3 id="authentication-protocols">Authentication Protocols<a class="headerlink" href="#authentication-protocols" title="Permanent link">&para;</a></h3>
+<p>身份验证是进程验证其通信伙伴身份的技术，确保对方确为预期对象而非冒名顶替者(imposter)。</p>
+<ul>
+<li><strong>Authentication</strong> (验证) vs. <strong>Authorization</strong> (授权)</li>
+</ul>
+<h4 id="authentication-based-on-a-shared-secret-key">Authentication based on a shared secret key<a class="headerlink" href="#authentication-based-on-a-shared-secret-key" title="Permanent link">&para;</a></h4>
+<p>假设双方已经有一个共享的密钥 <span class="arithmatex">\(K_{AB}\)</span>。</p>
+<p>一方向另一方发送一个随机数，另一方通过密钥对随机数进行转换然后发送结果。</p>
+<ul>
+<li>这样的协议被称为 <strong>Challenge-response</strong> 协议</li>
+<li>下图中协议分为5个消息</li>
+</ul>
+<p><img alt="" src="pic/7-26.png" /></p>
+<p>这个过程可以简化为3个消息，但是可能会遭到<strong>reflection attack</strong>（建立多个会话）。</p>
+<p><img alt="" src="pic/7-27.png" /></p>
+<p>中间两个灰色交换信息中：Trudy用第一个session中RB作为自己的随机数，然后Bob会用他与Alice共有的Secret Key: KAB来加密RB发给Trudy。然后message 5中Trudy就用KAB(RB)来回复Bob的message 2使Bob相信Trudy就是Alice。</p>
+<p><img alt="" src="pic/7-28.png" /></p>
+<p>协议设计的 4 条通用安全规则</p>
+<ul>
+<li>不要让对方加密或哈希攻击者选择的值</li>
+<li>请求和响应必须区分方向</li>
+<li>认证双方的身份必须绑定到计算中</li>
+<li>随机数不能被“原样反射”使用</li>
+</ul>
+<p>违反其中任意一条，协议往往可以被攻破。</p>
+<p>使用5条消息的验证在多会话下也会遭受攻击</p>
+<p><img alt="" src="pic/7-30.png" /></p>
+<p><strong>HMAC(Hashed Message Authentication Code)</strong> 通过构建包含Alice的随机数、Bob的随机数、双方身份信息及共享密钥 <span class="arithmatex">\(K_{AB}\)</span> 的数据结构形成。该数据结构随后被哈希处理生成HMAC，例如使用SHA-1算法。</p>
+<ul>
+<li>攻击者无法破坏此协议，因为无法强迫任一方对它指定的值进行加密或哈希处理</li>
+</ul>
+<p><img alt="" src="pic/7-31.png" /></p>
+<h4 id="establishing-a-shared-key-the-diffie-hellman-key-exchange">Establishing a Shared Key: the Diffie-Hellman Key Exchange<a class="headerlink" href="#establishing-a-shared-key-the-diffie-hellman-key-exchange" title="Permanent link">&para;</a></h4>
+<p>这个协议允许陌生人建立共享密钥。</p>
+<p>The Diffie-Hellman Key exchange:</p>
+<ul>
+<li>双方需事先约定两个大数 <span class="arithmatex">\(n\)</span> 和 <span class="arithmatex">\(g\)</span> ，其中 <span class="arithmatex">\(n\)</span> 为质数，<span class="arithmatex">\((n−1)/2\)</span> 也为质数，且 <span class="arithmatex">\(g\)</span> 需满足特定条件。</li>
+<li>一方(Alice)选择大数 <span class="arithmatex">\(x\)</span> 并保密。另一方(Bob)同样选择大数 <span class="arithmatex">\(y\)</span> 保密。</li>
+<li>Alice发起密钥交换协议，向鲍勃发送包含 <span class="arithmatex">\((n, g, g^x \text{ mod } n)\)</span>的消息。</li>
+<li>Bob回复时向Alice发送包含 <span class="arithmatex">\(g^y \text{ mod } n\)</span> 的消息。</li>
+<li>Alice将Bob发送的数值取<span class="arithmatex">\(x\)</span> 次幂并按模 <span class="arithmatex">\(n\)</span> 运算，得到 <span class="arithmatex">\((g^y \text{ mod } n)^x \text{ mod } n\)</span> 。鲍勃执行类似运算得到 <span class="arithmatex">\((g^x \text{ mod } n)^y \text{ mod } n\)</span> 。</li>
+<li>根据模运算法则，两者计算结果均为 <span class="arithmatex">\(g^{xy} \text{ mod } n\)</span>（即共享密钥）。</li>
+</ul>
+<p><img alt="" src="pic/7-32.png" /></p>
+<p>但是这个方式可能会遭受中间人攻击(<strong>The man-in-the-middle attack</strong>)</p>
+<p><img alt="" src="pic/7-33.png" /></p>
+<h4 id="authentication-using-a-key-distribution-center">Authentication Using a Key Distribution Center<a class="headerlink" href="#authentication-using-a-key-distribution-center" title="Permanent link">&para;</a></h4>
+<p>对于大多数用户而言，密钥管理将成为负担。一种方案是引入<strong>KDC(Key Distribution Center)</strong>。</p>
+<ul>
+<li>每个用户仅与KDC共享单一密钥。</li>
+<li>身份验证和会话密钥管理现通过KDC进行。</li>
+<li>但是存在<strong>回放攻击</strong>的问题。</li>
+</ul>
+<p><img alt="" src="pic/7-34.png" /></p>
+<h4 id="solutions-to-the-replay-attack">Solutions to the Replay Attack<a class="headerlink" href="#solutions-to-the-replay-attack" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Timestamp</strong>: 存在网络中始终无法精准同步的问题。</li>
+<li><strong>Nonce</strong>: 每一方都要记住所有历史 nonce，长期运行成本高。</li>
+</ul>
+<h5 id="needham-schroeder-authentication-protocol"><strong>Needham-Schroeder Authentication Protocol</strong><a class="headerlink" href="#needham-schroeder-authentication-protocol" title="Permanent link">&para;</a></h5>
+<p>一个多步challange-response协议。通过要求各方同时生成挑战并响应挑战，彻底消除任何形式的重放攻击可能性。</p>
+<p>此协议存在微弱缺陷：若攻击者获取旧会话密钥明文，便可发起密钥污染攻击，使Bob误认其为Alice。</p>
+<p><img alt="" src="pic/7-35.png" /></p>
+<h5 id="otway-rees-protocol"><strong>Otway-Rees Protocol</strong><a class="headerlink" href="#otway-rees-protocol" title="Permanent link">&para;</a></h5>
+<p>Alice首先生成随机数对：<span class="arithmatex">\(R\)</span> (作为共同标识)与 <span class="arithmatex">\(R_A\)</span> (用于向Bob发起挑战)。</p>
+<p>Bob收到消息后，将从Alice消息的加密部分及其自身对应部分构建新消息。两部分均使用 <span class="arithmatex">\(K_A\)</span> 和 <span class="arithmatex">\(K_B\)</span> 加密，用于标识Alice和Bob，包含共同标识符及挑战信息。</p>
+<p>KDC验证两部分中的 <span class="arithmatex">\(R\)</span> 是否一致，若确认无误，则认定Bob的请求消息有效。随后KDC生成会话密钥并进行双重加密：一次发送给Alice，一次发送给Bob。每条消息均包含接收方的随机数，以此证明消息由KDC而非攻击者生成。</p>
+<p>此时Alice和Bob均可使用该会话密钥开始通信</p>
+<p><img alt="" src="pic/7-36.png" /></p>
+<h3 id="email-security">Email Security<a class="headerlink" href="#email-security" title="Permanent link">&para;</a></h3>
+<p>安全电子邮件系统PGP (Pretty Good Privacy)</p>
+<ul>
+<li>是一款完整的电子邮件安全套件，提供隐私保护、身份验证、数字签名及压缩功能，且操作简便。</li>
+<li>采用名为<strong>IDEA</strong> (International Data Encryption Algorithm) 的分组密码进行数据加密，使用128位密钥。</li>
+<li>密钥管理采用<strong>RSA</strong>算法，数据完整性验证使用MD5算法。</li>
+<li>其运作原理类似预处理器：接收明文作为输入，生成Base64编码的签名密文作为输出，该输出可直接通过电子邮件发送。</li>
+</ul>
+<p><img alt="" src="pic/7-37.png" /></p>
+<p><img alt="" src="pic/7-38.png" /></p>
+<h3 id="web-security-https">Web Security (https)<a class="headerlink" href="#web-security-https" title="Permanent link">&para;</a></h3>
+<h4 id="dnssec-dns-security">DNSSEC (DNS security)<a class="headerlink" href="#dnssec-dns-security" title="Permanent link">&para;</a></h4>
+<p><strong>DNS Spoofing —— man-in-the-middle attack</strong></p>
+<p><img alt="" src="pic/7-39.png" /><img alt="" src="pic/7-40.png" /></p>
+<p><strong>DNSSEC</strong>基于公钥加密技术，每个DNS区域都拥有公钥/私钥对。DNS服务器发送的所有信息均使用源区域的私钥进行签名，以便接收方验证其真实性。</p>
+<p>DNSSEC提供三项基础服务：</p>
+<ul>
+<li>数据来源验证</li>
+<li>公钥分发</li>
+<li>交易与请求认证</li>
+</ul>
+<p>在具体实现上DNS记录按名称、类和类型归类为RRSets (Resource Record Sets)</p>
+<ul>
+<li>每个RRSets均经加密哈希处理（如采用SHA-1算法）</li>
+<li>哈希值由区域私钥签名（如采用RSA算法）</li>
+<li>向客户端传输的单位为签名后的RRSets</li>
+</ul>
+<p>DNS 查询的安全与隐私增强机制：</p>
+<ul>
+<li><strong>EDNS0 CS (Extended DNS Client Subnet</strong> or <strong>EDNS Client Subnet</strong> option): 客户端的本地递归解析器将 stub 解析器的IP地址子网传递给权威域名服务器。这样可以让权威服务器返回地理位置更近的服务器地址。</li>
+<li><strong>0x20 Encoding</strong>: 本地递归服务器会对每个QNAME进行大小写转换。</li>
+</ul>
+<p>在执行系列迭代查询时，递归DNS解析器可能向返回响应的权威域名服务器序列发送完整QNAME，存在隐私风险。</p>
+<ul>
+<li><strong>QNAME minimization</strong>是一种<strong>隐私保护</strong>机制，递归解析器在迭代解析过程中仅向每个上游DNS服务器发送QNAME的最小必要部分，而非完整的FQDN（Full Qualified Domain Name）。</li>
+</ul>
+<p>DNS除了把域名解析成 IP 地址，还有另外一个应用，即通过DNS查询在DNSBL (DNS-based blacklist) 中检索域名。（该列表通常用于追踪与垃圾广告和恶意软件相关的IP地址）</p>
+<p>由于DNS 缓存投毒、分布式拒绝服务攻击（DDoS），DNS运输协议日益转向TCP：</p>
+<ul>
+<li>DNS-over-TLS (<strong>DoT</strong>) 和 DNS-over-HTTPS (<strong>DoH</strong>)</li>
+</ul>
+<blockquote>
+<p><strong>Oblivious DNS</strong> 毫无知觉的DNS</p>
+<p><img alt="" src="pic/7-41.png" /></p>
+</blockquote>
+<h5 id="tls"><strong>TLS</strong><a class="headerlink" href="#tls" title="Permanent link">&para;</a></h5>
+<p>TLS 不是应用层，也不是传输层，而是一个“介于两者之间的安全层”。</p>
+<ul>
+<li>HTTPs --- HTTP over TLS over TCP</li>
+<li>SMTPs --- SMTP over TLS</li>
+<li>IMAPs --- IMAP over TLS</li>
+<li>FTPs --- FTP over TLS</li>
+</ul>
+<p><img alt="" src="pic/7-42.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "content.code.annotate", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../window.MathJax = {
+  tex: {
+    inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;/(&#39;, &#39;/)&#39;]],
+    displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;/[&#39;, &#39;/]&#39;]]
+  }
+};
+"></script>
+      
+    
+  </body>
+</html>
