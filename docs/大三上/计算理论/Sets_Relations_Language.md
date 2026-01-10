@@ -254,7 +254,7 @@ Strings 构成的集合。记 language $L\subseteq \Sigma^*$
 	
 - $\phi^* = \{e\}$
 - $L^+=L L^*$
-- For any langauge $L$, $(L*)*=L*$ ; $L\phi=\phi L = \phi$
+- For any langauge $L$, $(L^*)^*=L^*$ ; $L\phi=\phi L = \phi$
 
 ## 1.8 Finite Representations of Languages
 
