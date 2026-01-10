@@ -159,9 +159,7 @@ Case2: $A$ 是无限集
 - $|A|\leq|P(A)|$. $Proof$:  $f(x)={x},\forall x\in A$，则 
 
 - $|A|\neq|P(A)|$. $Proof$: 假设存在一个surjection $f(x)$，构造 $B=\{x\in A|x\notin f(x)\}$，则存在 $t$，使得 $f(t)=B$ 
-
   如果 $t\in B$，则 $t\notin f(t)$ , 但是 $f(t)=B$，矛盾
-
   如果 $t\notin B$，则 $t\in f(t)$，但是 $f(t)=B$， 矛盾
   
 
@@ -241,7 +239,7 @@ Strings 构成的集合。记 language $L\subseteq \Sigma^*$
 
 - 非空字母表上的字符串数量为**可数无穷**
 - 非空字母表上的任意语言都是**可数集合**（语言上所有字符串构成的集合的子集）
-- 非空目标上的语言数量为 $|\mathbb{R}|$ （数量为可数无穷集合的power set的数量）
+- 非空字母表上的语言数量为 $|\mathbb{R}|$ （数量为可数无穷集合的power set的数量）
 
 #### Operations of Languages
 
