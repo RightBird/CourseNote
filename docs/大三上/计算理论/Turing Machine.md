@@ -159,7 +159,7 @@ $$
 > ![](pic/4-12.png)
 
 !!!Note
-	R.E.对于 intersection不封闭。
+	R.E.对于 complement 不封闭。
 
 图灵机用于计算函数：
 
