@@ -67,7 +67,7 @@ Internet中的传输层主要有两个协议：
 - UDP **do**: 为IP协议提供接口，并通过端口实现多进程解复用功能；可选的端到端错误检测（类似校验和）
 
 !!!Note
-	DNS(Domain Name System), SSDP(Simple Service Discovery Protocol) 不使用UDP协议。
+	DNS(Domain Name System), SSDP(Simple Service Discovery Protocol) 使用UDP协议。
 
 ### RTP (Real-time Transport Protocol)
 
